@@ -1,0 +1,32 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Guardian.Library.Enums;
+using Guardian.Library.Extensions;
+using Guardian.Library.Tokens;
+using Guardian.Library.Tokens.Identifiers;
+using Guardian.Library.Tokens.Operators;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace Guardian.Tests.ExpressionConversions
+{
+    [TestClass]
+    public class PostfixStackToExpressionTests
+    {
+        [TestMethod]
+        public void ToExpression_FromTokenStack() {
+            
+            Stack<Token> tokenStack = new Stack<Token>();
+            tokenStack.Push(new Operator(OperatorTypeEnum.And));
+            tokenStack.Push(new Operator(OperatorTypeEnum.Not));
+            tokenStack.Push(new Identifier(2));
+            tokenStack.Push(new Identifier(1));
+
+            string expectedPostfixExpression = "1 2 ! &&";
+
+            Assert.AreEqual(expectedPostfixExpression, tokenStack.AsPostfixExpression());
+        }
+    }
+}
