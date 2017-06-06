@@ -31,6 +31,20 @@ namespace Guardian.Tests.Mock
             ApplicationName = "Demo",
             ParameterName = "Document"
         };
+        public static Rule DocumentTitleContains = new Rule() {
+
+            ID = 5,
+            Expression = "Document.Title.Contains(\"test\")",
+            ApplicationName = "Demo",
+            ParameterName = "Document"
+        };
+        public static Rule DocumentTitleNotNull = new Rule()
+        {
+            ID = 6,
+            Expression = "!string.IsNullOrEmpty(Document.Title)",
+            ApplicationName = "Demo",
+            ParameterName = "Document"
+        };
 
         public static List<Rule> All
             =>

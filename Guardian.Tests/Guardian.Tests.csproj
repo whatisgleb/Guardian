@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExpressionConversions\InfixToPostfixConversionTests.cs" />
+    <Compile Include="ExpressionConversions\InfixToPrefixConversionTests.cs" />
     <Compile Include="ExpressionConversions\PostfixStackToExpressionTests.cs" />
     <Compile Include="Mock\Document.cs" />
     <Compile Include="Mock\Documents.cs" />

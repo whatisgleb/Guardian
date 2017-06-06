@@ -1,17 +1,19 @@
-﻿using Guardian.Library.Postfix;
+﻿using Guardian.Library.Interfaces;
+using Guardian.Library.Postfix;
+using Guardian.Library.Prefix;
 using Guardian.Library.Tokens;
 
 namespace Guardian.Tests.Utilities
 {
     public class TestServices {
-
-        public readonly TokenParser TokenParser;
-        public readonly Postfixer Postfixer;
+        
+        public readonly IPostfixConverter PostfixConverter;
+        public readonly IPrefixConverter PrefixConverter;
 
         public TestServices() {
             
-            Postfixer = new Postfixer();
-            TokenParser = new TokenParser();
+            PostfixConverter = new Postfixer(new TokenParser());
+            PrefixConverter = new Prefixer(new TokenParser());
         }
     }
 }

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Guardian.Library.Enums;
+using Guardian.Library.Interfaces;
 using Guardian.Library.Tokens.Identifiers;
 using Guardian.Library.Tokens.Operators;
 
 namespace Guardian.Library.Tokens
 {
-    public class TokenParser {
+    public class TokenParser : ITokenParser {
 
         private const string _validCharacters = "0123456789 |&!()";
 
@@ -122,6 +123,5 @@ namespace Guardian.Library.Tokens
 
             return outputTokens;
         }
-
     }
 }

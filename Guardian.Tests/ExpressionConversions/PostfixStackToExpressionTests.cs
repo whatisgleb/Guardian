@@ -18,15 +18,20 @@ namespace Guardian.Tests.ExpressionConversions
         [TestMethod]
         public void ToExpression_FromTokenStack() {
             
+            // Arrange
             Stack<Token> tokenStack = new Stack<Token>();
             tokenStack.Push(new Operator(OperatorTypeEnum.And));
             tokenStack.Push(new Operator(OperatorTypeEnum.Not));
             tokenStack.Push(new Identifier(2));
             tokenStack.Push(new Identifier(1));
 
+            // Act
+            string postfixExpression = tokenStack.AsPostfixExpression();
+
+            // Assert
             string expectedPostfixExpression = "1 2 ! &&";
 
-            Assert.AreEqual(expectedPostfixExpression, tokenStack.AsPostfixExpression());
+            Assert.AreEqual(expectedPostfixExpression, postfixExpression);
         }
     }
 }

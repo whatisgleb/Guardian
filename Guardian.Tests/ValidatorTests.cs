@@ -13,10 +13,17 @@ namespace Guardian.Tests
     [TestClass]
     public class ValidatorTests
     {
+        private TestServices _testServices;
+
+        public ValidatorTests() {
+
+            _testServices = new TestServices();
+        }
+
         [TestMethod]
         public void CollectionComplexObjectAccess()
         {
-
+            // Arrange
             Document document = Documents.Document;
             document.State = States.State;
             document.Tags = new List<Tag>() {
@@ -28,19 +35,20 @@ namespace Guardian.Tests
                 RuleGroups.Require_PublicTag_State
             };
 
-            Validator validator = new Validator();
-            List<ValidationError> results = validator.Validate(document, ruleGroups, Rules.All);
-            List<ValidationError> expectedResults = new List<ValidationError>() {
-                RuleGroups.Require_PublicTag_State.ToValidationError()
-            };
+            Validator validator = new Validator(_testServices.PostfixConverter);
 
+            // Act
+            List<ValidationError> results = validator.Validate(document, ruleGroups, Rules.All);
+
+            // Assert
+            List<ValidationError> expectedResults = ruleGroups.Select(r => r.ToValidationError()).ToList();
             CollectionAssert.AreEqual(expectedResults, results, new ValidationErrorComparer());
         }
 
         [TestMethod]
         public void CollectionAccess()
         {
-
+            // Arrange
             Document document = Documents.Document;
             document.State = States.State;
             document.Tags = new List<Tag>() {
@@ -52,18 +60,20 @@ namespace Guardian.Tests
                 RuleGroups.Require_PublicTag
             };
 
-            Validator validator = new Validator();
-            List<ValidationError> results = validator.Validate(document, ruleGroups, Rules.All);
-            List<ValidationError> expectedResults = new List<ValidationError>() {
-                RuleGroups.Require_PublicTag.ToValidationError()
-            };
+            Validator validator = new Validator(_testServices.PostfixConverter);
 
+            // Act
+            List<ValidationError> results = validator.Validate(document, ruleGroups, Rules.All);
+
+            // Assert
+            List<ValidationError> expectedResults = ruleGroups.Select(r => r.ToValidationError()).ToList();
             CollectionAssert.AreEqual(expectedResults, results, new ValidationErrorComparer());
         }
         
         [TestMethod]
         public void ComplexObjectAccess() {
             
+            // Arrange
             Document document = Documents.Document;
             document.State = States.State;
 
@@ -71,31 +81,53 @@ namespace Guardian.Tests
                 RuleGroups.Required_StatusIsUploaded
             };
 
-            Validator validator = new Validator();
-            List<ValidationError> results = validator.Validate(document, ruleGroups, Rules.All);
-            List<ValidationError> expectedResults = new List<ValidationError>() {
-                RuleGroups.Required_StatusIsUploaded.ToValidationError()
-            };
+            Validator validator = new Validator(_testServices.PostfixConverter);
 
+            // Act
+            List<ValidationError> results = validator.Validate(document, ruleGroups, Rules.All);
+
+            // Assert
+            List<ValidationError> expectedResults = ruleGroups.Select(r => r.ToValidationError()).ToList();
             CollectionAssert.AreEqual(expectedResults, results, new ValidationErrorComparer());
         }
 
         [TestMethod]
         public void PropertyAccess()
         {
-
+            // Arrange
             Document document = Documents.Document;
 
             List<RuleGroup> ruleGroups = new List<RuleGroup>() {
                 RuleGroups.Require_NonNullTitle
             };
 
-            Validator validator = new Validator();
+            Validator validator = new Validator(_testServices.PostfixConverter);
+
+            // Act
             List<ValidationError> results = validator.Validate(document, ruleGroups, Rules.All);
-            List<ValidationError> expectedResults = new List<ValidationError>() {
-                RuleGroups.Require_NonNullTitle.ToValidationError()
+
+            // Assert
+            List<ValidationError> expectedResults = ruleGroups.Select(r => r.ToValidationError()).ToList();
+            CollectionAssert.AreEqual(expectedResults, results, new ValidationErrorComparer());
+        }
+
+        [TestMethod]
+        public void NullStringPropertyContains()
+        {
+            // Arrange
+            Document document = Documents.Document;
+
+            List<RuleGroup> ruleGroups = new List<RuleGroup>() {
+                RuleGroups.Require_TitleContains
             };
 
+            Validator validator = new Validator(_testServices.PostfixConverter);
+
+            // Act
+            List<ValidationError> results = validator.Validate(document, ruleGroups, Rules.All);
+
+            // Assert
+            List<ValidationError> expectedResults = ruleGroups.Select(r => r.ToValidationError()).ToList();
             CollectionAssert.AreEqual(expectedResults, results, new ValidationErrorComparer());
         }
     }

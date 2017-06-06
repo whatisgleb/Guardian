@@ -1,4 +1,5 @@
 using Guardian.Library;
+using Guardian.Library.Interfaces;
 
 namespace Guardian.Tests.Mock {
     public class RuleGroup : IRuleGroup {

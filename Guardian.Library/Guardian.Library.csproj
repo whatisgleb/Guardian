@@ -46,7 +46,13 @@
   <ItemGroup>
     <Compile Include="Enums\OperatorTypeEnum.cs" />
     <Compile Include="Extensions\TokenExtensions.cs" />
+    <Compile Include="Interfaces\IPostfixConverter.cs" />
+    <Compile Include="Interfaces\IPrefixConverter.cs" />
+    <Compile Include="Interfaces\IRule.cs" />
+    <Compile Include="Interfaces\IRuleGroup.cs" />
+    <Compile Include="Interfaces\ITokenParser.cs" />
     <Compile Include="Postfix\Postfixer.cs" />
+    <Compile Include="Prefix\Prefixer.cs" />
     <Compile Include="Tokens\Identifiers\Identifier.cs" />
     <Compile Include="Tokens\Operators\Operator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,6 +60,7 @@
     <Compile Include="Tokens\Operators\Operators.cs" />
     <Compile Include="Tokens\Token.cs" />
     <Compile Include="Tokens\TokenParser.cs" />
+    <Compile Include="ValidationError.cs" />
     <Compile Include="Validator.cs" />
   </ItemGroup>
   <ItemGroup>

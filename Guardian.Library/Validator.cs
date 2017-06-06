@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Guardian.Library.Enums;
+using Guardian.Library.Interfaces;
 using Guardian.Library.Postfix;
 using Guardian.Library.Tokens;
 using Guardian.Library.Tokens.Identifiers;
@@ -13,34 +14,13 @@ using DynamicExpression = System.Linq.Dynamic.DynamicExpression;
 
 namespace Guardian.Library
 {
-    public interface IRule {
-
-        int ID { get; set; }
-        string Expression { get; set; }
-    }
-
-    public interface IRuleGroup {
-        
-        string Expression { get; set; }
-        string ErrorMessage { get; set; }
-        string Key { get; set; }
-    }
-
-    public class ValidationError {
-
-        public string ErrorMessage { get; set; }
-        public string Key { get; set; }
-    }
-
     public class Validator
     {
-        private TokenParser _tokenParser;
-        private Postfixer _postfixer;
+        private IPostfixConverter _postfixConverter;
 
-        public Validator() {
+        public Validator(IPostfixConverter psotfixConverter) {
             
-            _tokenParser = new TokenParser();
-            _postfixer = new Postfixer();
+            _postfixConverter = psotfixConverter;
         }
 
         public List<ValidationError> Validate(object target, IEnumerable<IRuleGroup> ruleGroups, IEnumerable<IRule> rules) {
@@ -52,8 +32,7 @@ namespace Guardian.Library
             foreach (var ruleGroup in ruleGroups) {
                 
                 Stack<bool> values = new Stack<bool>();
-                Stack<Token> tokenStack =
-                    _postfixer.ConvertToPostfixStack(_tokenParser.ParseInfixExpression(ruleGroup.Expression));
+                Stack<Token> tokenStack = _postfixConverter.ConvertToStack(ruleGroup.Expression);
 
                 // Evaluate necessary rules
                 List<int> missingRuleIDs =

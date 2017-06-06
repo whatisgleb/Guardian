@@ -4,16 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Guardian.Library.Enums;
+using Guardian.Library.Interfaces;
 using Guardian.Library.Tokens;
 using Guardian.Library.Tokens.Identifiers;
 using Guardian.Library.Tokens.Operators;
 
 namespace Guardian.Library.Postfix
 {
-    public class Postfixer
+    public class Postfixer : IPostfixConverter
     {
-        public Stack<Token> ConvertToPostfixStack(IEnumerable<Token> tokens) {
+        private readonly ITokenParser _tokenParser;
 
+        public Postfixer(ITokenParser tokenParser) {
+
+            _tokenParser = tokenParser;
+        }
+
+        public Stack<Token> ConvertToStack(string expression) {
+
+            List<Token> tokens = _tokenParser.ParseInfixExpression(expression);
             Stack<Token> temp = new Stack<Token>();
 
             // Temporary container for Operators
