@@ -265,7 +265,7 @@ namespace Guardian.Tests.ExpressionConversions
             Stack<Token> postfixedTokens = _testServices.PrefixConverter.ConvertToStack(expression);
 
             // Assert
-            string expectedPostfixExpression = "|| || || 1 && ! 2 3 4 && 5 6";
+            string expectedPostfixExpression = "|| || ! || 1 && ! 2 3 4 && 5 6";
 
             Assert.AreEqual(expectedPostfixExpression, postfixedTokens.AsPostfixExpression());
         }

@@ -13,7 +13,7 @@ namespace Guardian.Tests.Utilities
         public TestServices() {
             
             PostfixConverter = new Postfixer(new TokenParser());
-            PrefixConverter = new Prefixer(new TokenParser());
+            PrefixConverter = new Prefixer(PostfixConverter);
         }
     }
 }
