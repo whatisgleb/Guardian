@@ -9,16 +9,16 @@ namespace Guardian.Tests.Mock
     public static class Tags
     {
         public static Tag FileTag = new Tag() {
-            ID = 1,
             Text = "File",
-            State = new State()
         };
 
         public static Tag PublicTag = new Tag() {
-            ID = 2,
             Text = "Public",
-            State = new State()
         };
 
+        public static Tag PrivateTag = new Tag()
+        {
+            Text = "Private",
+        };
     }
 }

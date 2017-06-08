@@ -16,11 +16,11 @@ namespace Guardian.Library
 {
     public class Validator
     {
-        private IPostfixConverter _postfixConverter;
+        private IPrefixConverter _prefixConverter;
 
-        public Validator(IPostfixConverter psotfixConverter) {
+        public Validator(IPrefixConverter prefixConverter) {
             
-            _postfixConverter = psotfixConverter;
+            _prefixConverter = prefixConverter;
         }
 
         public List<ValidationError> Validate(object target, IEnumerable<IRuleGroup> ruleGroups, IEnumerable<IRule> rules) {
@@ -30,69 +30,92 @@ namespace Guardian.Library
 
             // Evaluate rule groups
             foreach (var ruleGroup in ruleGroups) {
-                
-                Stack<bool> values = new Stack<bool>();
-                Stack<Token> tokenStack = _postfixConverter.ConvertToStack(ruleGroup.Expression);
 
-                // Evaluate necessary rules
-                List<int> missingRuleIDs =
-                    tokenStack.Where(t => t.IsIdentifier())
-                        .Select(t => ((Identifier) t).ID)
-                        .Where(i => !results.ContainsKey(i))
-                        .ToList();
-
-                foreach (IRule rule in rules.Where(r => missingRuleIDs.Contains(r.ID))) {
-
-                    results.Add(rule.ID, EvaluateRule(target, rule));
-                }
+                Stack<Operator> operatorStack = new Stack<Operator>();
+                Stack<bool> valueStack = new Stack<bool>();
+                Stack<Token> tokenStack = _prefixConverter.ConvertToStack(ruleGroup.Expression);
 
                 // Iterate through stack
                 while (tokenStack.Any()) {
 
                     Token token = tokenStack.Pop();
 
+                    if (token.IsOperator()) {
+                        
+                        operatorStack.Push((Operator)token);
+                    }
+
                     if (token.IsIdentifier()) {
 
                         Identifier identifier = (Identifier) token;
 
-                        values.Push(results[identifier.ID]);
-                    }
+                        IRule rule = rules.FirstOrDefault(r => r.ID == identifier.ID);
+                        bool ruleValue = results.ContainsKey(rule.ID) ? results[rule.ID] : EvaluateRule(target, rule);
 
-                    if (token.IsOperator()) {
+                        bool left;
+                        bool? right = null;
 
-                        Operator op = (Operator) token;
+                        if (valueStack.Any()) {
 
-                        bool val1 = values.Pop();
+                            left = valueStack.Pop();
+                            right = ruleValue;
+                        }
+                        else {
 
-                        if (op.Type == OperatorTypeEnum.And) {
-
-                            bool val2 = values.Pop();
-                            values.Push(val1 && val2);
+                            left = ruleValue;
                         }
 
-                        if (op.Type == OperatorTypeEnum.Or) {
+                        if (!operatorStack.Any()) {
 
-                            bool val2 = values.Pop();
-                            values.Push(val1 || val2);
+                            if (tokenStack.Any()) {
+                                
+                                throw new Exception($"Unable to validate. Found an unexpected mismatch in the number of operands vs operators in expression, '{ruleGroup.Expression}'.");
+                            }
+
+                            valueStack.Push(left);
+                            break;
                         }
 
-                        if (op.Type == OperatorTypeEnum.Not) {
+                        if (!right.HasValue && operatorStack.Peek().Type == OperatorTypeEnum.Not) {
                             
-                            values.Push(!val1);
+                            // Remove the NOT operator from stack
+                            operatorStack.Pop();
+
+                            left = !left;
+
+                            // Evaluate and store
+                            valueStack.Push(left);
+                        }
+
+                        // Can we opt out?
+                        if (left == false && operatorStack.Peek().Type == OperatorTypeEnum.And)
+                        {
+                            // false && anything => false => opt out
+                            valueStack.Push(false);
+                            break;
+                        }
+
+                        if (left == true && operatorStack.Peek().Type == OperatorTypeEnum.Or)
+                        {
+                            // true || anything => true => opt out
+                            valueStack.Push(true);
+                            break;
+                        }
+
+                        if (right.HasValue) {
+
+                            operatorStack.Pop();
+                            valueStack.Push(right.Value);
                         }
                     }
                 }
 
-                bool finalValue = values.Pop();
+                bool outcome = valueStack.Pop();
 
-                if (values.Any()) {
-                    
-                    throw new Exception("An unexpected number of outcomes was found after evluating a Rule Group.");
-                }
-
-                if (finalValue) {
-                    
-                    errors.Add(new ValidationError() {
+                if (outcome)
+                {
+                    errors.Add(new ValidationError()
+                    {
                         ErrorMessage = ruleGroup.ErrorMessage,
                         Key = ruleGroup.Key
                     });

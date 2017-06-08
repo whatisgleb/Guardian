@@ -1,48 +1,44 @@
-﻿namespace Guardian.Tests.Mock
-{
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+
+namespace Guardian.Tests.Mock {
     public static class RuleGroups {
-        public static RuleGroup Require_NonNullTitle = new RuleGroup() {
-            ID = 1,
-            Expression = "1",
-            ApplicationName = "Demo",
-            ErrorMessage = "A title is required",
-            Key = "MemberNames.Title",
+        /// <summary>
+        /// This throws an error - cannot pass null into DynamicExpression
+        /// </summary>
+        public static RuleGroup Target_NotNull = new RuleGroup() {
+            Expression = "!1",
+            ErrorMessage = "A Document is required.",
+            Key = "Document",
             ParameterType = "Document"
         };
-        public static RuleGroup Required_StatusIsUploaded = new RuleGroup() {
-            ID = 2,
+
+        public static RuleGroup Document_Title_NotNull = new RuleGroup() {
             Expression = "2",
-            ApplicationName = "Demo",
-            ErrorMessage = "The document must be in an uploaded State",
-            Key = "MemberNames.Status",
+            ErrorMessage = "A Document Title is required.",
+            Key = "Document.Title",
             ParameterType = "Document"
         };
-        public static RuleGroup Require_PublicTag = new RuleGroup()
+
+        public static RuleGroup Document_Title_OfExpectedLength = new RuleGroup() {
+            Expression = "!2 && 3",
+            ErrorMessage = "A Document Title is required.",
+            Key = "Document.Title",
+            ParameterType = "Document"
+        };
+
+        public static RuleGroup Public_Document_RequiresTitle = new RuleGroup()
         {
-            ID = 3,
-            Expression = "3",
-            ApplicationName = "Demo",
-            ErrorMessage = "The document be tagged with a Public Tag",
-            Key = "MemberNames.Tags",
+            Expression = "!5 && 4 && 2",
+            ErrorMessage = "A Public Document must have a Title.",
+            Key = "Document.Title",
             ParameterType = "Document"
         };
-        public static RuleGroup Require_PublicTag_State = new RuleGroup()
-        {
-            ID = 4,
-            Expression = "4",
-            ApplicationName = "Demo",
-            ErrorMessage = "The document be tagged with a Public Tag in an available state",
-            Key = "MemberNames.Tags",
-            ParameterType = "Document"
-        };
-        public static RuleGroup Require_TitleContains = new RuleGroup()
-        {
-            ID = 5,
-            Expression = "5 && 6",
-            ApplicationName = "Demo",
-            ErrorMessage = "The document must have a title that contains 'test'",
-            Key = "MemberNames.Title",
-            ParameterType = "Document"
-        };
+
+        public static List<RuleGroup> All => typeof(RuleGroups).GetFields(BindingFlags.Public | BindingFlags.Static)
+            .Where(f => f.FieldType == typeof(RuleGroup))
+            .Select(f => (RuleGroup) f.GetValue(null))
+            .ToList();
     }
 }
