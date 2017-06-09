@@ -264,12 +264,11 @@ namespace Guardian.Tests
         }
 
         [TestMethod]
-        public void Document_IsPublicWithTitle_ReturnsNoError()
-        {
+        public void Document_IsPublicWithTitle_ReturnsNoError() {
             // Arrange
             Document document = Documents.Document;
             document.Tags = new List<Tag>() {
-                
+
                 Tags.PublicTag
             };
 
@@ -284,6 +283,56 @@ namespace Guardian.Tests
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
+            CollectionAssert.AreEqual(expectedResults, results, new ValidationErrorComparer());
+        }
+
+        [TestMethod]
+        public void Document_IsPrivateWithNullTitle_ReturnsError()
+        {
+            // Arrange
+            Document document = Documents.Document;
+            document.Title = null;
+            document.Tags = new List<Tag>() {
+
+                Tags.PrivateTag
+            };
+
+            List<RuleGroup> ruleGroups = new List<RuleGroup>() {
+                RuleGroups.Document_HasTags_And_IsPublic_Or_HasTitle
+            };
+
+            Validator validator = new Validator(_testServices.PrefixConverter);
+
+            // Act
+            List<ValidationError> results = validator.Validate(document, ruleGroups, Rules.All);
+
+            // Assert
+            List<ValidationError> expectedResults = ruleGroups.Select(r => r.ToValidationError()).ToList();
+            CollectionAssert.AreEqual(expectedResults, results, new ValidationErrorComparer());
+        }
+
+        [TestMethod]
+        public void Document_IsPublicWithNullTitle_ReturnsNoError()
+        {
+            // Arrange
+            Document document = Documents.Document;
+            document.Title = null;
+            document.Tags = new List<Tag>() {
+
+                Tags.PrivateTag
+            };
+
+            List<RuleGroup> ruleGroups = new List<RuleGroup>() {
+                RuleGroups.Document_HasTags_And_Either_IsPublic_Or_HasTitle
+            };
+
+            Validator validator = new Validator(_testServices.PrefixConverter);
+
+            // Act
+            List<ValidationError> results = validator.Validate(document, ruleGroups, Rules.All);
+
+            // Assert
+            List<ValidationError> expectedResults = ruleGroups.Select(r => r.ToValidationError()).ToList();
             CollectionAssert.AreEqual(expectedResults, results, new ValidationErrorComparer());
         }
     }
