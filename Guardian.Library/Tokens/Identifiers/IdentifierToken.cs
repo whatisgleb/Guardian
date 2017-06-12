@@ -1,9 +1,9 @@
 namespace Guardian.Library.Tokens.Identifiers {
-    public class Identifier : Token {
+    public class IdentifierToken : Token {
         
         public int ID { get; set; }
 
-        public Identifier(int id) {
+        public IdentifierToken(int id) {
 
             ID = id;
         }

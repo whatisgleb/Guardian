@@ -38,7 +38,7 @@ namespace Guardian.Tests.Mock {
 
         public static RuleGroup Document_HasTags_And_IsPublic_Or_HasTitle = new RuleGroup()
         {
-            Expression = "!5 && 4 || !2",
+            Expression = "!5 && !4 || !2",
             ErrorMessage = "A Public Document must have a Title.",
             Key = "Document.Title",
             ParameterType = "Document"
@@ -49,6 +49,46 @@ namespace Guardian.Tests.Mock {
             Expression = "!5 && (4 || !2)",
             ErrorMessage = "A Public Document must have a Title.",
             Key = "Document.Title",
+            ParameterType = "Document"
+        };
+
+        public static RuleGroup OrderOfOperations_TrueAndTrueOrFalse_ReturnsError = new RuleGroup()
+        {
+            Expression = "100 && 100 || 101",
+            ErrorMessage = "Error",
+            Key = "",
+            ParameterType = "Document"
+        };
+
+        public static RuleGroup OrderOfOperations_TrueAndFalseOrFalse_ReturnsNoError = new RuleGroup()
+        {
+            Expression = "100 && 101 || 101",
+            ErrorMessage = "Error",
+            Key = "",
+            ParameterType = "Document"
+        };
+
+        public static RuleGroup OrderOfOperations_TrueAndFalseOrTrue_ReturnsError = new RuleGroup()
+        {
+            Expression = "100 && 101 || 100",
+            ErrorMessage = "Error",
+            Key = "",
+            ParameterType = "Document"
+        };
+
+        public static RuleGroup OrderOfOperations_FalseOrTrueAndTrue_ReturnsError = new RuleGroup()
+        {
+            Expression = "101 || 100 && 100",
+            ErrorMessage = "Error",
+            Key = "",
+            ParameterType = "Document"
+        };
+
+        public static RuleGroup OrderOfOperations_FalseOrTrueAndFalse_ReturnsNoError = new RuleGroup()
+        {
+            Expression = "101 || 100 && 101",
+            ErrorMessage = "Error",
+            Key = "",
             ParameterType = "Document"
         };
 

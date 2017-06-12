@@ -32,16 +32,16 @@ namespace Guardian.Library.Prefix
 
                 Type tokenType = token.GetType();
 
-                if (tokenType == typeof(Identifier))
+                if (tokenType == typeof(IdentifierToken))
                 {
 
                     tempStack.Push(new List<Token>() { token });
                 }
 
-                if (tokenType == typeof(Operator))
+                if (tokenType == typeof(OperatorToken))
                 {
 
-                    Operator op = (Operator)token;
+                    OperatorToken op = (OperatorToken)token;
                     List<Token> currentTopTokens = tempStack.Pop();
 
                     if (op.Type == OperatorTypeEnum.Not)

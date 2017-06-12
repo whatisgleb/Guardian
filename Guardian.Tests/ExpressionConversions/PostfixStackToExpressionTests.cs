@@ -20,10 +20,10 @@ namespace Guardian.Tests.ExpressionConversions
             
             // Arrange
             Stack<Token> tokenStack = new Stack<Token>();
-            tokenStack.Push(new Operator(OperatorTypeEnum.And));
-            tokenStack.Push(new Operator(OperatorTypeEnum.Not));
-            tokenStack.Push(new Identifier(2));
-            tokenStack.Push(new Identifier(1));
+            tokenStack.Push(new OperatorToken(OperatorTypeEnum.And));
+            tokenStack.Push(new OperatorToken(OperatorTypeEnum.Not));
+            tokenStack.Push(new IdentifierToken(2));
+            tokenStack.Push(new IdentifierToken(1));
 
             // Act
             string postfixExpression = tokenStack.AsPostfixExpression();

@@ -4,9 +4,9 @@ using Guardian.Library.Enums;
 namespace Guardian.Library.Tokens.Operators {
 
     /// <summary>
-    /// A Token that represents an Operator
+    /// A Token that represents an OperatorToken
     /// </summary>
-    public class Operator : Token {
+    public class OperatorToken : Token {
         
         public OperatorTypeEnum Type { get; set; }
 
@@ -14,7 +14,7 @@ namespace Guardian.Library.Tokens.Operators {
             get { return Operators.Mapping.SingleOrDefault(m => m.Type == this.Type); }
         }
 
-        public Operator(OperatorTypeEnum type) {
+        public OperatorToken(OperatorTypeEnum type) {
 
             Type = type;
         }

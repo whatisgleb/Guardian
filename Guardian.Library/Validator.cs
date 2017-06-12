@@ -10,6 +10,7 @@ using Guardian.Library.Postfix;
 using Guardian.Library.Tokens;
 using Guardian.Library.Tokens.Identifiers;
 using Guardian.Library.Tokens.Operators;
+using Guardian.Library.Tokens.Values;
 using DynamicExpression = System.Linq.Dynamic.DynamicExpression;
 
 namespace Guardian.Library
@@ -31,86 +32,88 @@ namespace Guardian.Library
             // Evaluate rule groups
             foreach (var ruleGroup in ruleGroups) {
 
-                Stack<Operator> operatorStack = new Stack<Operator>();
-                Stack<bool> valueStack = new Stack<bool>();
+                Stack<Token> outputStack = new Stack<Token>();
                 Stack<Token> tokenStack = _prefixConverter.ConvertToStack(ruleGroup.Expression);
 
+                // Reverse stack
+                Stack<Token> reverseStack = new Stack<Token>(tokenStack);
+
                 // Iterate through stack
-                while (tokenStack.Any()) {
+                while (reverseStack.Any()) {
+                    
+                    Token token = reverseStack.Pop();
 
-                    Token token = tokenStack.Pop();
-
-                    if (token.IsOperator()) {
+                    if (token.IsIdentifierToken()) {
                         
-                        operatorStack.Push((Operator)token);
+                        outputStack.Push((IdentifierToken)token);
                     }
 
-                    if (token.IsIdentifier()) {
+                    if (token.IsOperatorToken()) {
 
-                        Identifier identifier = (Identifier) token;
-
-                        IRule rule = rules.FirstOrDefault(r => r.ID == identifier.ID);
-                        bool ruleValue = results.ContainsKey(rule.ID) ? results[rule.ID] : EvaluateRule(target, rule);
-
+                        OperatorToken op = (OperatorToken) token;
+                        Token leftOutputToken = outputStack.Pop();
                         bool left;
-                        bool? right = null;
 
-                        if (valueStack.Any()) {
+                        if (leftOutputToken.IsValueToken()) {
 
-                            left = valueStack.Pop();
-                            right = ruleValue;
+                            left = ((ValueToken) leftOutputToken).Value;
                         }
                         else {
 
-                            left = ruleValue;
+                            IdentifierToken leftIdentifier = (IdentifierToken) leftOutputToken;
+                            IRule leftRule = rules.FirstOrDefault(r => r.ID == leftIdentifier.ID);
+                            left = EvaluateRule(target, leftRule);
                         }
 
-                        if (!operatorStack.Any()) {
+                        if (op.Type == OperatorTypeEnum.Not) {
 
-                            if (tokenStack.Any()) {
-                                
-                                throw new Exception($"Unable to validate. Found an unexpected mismatch in the number of operands vs operators in expression, '{ruleGroup.Expression}'.");
+                            outputStack.Push(new ValueToken(!left));
+                        }
+                        else if (op.Type == OperatorTypeEnum.And && !left) {
+
+                            // No need to evaluate the right value, we've already satisfied the requisite condition
+                            outputStack.Pop();
+                            outputStack.Push(new ValueToken(false));
+                        } else if (op.Type == OperatorTypeEnum.Or && left) {
+
+                            // No need to evaluate the right value, we've already satisfied the requisite condition
+                            outputStack.Pop();
+                            outputStack.Push(new ValueToken(true));
+                        } else
+                        {
+
+                            Token rightOutputToken = outputStack.Pop();
+                            bool right;
+
+                            if (rightOutputToken.IsValueToken()) {
+
+                                right = ((ValueToken) rightOutputToken).Value;
                             }
+                            else {
 
-                            valueStack.Push(left);
-                            break;
-                        }
-
-                        if (!right.HasValue && operatorStack.Peek().Type == OperatorTypeEnum.Not) {
+                                IdentifierToken rightIdentifier = (IdentifierToken) rightOutputToken;
+                                IRule rightRule = rules.FirstOrDefault(r => r.ID == rightIdentifier.ID);
+                                right = EvaluateRule(target, rightRule);
+                            }
                             
-                            // Remove the NOT operator from stack
-                            operatorStack.Pop();
-
-                            left = !left;
-
-                            // Evaluate and store
-                            valueStack.Push(left);
-                        }
-
-                        // Can we opt out?
-                        if (left == false && operatorStack.Peek().Type == OperatorTypeEnum.And)
-                        {
-                            // false && anything => false => opt out
-                            valueStack.Push(false);
-                            break;
-                        }
-
-                        if (left == true && operatorStack.Peek().Type == OperatorTypeEnum.Or)
-                        {
-                            // true || anything => true => opt out
-                            valueStack.Push(true);
-                            break;
-                        }
-
-                        if (right.HasValue) {
-
-                            operatorStack.Pop();
-                            valueStack.Push(right.Value);
+                            outputStack.Push(new ValueToken(right));
                         }
                     }
                 }
 
-                bool outcome = valueStack.Pop();
+                Token outcomeToken = outputStack.Pop();
+                bool outcome = true;
+
+                if (outcomeToken.IsValueToken()) {
+
+                    outcome = ((ValueToken) outcomeToken).Value;
+                }
+
+                if (outcomeToken.IsIdentifierToken()) {
+
+                    IRule rule = rules.FirstOrDefault(r => r.ID == ((IdentifierToken) outcomeToken).ID);
+                    outcome = EvaluateRule(target, rule);
+                }
 
                 if (outcome)
                 {

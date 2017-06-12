@@ -24,9 +24,9 @@ namespace Guardian.Tests.Utilities
 
             if (x.GetType() != y.GetType()) return -1;
 
-            if (x.GetType() == typeof(Operator)) return ((Operator) x).Type == ((Operator) y).Type ? 0 : -1;
+            if (x.GetType() == typeof(OperatorToken)) return ((OperatorToken) x).Type == ((OperatorToken) y).Type ? 0 : -1;
 
-            if (x.GetType() == typeof(Identifier)) return ((Identifier) x).ID == ((Identifier) y).ID ? 0 : -1;
+            if (x.GetType() == typeof(IdentifierToken)) return ((IdentifierToken) x).ID == ((IdentifierToken) y).ID ? 0 : -1;
 
             // Something is wrong, specified Tokens must not match
             return -1;

@@ -26,62 +26,62 @@ namespace Guardian.Library.Postfix
             Stack<Token> temp = new Stack<Token>();
 
             // Temporary container for Operators
-            Stack<Operator> operatorStack = new Stack<Operator>();
+            Stack<OperatorToken> operatorStack = new Stack<OperatorToken>();
 
             foreach (var token in tokens) {
 
                 Type tokenType = token.GetType();
 
                 // All Identifiers are immediately added to the output stack
-                if (tokenType == typeof(Identifier)) {
+                if (tokenType == typeof(IdentifierToken)) {
                     
                     temp.Push(token);
                 }
 
-                if (tokenType == typeof(Operator)) {
+                if (tokenType == typeof(OperatorToken)) {
 
-                    Operator currentOperator = (Operator) token;
+                    OperatorToken currentOperatorToken = (OperatorToken) token;
 
-                    if (currentOperator.Type == OperatorTypeEnum.CloseParanthesis) {
+                    if (currentOperatorToken.Type == OperatorTypeEnum.CloseParanthesis) {
 
                         // Encountered closing paranthesis
-                        // Iterate through Operators in the Operator stack until an opening paranthesis is encountered
-                        // Add each Operator to the output stack
+                        // Iterate through Operators in the OperatorToken stack until an opening paranthesis is encountered
+                        // Add each OperatorToken to the output stack
 
-                        // Begin with the first entry in the Operator stack
-                        currentOperator = operatorStack.Pop();
+                        // Begin with the first entry in the OperatorToken stack
+                        currentOperatorToken = operatorStack.Pop();
 
                         // Go until open paranthesis is encountered
-                        while (currentOperator.Type != OperatorTypeEnum.OpenParanthesis) {
+                        while (currentOperatorToken.Type != OperatorTypeEnum.OpenParanthesis) {
 
-                            temp.Push(currentOperator);
-                            currentOperator = operatorStack.Pop();
+                            temp.Push(currentOperatorToken);
+                            currentOperatorToken = operatorStack.Pop();
                         }
                     }
-                    else if (Operators.Weights.ContainsKey(currentOperator.Type) &&
+                    else if (Operators.Weights.ContainsKey(currentOperatorToken.Type) &&
                         operatorStack.Any() &&
                         Operators.Weights.ContainsKey(operatorStack.Peek().Type) &&
-                        Operators.Weights[currentOperator.Type] < Operators.Weights[operatorStack.Peek().Type]) {
+                        Operators.Weights[currentOperatorToken.Type] < Operators.Weights[operatorStack.Peek().Type]) {
 
-                        // Current Operator has a lower precedence than the top Operator in the Operator stack
-                        // Add Operator from stack to output immediately 
+                        // Current OperatorToken has a lower precedence than the top OperatorToken in the OperatorToken stack
+                        // Add OperatorToken from stack to output immediately 
                         temp.Push(operatorStack.Pop());
-                        operatorStack.Push(currentOperator);
+                        operatorStack.Push(currentOperatorToken);
                     }
                     else {
 
-                        // Current Operator is either:
-                        // - higher weight than top Operator in the Operator stack 
-                        // - There is no Operator in the Operator stack 
-                        // - Current Operator is an opening paranthesis
-                        operatorStack.Push(currentOperator);
+                        // Current OperatorToken is either:
+                        // - higher weight than top OperatorToken in the OperatorToken stack 
+                        // - There is no OperatorToken in the OperatorToken stack 
+                        // - Current OperatorToken is an opening paranthesis
+                        operatorStack.Push(currentOperatorToken);
                     }
                 }
             }
 
             // Out of Tokens
-            // Time to add anything in the Operator stack to the output stack
-            foreach (Operator op in operatorStack) {
+            // Time to add anything in the OperatorToken stack to the output stack
+            foreach (OperatorToken op in operatorStack) {
                 
                 temp.Push(op);
             }

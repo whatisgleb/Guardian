@@ -25,7 +25,7 @@ namespace Guardian.Tests.Tokens
             // Assert
             List<Token> expectedTokens = new List<Token>() {
 
-                new Identifier(1)
+                new IdentifierToken(1)
             };
 
             CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());
@@ -45,9 +45,9 @@ namespace Guardian.Tests.Tokens
             // Assert
             List<Token> expectedTokens = new List<Token>() {
 
-                new Identifier(1),
-                new Operator(OperatorTypeEnum.And),
-                new Identifier(2)
+                new IdentifierToken(1),
+                new OperatorToken(OperatorTypeEnum.And),
+                new IdentifierToken(2)
             };
 
             CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());
@@ -68,11 +68,11 @@ namespace Guardian.Tests.Tokens
             // Assert
             List<Token> expectedTokens = new List<Token>() {
 
-                new Identifier(1),
-                new Operator(OperatorTypeEnum.And),
-                new Identifier(2),
-                new Operator(OperatorTypeEnum.And),
-                new Identifier(3)
+                new IdentifierToken(1),
+                new OperatorToken(OperatorTypeEnum.And),
+                new IdentifierToken(2),
+                new OperatorToken(OperatorTypeEnum.And),
+                new IdentifierToken(3)
             };
 
             CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());
@@ -92,9 +92,9 @@ namespace Guardian.Tests.Tokens
             // Assert
             List<Token> expectedTokens = new List<Token>() {
 
-                new Identifier(1),
-                new Operator(OperatorTypeEnum.Or),
-                new Identifier(2)
+                new IdentifierToken(1),
+                new OperatorToken(OperatorTypeEnum.Or),
+                new IdentifierToken(2)
             };
 
             CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());
@@ -115,11 +115,11 @@ namespace Guardian.Tests.Tokens
             // Assert
             List<Token> expectedTokens = new List<Token>() {
 
-                new Identifier(1),
-                new Operator(OperatorTypeEnum.Or),
-                new Identifier(2),
-                new Operator(OperatorTypeEnum.Or),
-                new Identifier(3)
+                new IdentifierToken(1),
+                new OperatorToken(OperatorTypeEnum.Or),
+                new IdentifierToken(2),
+                new OperatorToken(OperatorTypeEnum.Or),
+                new IdentifierToken(3)
             };
 
             CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());
@@ -140,11 +140,11 @@ namespace Guardian.Tests.Tokens
             // Assert
             List<Token> expectedTokens = new List<Token>() {
 
-                new Identifier(1),
-                new Operator(OperatorTypeEnum.And),
-                new Identifier(2),
-                new Operator(OperatorTypeEnum.Or),
-                new Identifier(3)
+                new IdentifierToken(1),
+                new OperatorToken(OperatorTypeEnum.And),
+                new IdentifierToken(2),
+                new OperatorToken(OperatorTypeEnum.Or),
+                new IdentifierToken(3)
             };
 
             CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());
@@ -165,11 +165,11 @@ namespace Guardian.Tests.Tokens
             // Assert
             List<Token> expectedTokens = new List<Token>() {
 
-                new Identifier(1),
-                new Operator(OperatorTypeEnum.Or),
-                new Identifier(2),
-                new Operator(OperatorTypeEnum.And),
-                new Identifier(3)
+                new IdentifierToken(1),
+                new OperatorToken(OperatorTypeEnum.Or),
+                new IdentifierToken(2),
+                new OperatorToken(OperatorTypeEnum.And),
+                new IdentifierToken(3)
             };
 
             CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());
@@ -189,8 +189,8 @@ namespace Guardian.Tests.Tokens
             // Assert
             List<Token> expectedTokens = new List<Token>() {
 
-                new Operator(OperatorTypeEnum.Not),
-                new Identifier(1)
+                new OperatorToken(OperatorTypeEnum.Not),
+                new IdentifierToken(1)
             };
 
             CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());
@@ -210,9 +210,9 @@ namespace Guardian.Tests.Tokens
             // Assert
             List<Token> expectedTokens = new List<Token>() {
 
-                new Operator(OperatorTypeEnum.OpenParanthesis),
-                new Identifier(1),
-                new Operator(OperatorTypeEnum.CloseParanthesis)
+                new OperatorToken(OperatorTypeEnum.OpenParanthesis),
+                new IdentifierToken(1),
+                new OperatorToken(OperatorTypeEnum.CloseParanthesis)
             };
 
             CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());
@@ -232,17 +232,17 @@ namespace Guardian.Tests.Tokens
             // Assert
             List<Token> expectedTokens = new List<Token>() {
 
-                new Operator(OperatorTypeEnum.Not),
-                new Operator(OperatorTypeEnum.OpenParanthesis),
-                new Identifier(1),
-                new Operator(OperatorTypeEnum.Or),
-                new Identifier(2),
-                new Operator(OperatorTypeEnum.CloseParanthesis),
-                new Operator(OperatorTypeEnum.And),
-                new Identifier(3),
-                new Operator(OperatorTypeEnum.Or),
-                new Operator(OperatorTypeEnum.Not),
-                new Identifier(4)
+                new OperatorToken(OperatorTypeEnum.Not),
+                new OperatorToken(OperatorTypeEnum.OpenParanthesis),
+                new IdentifierToken(1),
+                new OperatorToken(OperatorTypeEnum.Or),
+                new IdentifierToken(2),
+                new OperatorToken(OperatorTypeEnum.CloseParanthesis),
+                new OperatorToken(OperatorTypeEnum.And),
+                new IdentifierToken(3),
+                new OperatorToken(OperatorTypeEnum.Or),
+                new OperatorToken(OperatorTypeEnum.Not),
+                new IdentifierToken(4)
             };
 
             CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());

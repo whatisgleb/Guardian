@@ -34,9 +34,9 @@ namespace Guardian.Library.Tokens
 
             Token previousToken = tokens.Last();
 
-            if (previousToken == null || !previousToken.IsOperator()) return;
+            if (previousToken == null || !previousToken.IsOperatorToken()) return;
 
-            Operator previousOp = (Operator) previousToken;
+            OperatorToken previousOp = (OperatorToken) previousToken;
 
             if (currentMapping.Type != OperatorTypeEnum.Not && currentMapping.Type != OperatorTypeEnum.OpenParanthesis && previousOp.Mapping.Type != OperatorTypeEnum.CloseParanthesis) {
 
@@ -55,7 +55,7 @@ namespace Guardian.Library.Tokens
             ValidateLogicalInfixExpression(expression);
 
             // Strategy is to go through each character in the expression one at a time
-            // Understand if the character is an Operator character or an Identifier character
+            // Understand if the character is an OperatorToken character or an IdentifierToken character
             // Apply rules and build Tokens
             string currentToken = "";
             List<Token> outputTokens = new List<Token>();
@@ -68,7 +68,7 @@ namespace Guardian.Library.Tokens
 
                 if (Operators.Operators.Mapping.Any(c => c.Character == character)) {
 
-                    // This is an Operator character
+                    // This is an OperatorToken character
                     OperatorMapping operatorMapping = Operators.Operators.Mapping.FirstOrDefault(c => c.Character == character);
 
                     ValidateEncounteredOperatorMakesSense(operatorMapping, outputTokens);
@@ -81,7 +81,7 @@ namespace Guardian.Library.Tokens
 
                         if (currentToken.All(c => c == operatorMapping.Character)) {
 
-                            outputTokens.Add(new Operator(operatorMapping.Type));
+                            outputTokens.Add(new OperatorToken(operatorMapping.Type));
                             currentToken = "";
                         }
                         else {
@@ -94,7 +94,7 @@ namespace Guardian.Library.Tokens
                 }
                 else {
 
-                    // This is an Identifier character
+                    // This is an IdentifierToken character
                     if (character != ' ' || isLastCharacter) {
 
                         currentToken += character;
@@ -108,7 +108,7 @@ namespace Guardian.Library.Tokens
 
                         if (succeeded) {
 
-                            outputTokens.Add(new Identifier(identifier));
+                            outputTokens.Add(new IdentifierToken(identifier));
                         }
                         else {
 

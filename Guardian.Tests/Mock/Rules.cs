@@ -42,6 +42,19 @@ namespace Guardian.Tests.Mock
             ParameterName = "Document"
         };
 
+        public static Rule True = new Rule() {
+            ID = 100,
+            Expression = "True",
+            ParameterName = "Document"
+        };
+
+        public static Rule False = new Rule()
+        {
+            ID = 101,
+            Expression = "False",
+            ParameterName = "Document"
+        };
+
         public static List<Rule> All
             =>
                 typeof(Rules).GetFields(BindingFlags.Public | BindingFlags.Static)

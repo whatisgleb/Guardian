@@ -335,5 +335,90 @@ namespace Guardian.Tests
             List<ValidationError> expectedResults = ruleGroups.Select(r => r.ToValidationError()).ToList();
             CollectionAssert.AreEqual(expectedResults, results, new ValidationErrorComparer());
         }
+
+        [TestMethod]
+        public void OrderOfOperations_TrueAndTrueOrFalse_ReturnsError() {
+
+            // Arrange
+            Document document = Documents.Document;
+
+            List<RuleGroup> ruleGroups = new List<RuleGroup>() {
+                RuleGroups.OrderOfOperations_TrueAndTrueOrFalse_ReturnsError
+            };
+
+            Validator validator = new Validator(_testServices.PrefixConverter);
+
+            // Act
+            List<ValidationError> results = validator.Validate(document, ruleGroups, Rules.All);
+
+            // Assert
+            List<ValidationError> expectedResults = ruleGroups.Select(r => r.ToValidationError()).ToList();
+            CollectionAssert.AreEqual(expectedResults, results, new ValidationErrorComparer());
+        }
+
+
+        [TestMethod]
+        public void OrderOfOperations_TrueAndFalseOrFalse_ReturnsNoError()
+        {
+
+            // Arrange
+            Document document = Documents.Document;
+
+            List<RuleGroup> ruleGroups = new List<RuleGroup>() {
+                RuleGroups.OrderOfOperations_TrueAndFalseOrFalse_ReturnsNoError
+            };
+
+            Validator validator = new Validator(_testServices.PrefixConverter);
+
+            // Act
+            List<ValidationError> results = validator.Validate(document, ruleGroups, Rules.All);
+
+            // Assert
+            List<ValidationError> expectedResults = new List<ValidationError>();
+            CollectionAssert.AreEqual(expectedResults, results, new ValidationErrorComparer());
+        }
+
+        [TestMethod]
+        public void OrderOfOperations_TrueAndFalseOrTrue_ReturnsError()
+        {
+
+            // Arrange
+            Document document = Documents.Document;
+
+            List<RuleGroup> ruleGroups = new List<RuleGroup>() {
+                RuleGroups.OrderOfOperations_TrueAndFalseOrTrue_ReturnsError
+            };
+
+            Validator validator = new Validator(_testServices.PrefixConverter);
+
+            // Act
+            List<ValidationError> results = validator.Validate(document, ruleGroups, Rules.All);
+
+            // Assert
+            List<ValidationError> expectedResults = ruleGroups.Select(r => r.ToValidationError()).ToList();
+            CollectionAssert.AreEqual(expectedResults, results, new ValidationErrorComparer());
+        }
+
+
+        [TestMethod]
+        public void OrderOfOperations_FalseOrTrueAndTrue_ReturnsError()
+        {
+
+            // Arrange
+            Document document = Documents.Document;
+
+            List<RuleGroup> ruleGroups = new List<RuleGroup>() {
+                RuleGroups.OrderOfOperations_FalseOrTrueAndTrue_ReturnsError
+            };
+
+            Validator validator = new Validator(_testServices.PrefixConverter);
+
+            // Act
+            List<ValidationError> results = validator.Validate(document, ruleGroups, Rules.All);
+
+            // Assert
+            List<ValidationError> expectedResults = ruleGroups.Select(r => r.ToValidationError()).ToList();
+            CollectionAssert.AreEqual(expectedResults, results, new ValidationErrorComparer());
+        }
     }
 }

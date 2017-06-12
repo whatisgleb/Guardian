@@ -24,17 +24,17 @@ namespace Guardian.Library.Extensions
             {
                 Token token = tokens.Pop();
 
-                if (token.IsOperator())
+                if (token.IsOperatorToken())
                 {
-                    Operator op = (Operator)token;
+                    OperatorToken op = (OperatorToken)token;
 
                     expression += op.Mapping.StringRepresentation;
                 }
-                else if (token.IsIdentifier())
+                else if (token.IsIdentifierToken())
                 {
-                    Identifier identifier = (Identifier)token;
+                    IdentifierToken identifierToken = (IdentifierToken)token;
 
-                    expression += identifier.ID;
+                    expression += identifierToken.ID;
                 }
 
                 if (tokens.Any())
