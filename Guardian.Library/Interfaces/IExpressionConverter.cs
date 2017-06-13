@@ -2,7 +2,7 @@
 using Guardian.Library.Tokens;
 
 namespace Guardian.Library.Interfaces {
-    public interface IPostfixConverter {
+    public interface IExpressionConverter {
 
         Stack<Token> ConvertToStack(string expression);
     }

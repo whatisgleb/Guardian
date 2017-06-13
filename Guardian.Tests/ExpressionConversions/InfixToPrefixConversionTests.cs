@@ -52,6 +52,51 @@ namespace Guardian.Tests.ExpressionConversions
         }
 
         [TestMethod]
+        public void ToPrefix_AndAndExpression()
+        {
+            // Arrange
+            string expression = "1 && 2 && 3";
+
+            // Act
+            Stack<Token> prefixedTokens = _testServices.PrefixConverter.ConvertToStack(expression);
+
+            // Assert
+            string expectedPostfixExpression = "&& 1 && 2 3";
+
+            Assert.AreEqual(expectedPostfixExpression, prefixedTokens.AsPostfixExpression());
+        }
+
+        [TestMethod]
+        public void ToPrefix_ParanthesisAndAndExpression()
+        {
+            // Arrange
+            string expression = "(1 && 2) && 3";
+
+            // Act
+            Stack<Token> prefixedTokens = _testServices.PrefixConverter.ConvertToStack(expression);
+
+            // Assert
+            string expectedPostfixExpression = "&& && 1 2 3";
+
+            Assert.AreEqual(expectedPostfixExpression, prefixedTokens.AsPostfixExpression());
+        }
+
+        [TestMethod]
+        public void ToPrefix_AndParanthesisAndExpression()
+        {
+            // Arrange
+            string expression = "1 && (2 && 3)";
+
+            // Act
+            Stack<Token> prefixedTokens = _testServices.PrefixConverter.ConvertToStack(expression);
+
+            // Assert
+            string expectedPostfixExpression = "&& 1 && 2 3";
+
+            Assert.AreEqual(expectedPostfixExpression, prefixedTokens.AsPostfixExpression());
+        }
+
+        [TestMethod]
         public void ToPrefix_OrExpression()
         {
             // Arrange

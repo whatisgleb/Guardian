@@ -11,18 +11,18 @@ using Guardian.Library.Tokens.Operators;
 
 namespace Guardian.Library.Prefix
 {
-    public class Prefixer : IPrefixConverter
+    public class Prefixer : IExpressionConverter
     {
-        private readonly IPostfixConverter _postfixConverter;
+        private readonly IExpressionConverter _expressionConverter;
 
-        public Prefixer(IPostfixConverter postfixConverter) {
+        public Prefixer(IExpressionConverter expressionConverter) {
 
-            _postfixConverter = postfixConverter;
+            _expressionConverter = expressionConverter;
         }
 
         public Stack<Token> ConvertToStack(string expression) {
 
-            Stack<Token> postfixStack = _postfixConverter.ConvertToStack(expression);
+            Stack<Token> postfixStack = _expressionConverter.ConvertToStack(expression);
 
             Stack<List<Token>> tempStack = new Stack<List<Token>>();
 

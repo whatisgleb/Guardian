@@ -45,9 +45,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\OperatorTypeEnum.cs" />
+    <Compile Include="ExpressionTree\ExpressionTreeBuilder.cs" />
+    <Compile Include="ExpressionTree\ExpressionTreeNode.cs" />
     <Compile Include="Extensions\TokenExtensions.cs" />
-    <Compile Include="Interfaces\IPostfixConverter.cs" />
-    <Compile Include="Interfaces\IPrefixConverter.cs" />
+    <Compile Include="Interfaces\IExpressionConverter.cs" />
     <Compile Include="Interfaces\IRule.cs" />
     <Compile Include="Interfaces\IRuleGroup.cs" />
     <Compile Include="Interfaces\ITokenParser.cs" />

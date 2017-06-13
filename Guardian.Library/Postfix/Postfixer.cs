@@ -11,7 +11,7 @@ using Guardian.Library.Tokens.Operators;
 
 namespace Guardian.Library.Postfix
 {
-    public class Postfixer : IPostfixConverter
+    public class Postfixer : IExpressionConverter
     {
         private readonly ITokenParser _tokenParser;
 

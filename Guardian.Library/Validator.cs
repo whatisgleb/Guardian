@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Guardian.Library.Enums;
+using Guardian.Library.ExpressionTree;
 using Guardian.Library.Interfaces;
 using Guardian.Library.Postfix;
 using Guardian.Library.Tokens;
@@ -17,105 +18,28 @@ namespace Guardian.Library
 {
     public class Validator
     {
-        private IPrefixConverter _prefixConverter;
+        private IExpressionConverter _postfixConverter;
+        private ExpressionTreeBuilder _treeBuilder;
+        private Dictionary<int, bool> _ruleOutcomes;
 
-        public Validator(IPrefixConverter prefixConverter) {
+        public Validator(IExpressionConverter postfixConverter) {
             
-            _prefixConverter = prefixConverter;
+            _postfixConverter = postfixConverter;
+            _treeBuilder = new ExpressionTreeBuilder();
+            _ruleOutcomes = new Dictionary<int, bool>();
         }
 
         public List<ValidationError> Validate(object target, IEnumerable<IRuleGroup> ruleGroups, IEnumerable<IRule> rules) {
 
             List<ValidationError> errors = new List<ValidationError>();
-            Dictionary<int, bool> results = new Dictionary<int, bool>();
 
             // Evaluate rule groups
             foreach (var ruleGroup in ruleGroups) {
 
-                Stack<Token> outputStack = new Stack<Token>();
-                Stack<Token> tokenStack = _prefixConverter.ConvertToStack(ruleGroup.Expression);
+                Stack<Token> postfixTokens = _postfixConverter.ConvertToStack(ruleGroup.Expression);
+                ExpressionTreeNode root = _treeBuilder.BuildExpressionTree(postfixTokens);
 
-                // Reverse stack
-                Stack<Token> reverseStack = new Stack<Token>(tokenStack);
-
-                // Iterate through stack
-                while (reverseStack.Any()) {
-                    
-                    Token token = reverseStack.Pop();
-
-                    if (token.IsIdentifierToken()) {
-                        
-                        outputStack.Push((IdentifierToken)token);
-                    }
-
-                    if (token.IsOperatorToken()) {
-
-                        OperatorToken op = (OperatorToken) token;
-                        Token leftOutputToken = outputStack.Pop();
-                        bool left;
-
-                        if (leftOutputToken.IsValueToken()) {
-
-                            left = ((ValueToken) leftOutputToken).Value;
-                        }
-                        else {
-
-                            IdentifierToken leftIdentifier = (IdentifierToken) leftOutputToken;
-                            IRule leftRule = rules.FirstOrDefault(r => r.ID == leftIdentifier.ID);
-                            left = EvaluateRule(target, leftRule);
-                        }
-
-                        if (op.Type == OperatorTypeEnum.Not) {
-
-                            outputStack.Push(new ValueToken(!left));
-                        }
-                        else if (op.Type == OperatorTypeEnum.And && !left) {
-
-                            // No need to evaluate the right value, we've already satisfied the requisite condition
-                            outputStack.Pop();
-                            outputStack.Push(new ValueToken(false));
-                        } else if (op.Type == OperatorTypeEnum.Or && left) {
-
-                            // No need to evaluate the right value, we've already satisfied the requisite condition
-                            outputStack.Pop();
-                            outputStack.Push(new ValueToken(true));
-                        } else
-                        {
-
-                            Token rightOutputToken = outputStack.Pop();
-                            bool right;
-
-                            if (rightOutputToken.IsValueToken()) {
-
-                                right = ((ValueToken) rightOutputToken).Value;
-                            }
-                            else {
-
-                                IdentifierToken rightIdentifier = (IdentifierToken) rightOutputToken;
-                                IRule rightRule = rules.FirstOrDefault(r => r.ID == rightIdentifier.ID);
-                                right = EvaluateRule(target, rightRule);
-                            }
-                            
-                            outputStack.Push(new ValueToken(right));
-                        }
-                    }
-                }
-
-                Token outcomeToken = outputStack.Pop();
-                bool outcome = true;
-
-                if (outcomeToken.IsValueToken()) {
-
-                    outcome = ((ValueToken) outcomeToken).Value;
-                }
-
-                if (outcomeToken.IsIdentifierToken()) {
-
-                    IRule rule = rules.FirstOrDefault(r => r.ID == ((IdentifierToken) outcomeToken).ID);
-                    outcome = EvaluateRule(target, rule);
-                }
-
-                if (outcome)
+                if (EvaluateNode(root, target, rules))
                 {
                     errors.Add(new ValidationError()
                     {
@@ -128,12 +52,53 @@ namespace Guardian.Library
             return errors;
         }
 
+        private bool EvaluateNode(ExpressionTreeNode node, object target, IEnumerable<IRule> rules)
+        {
+            if (node.Token.IsIdentifierToken()) {
+
+                IdentifierToken identifier = (IdentifierToken) node.Token;
+
+                IRule rule = rules.FirstOrDefault(r => r.ID == identifier.ID);
+
+                return EvaluateRule(target, rule);
+            }
+            else {
+
+                OperatorToken op = (OperatorToken) node.Token;
+
+                if (op.Type == OperatorTypeEnum.And) {
+
+                    return EvaluateNode(node.Left, target, rules) && EvaluateNode(node.Right, target, rules);
+                }
+
+                if (op.Type == OperatorTypeEnum.Or) {
+
+                    return EvaluateNode(node.Left, target, rules) || EvaluateNode(node.Right, target, rules);
+                }
+
+                if (op.Type == OperatorTypeEnum.Not) {
+
+                    return !EvaluateNode(node.Left, target, rules);
+                }
+            }
+
+            return true;
+        }
+
         private bool EvaluateRule(object target, IRule rule) {
 
-            var parameter = Expression.Parameter(target.GetType(), target.GetType().Name);
-            var expression = DynamicExpression.ParseLambda(new[] { parameter }, typeof(bool), rule.Expression);
+            if (!_ruleOutcomes.ContainsKey(rule.ID)) {
 
-            return (bool)expression.Compile().DynamicInvoke(target);
+                var parameter = Expression.Parameter(target.GetType(), target.GetType().Name);
+                var expression = DynamicExpression.ParseLambda(new[] {parameter}, typeof(bool), rule.Expression);
+
+                bool outcome = (bool) expression.Compile().DynamicInvoke(target);
+
+                _ruleOutcomes.Add(rule.ID, outcome);
+            }
+
+            return _ruleOutcomes[rule.ID];
         }
     }
 }
+
