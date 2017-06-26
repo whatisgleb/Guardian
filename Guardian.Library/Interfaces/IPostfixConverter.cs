@@ -2,8 +2,8 @@
 using Guardian.Library.Tokens;
 
 namespace Guardian.Library.Interfaces {
-    public interface IExpressionConverter {
+    public interface IPostfixConverter {
 
-        Stack<Token> ConvertToStack(string expression);
+        Stack<IToken> ConvertToStack(string expression);
     }
 }

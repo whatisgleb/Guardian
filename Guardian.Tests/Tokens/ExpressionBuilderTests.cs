@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Guardian.Library.Enums;
 using Guardian.Library.ExpressionTree;
+using Guardian.Library.Interfaces;
 using Guardian.Library.Postfix;
 using Guardian.Library.Tokens;
 using Guardian.Library.Tokens.Identifiers;
@@ -30,7 +30,7 @@ namespace Guardian.Tests.Tokens
             
             // Arrange
             string expression = "1 && 2";
-            Stack<Token> postfixTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Act
             ExpressionTreeNode root = _testServices.ExpressionTreeBuilder.BuildExpressionTree(postfixTokens);
@@ -38,7 +38,7 @@ namespace Guardian.Tests.Tokens
             // Assert
             ExpressionTreeNode expected = new ExpressionTreeNode() {
                 
-                Token = new OperatorToken(OperatorTypeEnum.And),
+                Token = new AndOperator(),
                 Left = new ExpressionTreeNode() {
                     
                     Token = new IdentifierToken(1)
@@ -60,7 +60,7 @@ namespace Guardian.Tests.Tokens
 
             // Arrange
             string expression = "1 && 2 && 3";
-            Stack<Token> postfixTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Act
             ExpressionTreeNode root = _testServices.ExpressionTreeBuilder.BuildExpressionTree(postfixTokens);
@@ -69,11 +69,11 @@ namespace Guardian.Tests.Tokens
             ExpressionTreeNode expected = new ExpressionTreeNode()
             {
 
-                Token = new OperatorToken(OperatorTypeEnum.And),
+                Token = new AndOperator(),
                 Right = new ExpressionTreeNode()
                 {
 
-                    Token = new OperatorToken(OperatorTypeEnum.And),
+                    Token = new AndOperator(),
                     Right = new ExpressionTreeNode()
                     {
 
@@ -102,7 +102,7 @@ namespace Guardian.Tests.Tokens
 
             // Arrange
             string expression = "1 && 2 || 3";
-            Stack<Token> postfixTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Act
             ExpressionTreeNode root = _testServices.ExpressionTreeBuilder.BuildExpressionTree(postfixTokens);
@@ -111,7 +111,7 @@ namespace Guardian.Tests.Tokens
             ExpressionTreeNode expected = new ExpressionTreeNode()
             {
 
-                Token = new OperatorToken(OperatorTypeEnum.Or),
+                Token = new OrOperator(),
                 Right = new ExpressionTreeNode()
                 {
 
@@ -119,7 +119,7 @@ namespace Guardian.Tests.Tokens
                 },
                 Left = new ExpressionTreeNode()
                 {
-                    Token = new OperatorToken(OperatorTypeEnum.And),
+                    Token = new AndOperator(),
                     Right = new ExpressionTreeNode()
                     {
 
@@ -145,7 +145,7 @@ namespace Guardian.Tests.Tokens
 
             // Arrange
             string expression = "1 || 2 && 3";
-            Stack<Token> postfixTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Act
             ExpressionTreeNode root = _testServices.ExpressionTreeBuilder.BuildExpressionTree(postfixTokens);
@@ -154,11 +154,11 @@ namespace Guardian.Tests.Tokens
             ExpressionTreeNode expected = new ExpressionTreeNode()
             {
 
-                Token = new OperatorToken(OperatorTypeEnum.Or),
+                Token = new OrOperator(),
                 Right = new ExpressionTreeNode()
                 {
 
-                    Token = new OperatorToken(OperatorTypeEnum.And),
+                    Token = new AndOperator(),
                     Right = new ExpressionTreeNode()
                     {
                         Token = new IdentifierToken(3)

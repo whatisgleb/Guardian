@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Guardian.Library.Extensions;
+using Guardian.Library.Interfaces;
 using Guardian.Library.Tokens;
 using Guardian.Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -23,7 +24,7 @@ namespace Guardian.Tests.ExpressionConversions
             string expression = "!1";
 
             // Act
-            Stack<Token> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Assert
             string expectedPostfixExpression = "1 !";
@@ -38,7 +39,7 @@ namespace Guardian.Tests.ExpressionConversions
             string expression = "1 && 2";
 
             // Act
-            Stack<Token> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Assert
             string expectedPostfixExpression = "1 2 &&";
@@ -54,7 +55,7 @@ namespace Guardian.Tests.ExpressionConversions
             string expression = "1 && 2 && 3";
 
             // Act
-            Stack<Token> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Assert
             string expectedPostfixExpression = "1 2 3 && &&";
@@ -70,7 +71,7 @@ namespace Guardian.Tests.ExpressionConversions
             string expression = "1 && (2 && 3)";
 
             // Act
-            Stack<Token> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Assert
             string expectedPostfixExpression = "1 2 3 && &&";
@@ -86,7 +87,7 @@ namespace Guardian.Tests.ExpressionConversions
             string expression = "(1 && 2) && 3";
 
             // Act
-            Stack<Token> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Assert
             string expectedPostfixExpression = "1 2 && 3 &&";
@@ -101,7 +102,7 @@ namespace Guardian.Tests.ExpressionConversions
             string expression = "1 || 2";
 
             // Act
-            Stack<Token> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Assert
             string expectedPostfixExpression = "1 2 ||";
@@ -116,7 +117,7 @@ namespace Guardian.Tests.ExpressionConversions
             string expression = "1 && 2 || 3";
             
             // Act
-            Stack<Token> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Assert
             string expectedPostfixExpression = "1 2 && 3 ||";
@@ -131,7 +132,7 @@ namespace Guardian.Tests.ExpressionConversions
             string expression = "1 || 2 && 3";
 
             // Act
-            Stack<Token> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Assert
             string expectedPostfixExpression = "1 2 3 && ||";
@@ -146,7 +147,7 @@ namespace Guardian.Tests.ExpressionConversions
             string expression = "1 && !2";
 
             // Act
-            Stack<Token> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Assert
             string expectedPostfixExpression = "1 2 ! &&";
@@ -162,7 +163,7 @@ namespace Guardian.Tests.ExpressionConversions
             string expression = "!1 && 2";
 
             // Act
-            Stack<Token> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Assert
             string expectedPostfixExpression = "1 ! 2 &&";
@@ -178,7 +179,7 @@ namespace Guardian.Tests.ExpressionConversions
             string expression = "1 || !2";
 
             // Act
-            Stack<Token> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Assert
             string expectedPostfixExpression = "1 2 ! ||";
@@ -194,7 +195,7 @@ namespace Guardian.Tests.ExpressionConversions
             string expression = "!1 || 2";
 
             // Act
-            Stack<Token> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Assert
             string expectedPostfixExpression = "1 ! 2 ||";
@@ -209,7 +210,7 @@ namespace Guardian.Tests.ExpressionConversions
             string expression = "1 || 2 && !3";
 
             // Act
-            Stack<Token> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Assert
             string expectedPostfixExpression = "1 2 3 ! && ||";
@@ -224,7 +225,7 @@ namespace Guardian.Tests.ExpressionConversions
             string expression = "1 && 2 || !3";
 
             // Act
-            Stack<Token> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Assert
             string expectedPostfixExpression = "1 2 && 3 ! ||";
@@ -239,7 +240,7 @@ namespace Guardian.Tests.ExpressionConversions
             string expression = "(1 || 2)";
 
             // Act
-            Stack<Token> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Assert
             string expectedPostfixExpression = "1 2 ||";
@@ -254,7 +255,7 @@ namespace Guardian.Tests.ExpressionConversions
             string expression = "1 && (2 || 3)";
 
             // Act
-            Stack<Token> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Assert
             string expectedPostfixExpression = "1 2 3 || &&";
@@ -270,7 +271,7 @@ namespace Guardian.Tests.ExpressionConversions
             string expression = "((1 || 2 && 3) || 4) || 5 && 6";
 
             // Act
-            Stack<Token> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Assert
             string expectedPostfixExpression = "1 2 3 && || 4 || 5 6 && ||";
@@ -285,7 +286,7 @@ namespace Guardian.Tests.ExpressionConversions
             string expression = "((1 || !2 && 3) || 4) || 5 && 6";
 
             // Act
-            Stack<Token> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Assert
             string expectedPostfixExpression = "1 2 ! 3 && || 4 || 5 6 && ||";
@@ -301,7 +302,7 @@ namespace Guardian.Tests.ExpressionConversions
             string expression = "(!(1 || !2 && 3) || 4) || 5 && 6";
 
             // Act
-            Stack<Token> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
             // Assert
             string expectedPostfixExpression = "1 2 ! 3 && || ! 4 || 5 6 && ||";

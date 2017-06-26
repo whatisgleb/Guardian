@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Guardian.Library.Enums;
 using Guardian.Library.Interfaces;
 using Guardian.Library.Postfix;
 using Guardian.Library.Tokens;
@@ -13,54 +12,33 @@ namespace Guardian.Library.ExpressionTree
 {
     public class ExpressionTreeBuilder
     {
-        public ExpressionTreeNode BuildExpressionTree(Stack<Token> tokens)
+        public ExpressionTreeNode BuildExpressionTree(Stack<IToken> tokens)
         {
-            Stack<Token> reverseTokens = new Stack<Token>(tokens);
+            Stack<IToken> reverseTokens = new Stack<IToken>(tokens);
 
             ExpressionTreeNode root = GenerateNode(reverseTokens);
 
             return root;
         }
 
-        private ExpressionTreeNode GenerateNode(Stack<Token> tokens)
+        private ExpressionTreeNode GenerateNode(Stack<IToken> tokens)
         {
             ExpressionTreeNode treeNode = new ExpressionTreeNode();
-            Token currentToken = tokens.Pop();
+            IToken currentToken = tokens.Pop();
 
             if (currentToken.IsOperatorToken())
             {
                 treeNode.Token = currentToken;
 
-                if (((OperatorToken) currentToken).Type != OperatorTypeEnum.Not)
+                if (currentToken.GetType() != typeof(NotOperator))
                 {
-                    if (tokens.Peek().IsIdentifierToken())
-                    {
-                        // Right Node
-                        treeNode.Right = new ExpressionTreeNode()
-                        {
-                            Token = tokens.Pop()
-                        };
-                    }
-                    else
-                    {
-                        treeNode.Right = GenerateNode(tokens);
-                    }
+                    treeNode.Right = GenerateNode(tokens);
                 }
 
-                if (tokens.Peek().IsIdentifierToken())
-                {
-                    treeNode.Left = new ExpressionTreeNode()
-                    {
-                        Token = tokens.Pop()
-                    };
-                }
-                else
-                {
-                    treeNode.Left = GenerateNode(tokens);
-                }
+                treeNode.Left = GenerateNode(tokens);
             }
 
-            if (currentToken.IsIdentifierToken())
+            if (!currentToken.IsOperatorToken())
             {
                 treeNode.Token = currentToken;
             }

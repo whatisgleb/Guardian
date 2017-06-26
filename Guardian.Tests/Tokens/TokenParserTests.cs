@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Guardian.Library.Enums;
+using Guardian.Library.Interfaces;
 using Guardian.Library.Tokens;
 using Guardian.Library.Tokens.Identifiers;
 using Guardian.Library.Tokens.Operators;
@@ -20,10 +20,10 @@ namespace Guardian.Tests.Tokens
             TokenParser tokenParser = new TokenParser();
 
             // Act
-            List<Token> tokens = tokenParser.ParseInfixExpression(expression);
+            List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
 
             // Assert
-            List<Token> expectedTokens = new List<Token>() {
+            List<IToken> expectedTokens = new List<IToken>() {
 
                 new IdentifierToken(1)
             };
@@ -40,13 +40,13 @@ namespace Guardian.Tests.Tokens
             TokenParser tokenParser = new TokenParser();
 
             // Act
-            List<Token> tokens = tokenParser.ParseInfixExpression(expression);
+            List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
 
             // Assert
-            List<Token> expectedTokens = new List<Token>() {
+            List<IToken> expectedTokens = new List<IToken>() {
 
                 new IdentifierToken(1),
-                new OperatorToken(OperatorTypeEnum.And),
+                new AndOperator(),
                 new IdentifierToken(2)
             };
 
@@ -63,15 +63,15 @@ namespace Guardian.Tests.Tokens
             TokenParser tokenParser = new TokenParser();
 
             // Act
-            List<Token> tokens = tokenParser.ParseInfixExpression(expression);
+            List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
 
             // Assert
-            List<Token> expectedTokens = new List<Token>() {
+            List<IToken> expectedTokens = new List<IToken>() {
 
                 new IdentifierToken(1),
-                new OperatorToken(OperatorTypeEnum.And),
+                new AndOperator(),
                 new IdentifierToken(2),
-                new OperatorToken(OperatorTypeEnum.And),
+                new AndOperator(),
                 new IdentifierToken(3)
             };
 
@@ -87,13 +87,13 @@ namespace Guardian.Tests.Tokens
             TokenParser tokenParser = new TokenParser();
 
             // Act
-            List<Token> tokens = tokenParser.ParseInfixExpression(expression);
+            List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
 
             // Assert
-            List<Token> expectedTokens = new List<Token>() {
+            List<IToken> expectedTokens = new List<IToken>() {
 
                 new IdentifierToken(1),
-                new OperatorToken(OperatorTypeEnum.Or),
+                new OrOperator(),
                 new IdentifierToken(2)
             };
 
@@ -110,15 +110,15 @@ namespace Guardian.Tests.Tokens
             TokenParser tokenParser = new TokenParser();
 
             // Act
-            List<Token> tokens = tokenParser.ParseInfixExpression(expression);
+            List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
 
             // Assert
-            List<Token> expectedTokens = new List<Token>() {
+            List<IToken> expectedTokens = new List<IToken>() {
 
                 new IdentifierToken(1),
-                new OperatorToken(OperatorTypeEnum.Or),
+                new OrOperator(),
                 new IdentifierToken(2),
-                new OperatorToken(OperatorTypeEnum.Or),
+                new OrOperator(),
                 new IdentifierToken(3)
             };
 
@@ -135,15 +135,15 @@ namespace Guardian.Tests.Tokens
             TokenParser tokenParser = new TokenParser();
 
             // Act
-            List<Token> tokens = tokenParser.ParseInfixExpression(expression);
+            List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
 
             // Assert
-            List<Token> expectedTokens = new List<Token>() {
+            List<IToken> expectedTokens = new List<IToken>() {
 
                 new IdentifierToken(1),
-                new OperatorToken(OperatorTypeEnum.And),
+                new AndOperator(),
                 new IdentifierToken(2),
-                new OperatorToken(OperatorTypeEnum.Or),
+                new OrOperator(),
                 new IdentifierToken(3)
             };
 
@@ -160,15 +160,15 @@ namespace Guardian.Tests.Tokens
             TokenParser tokenParser = new TokenParser();
 
             // Act
-            List<Token> tokens = tokenParser.ParseInfixExpression(expression);
+            List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
 
             // Assert
-            List<Token> expectedTokens = new List<Token>() {
+            List<IToken> expectedTokens = new List<IToken>() {
 
                 new IdentifierToken(1),
-                new OperatorToken(OperatorTypeEnum.Or),
+                new OrOperator(),
                 new IdentifierToken(2),
-                new OperatorToken(OperatorTypeEnum.And),
+                new AndOperator(),
                 new IdentifierToken(3)
             };
 
@@ -184,12 +184,12 @@ namespace Guardian.Tests.Tokens
             TokenParser tokenParser = new TokenParser();
 
             // Act
-            List<Token> tokens = tokenParser.ParseInfixExpression(expression);
+            List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
 
             // Assert
-            List<Token> expectedTokens = new List<Token>() {
+            List<IToken> expectedTokens = new List<IToken>() {
 
-                new OperatorToken(OperatorTypeEnum.Not),
+                new NotOperator(),
                 new IdentifierToken(1)
             };
 
@@ -205,14 +205,14 @@ namespace Guardian.Tests.Tokens
             TokenParser tokenParser = new TokenParser();
 
             // Act
-            List<Token> tokens = tokenParser.ParseInfixExpression(expression);
+            List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
 
             // Assert
-            List<Token> expectedTokens = new List<Token>() {
+            List<IToken> expectedTokens = new List<IToken>() {
 
-                new OperatorToken(OperatorTypeEnum.OpenParanthesis),
+                new OpenParanthesisGroupingOperator(),
                 new IdentifierToken(1),
-                new OperatorToken(OperatorTypeEnum.CloseParanthesis)
+                new CloseParanthesisGroupingOperator()
             };
 
             CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());
@@ -227,21 +227,21 @@ namespace Guardian.Tests.Tokens
             TokenParser tokenParser = new TokenParser();
 
             // Act
-            List<Token> tokens = tokenParser.ParseInfixExpression(expression);
+            List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
 
             // Assert
-            List<Token> expectedTokens = new List<Token>() {
+            List<IToken> expectedTokens = new List<IToken>() {
 
-                new OperatorToken(OperatorTypeEnum.Not),
-                new OperatorToken(OperatorTypeEnum.OpenParanthesis),
+                new NotOperator(),
+                new OpenParanthesisGroupingOperator(),
                 new IdentifierToken(1),
-                new OperatorToken(OperatorTypeEnum.Or),
+                new OrOperator(),
                 new IdentifierToken(2),
-                new OperatorToken(OperatorTypeEnum.CloseParanthesis),
-                new OperatorToken(OperatorTypeEnum.And),
+                new CloseParanthesisGroupingOperator(),
+                new AndOperator(),
                 new IdentifierToken(3),
-                new OperatorToken(OperatorTypeEnum.Or),
-                new OperatorToken(OperatorTypeEnum.Not),
+                new OrOperator(),
+                new NotOperator(),
                 new IdentifierToken(4)
             };
 

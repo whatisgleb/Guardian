@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Guardian.Library.Enums;
 using Guardian.Library.Extensions;
+using Guardian.Library.Interfaces;
 using Guardian.Library.Tokens;
 using Guardian.Library.Tokens.Identifiers;
 using Guardian.Library.Tokens.Operators;
@@ -19,9 +19,9 @@ namespace Guardian.Tests.ExpressionConversions
         public void ToExpression_FromTokenStack() {
             
             // Arrange
-            Stack<Token> tokenStack = new Stack<Token>();
-            tokenStack.Push(new OperatorToken(OperatorTypeEnum.And));
-            tokenStack.Push(new OperatorToken(OperatorTypeEnum.Not));
+            Stack<IToken> tokenStack = new Stack<IToken>();
+            tokenStack.Push(new AndOperator());
+            tokenStack.Push(new NotOperator());
             tokenStack.Push(new IdentifierToken(2));
             tokenStack.Push(new IdentifierToken(1));
 

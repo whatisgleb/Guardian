@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Guardian.Library.Interfaces;
 using Guardian.Library.Tokens.Identifiers;
 using Guardian.Library.Tokens.Operators;
 
@@ -29,17 +30,12 @@ namespace Guardian.Tests.Utilities
 
             if (x.Token.GetType() != y.Token.GetType()) return -1;
 
-            if (x.Token.GetType() == typeof(OperatorToken)) {
+            if (x.Token.GetType() == typeof(IIdentifier)) {
 
-                return ((OperatorToken) x.Token).Type == ((OperatorToken) y.Token).Type ? 0 : -1;
+                return ((IIdentifier) x.Token).ID == ((IIdentifier) y.Token).ID ? 0 : -1;
             }
 
-            if (x.Token.GetType() == typeof(IdentifierToken)) {
-
-                return ((IdentifierToken) x.Token).ID == ((IdentifierToken) y.Token).ID ? 0 : -1;
-            }
-
-            return x.Token == y.Token && Compare(x.Left, y.Left) == 0 && Compare(x.Right, y.Right) == 0 ? 0 : -1;
+            return Compare(x.Left, y.Left) == 0 && Compare(x.Right, y.Right) == 0 ? 0 : -1;
         }
     }
 }

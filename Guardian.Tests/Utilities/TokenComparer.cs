@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Guardian.Library.Interfaces;
 using Guardian.Library.Tokens;
 using Guardian.Library.Tokens.Identifiers;
 using Guardian.Library.Tokens.Operators;
@@ -12,7 +13,7 @@ namespace Guardian.Tests.Utilities
     /// Operators are considered to be the same if their Types match
     /// Identifiers are considered to be the same if their IDs match
     /// </summary>
-    public class TokenComparer : IComparer, IComparer<Token>
+    public class TokenComparer : IComparer, IComparer<IToken>
     {
         /// <summary>
         /// Compare specified Tokens
@@ -20,13 +21,13 @@ namespace Guardian.Tests.Utilities
         /// <param name="x">Token</param>
         /// <param name="y">Token</param>
         /// <returns></returns>
-        public int Compare(Token x, Token y) {
+        public int Compare(IToken x, IToken y) {
 
             if (x.GetType() != y.GetType()) return -1;
 
-            if (x.GetType() == typeof(OperatorToken)) return ((OperatorToken) x).Type == ((OperatorToken) y).Type ? 0 : -1;
+            if (x.GetType() == typeof(IIdentifier)) return ((IIdentifier) x).ID == ((IIdentifier) y).ID ? 0 : -1;
 
-            if (x.GetType() == typeof(IdentifierToken)) return ((IdentifierToken) x).ID == ((IdentifierToken) y).ID ? 0 : -1;
+            if (x.GetType() == y.GetType()) return 0;
 
             // Something is wrong, specified Tokens must not match
             return -1;
@@ -40,8 +41,8 @@ namespace Guardian.Tests.Utilities
         /// <returns></returns>
         public int Compare(object x, object y) {
 
-            Token xToken = (Token) x;
-            Token yToken = (Token) y;
+            IToken xToken = (IToken) x;
+            IToken yToken = (IToken) y;
 
             return Compare(xToken, yToken);
         }

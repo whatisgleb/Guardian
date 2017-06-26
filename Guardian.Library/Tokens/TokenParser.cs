@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Guardian.Library.Enums;
 using Guardian.Library.Interfaces;
 using Guardian.Library.Tokens.Identifiers;
 using Guardian.Library.Tokens.Operators;
@@ -11,6 +10,14 @@ namespace Guardian.Library.Tokens
     public class TokenParser : ITokenParser {
 
         private const string _validCharacters = "0123456789 |&!()";
+        private List<IOperator> _operators = new List<IOperator>()
+        {
+            new AndOperator(),
+            new OrOperator(),
+            new NotOperator(),
+            new OpenParanthesisGroupingOperator(),
+            new CloseParanthesisGroupingOperator()
+        }; 
 
         private void ValidateLogicalInfixExpression(string expression) {
 
@@ -28,20 +35,32 @@ namespace Guardian.Library.Tokens
             }
         }
 
-        private void ValidateEncounteredOperatorMakesSense(OperatorMapping currentMapping, List<Token> tokens) {
+        private void ValidateOutputTokens(List<IToken> tokens)
+        {
 
             if (!tokens.Any()) return;
 
-            Token previousToken = tokens.Last();
+            IToken previousToken = null;
 
-            if (previousToken == null || !previousToken.IsOperatorToken()) return;
+            foreach (var token in tokens)
+            {
+                if (previousToken == null)
+                {
+                    previousToken = token;
+                    continue;
+                }
 
-            OperatorToken previousOp = (OperatorToken) previousToken;
+                Type type = token.GetType();
 
-            if (currentMapping.Type != OperatorTypeEnum.Not && currentMapping.Type != OperatorTypeEnum.OpenParanthesis && previousOp.Mapping.Type != OperatorTypeEnum.CloseParanthesis) {
+                if (token.IsOperatorToken() && previousToken.IsOperatorToken() && type != typeof(NotOperator) && type != typeof(OpenParanthesisGroupingOperator) && previousToken.GetType() != typeof(CloseParanthesisGroupingOperator))
+                {
+                    IOperator previousOperator = (IOperator) previousToken;
+                    IOperator currentOperator = (IOperator) token;
 
-                // TODO: This should be logged, not exception'd
-                throw new Exception($"Unable to parse expression. Found illegal consecutive Operators, '{previousOp.Mapping.StringRepresentation}' followed by '{currentMapping.StringRepresentation}'.");
+                    throw new Exception($"Unable to parse expression. Found illegal consecutive Operators, '{previousOperator.StringRepresentation}' followed by '{currentOperator.StringRepresentation}'.");
+                }
+
+                previousToken = token;
             }
         }
 
@@ -50,76 +69,53 @@ namespace Guardian.Library.Tokens
         /// </summary>
         /// <param name="expression">A logical infix string expression</param>
         /// <returns>A List of Tokens in the order they were encountered in the specified string expression</returns>
-        public List<Token> ParseInfixExpression(string expression) {
+        public List<IToken> ParseInfixExpression(string expression) {
 
             ValidateLogicalInfixExpression(expression);
 
-            // Strategy is to go through each character in the expression one at a time
-            // Understand if the character is an OperatorToken character or an IdentifierToken character
-            // Apply rules and build Tokens
-            string currentToken = "";
-            List<Token> outputTokens = new List<Token>();
+            // Prepare expression by first removing all spaces, then introducing spaces strategically
+            // ((!(1 &&2) || 3) || 4) && !5 
+            // =>
+            // ((!(1&&2)||3)||4)&&!5
+            // => 
+            // ( ( ! ( 1 && 2 ) || 3 ) || 4 ) && ! 5
+            expression = expression.Replace(" ", string.Empty);
 
-            for (int index = 0; index < expression.Length; index++) {
+            foreach (IOperator op in _operators)
+            {
+                expression = expression.Replace(op.StringRepresentation, $" {op.StringRepresentation} ");
+            }
 
-                char character = expression[index];
-                bool isLastCharacter = index == expression.Length - 1;
-                bool isNextCharacterAnOperatorCharacter = !isLastCharacter && Operators.Operators.Mapping.Any(c => c.Character == expression[index + 1]);
+            IEnumerable<string> tokens = expression.Split(' ').Where(t => !string.IsNullOrWhiteSpace(t));
+            List<IToken> outputTokens = new List<IToken>();
 
-                if (Operators.Operators.Mapping.Any(c => c.Character == character)) {
+            foreach (string token in tokens)
+            {
+                IOperator op = _operators.FirstOrDefault(o => o.StringRepresentation == token);
 
-                    // This is an OperatorToken character
-                    OperatorMapping operatorMapping = Operators.Operators.Mapping.FirstOrDefault(c => c.Character == character);
-
-                    ValidateEncounteredOperatorMakesSense(operatorMapping, outputTokens);
-
-                    // Add onto current token
-                    currentToken += character;
-
-                    // If token length matches requirement, add token
-                    if (currentToken.Length == operatorMapping.RequiredConsecutiveCharacterCount) {
-
-                        if (currentToken.All(c => c == operatorMapping.Character)) {
-
-                            outputTokens.Add(new OperatorToken(operatorMapping.Type));
-                            currentToken = "";
-                        }
-                        else {
-
-                            // Something's wrong, unexpected token composition
-                            // TODO: This should be logged, not exception'd
-                            throw new Exception($"Unable to parse Token. Found, '{currentToken}'. Verify expression, '{expression}' is valid.");
-                        }
-                    }
+                if (op != null)
+                {
+                    outputTokens.Add(op);
                 }
-                else {
+                else
+                {
+                    int ID;
 
-                    // This is an IdentifierToken character
-                    if (character != ' ' || isLastCharacter) {
+                    bool succeeded = int.TryParse(token, out ID);
 
-                        currentToken += character;
+                    if (succeeded)
+                    {
+                        outputTokens.Add(new IdentifierToken(ID));
                     }
-
-                    if (!string.IsNullOrWhiteSpace(currentToken) && (character == ' ' || isLastCharacter || isNextCharacterAnOperatorCharacter)) {
-                        
-                        // End of token
-                        int identifier;
-                        bool succeeded = int.TryParse(currentToken, out identifier);
-
-                        if (succeeded) {
-
-                            outputTokens.Add(new IdentifierToken(identifier));
-                        }
-                        else {
-
-                            // TODO: This should be logged, not exception'd
-                            throw new Exception($"Unable to parse identifier Token. Found, '{currentToken}'. Verify expression, '{expression}' is valid.");
-                        }
-
-                        currentToken = "";
+                    else
+                    {
+                        // TODO: This should be logged, not exception'd
+                        throw new Exception($"Unable to parse identifier Token. Found, '{token}'. Verify expression, '{expression}' is valid.");
                     }
                 }
             }
+
+            ValidateOutputTokens(outputTokens);
 
             return outputTokens;
         }

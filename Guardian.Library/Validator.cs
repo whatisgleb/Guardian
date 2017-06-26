@@ -4,25 +4,23 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using Guardian.Library.Enums;
 using Guardian.Library.ExpressionTree;
 using Guardian.Library.Interfaces;
 using Guardian.Library.Postfix;
 using Guardian.Library.Tokens;
 using Guardian.Library.Tokens.Identifiers;
 using Guardian.Library.Tokens.Operators;
-using Guardian.Library.Tokens.Values;
 using DynamicExpression = System.Linq.Dynamic.DynamicExpression;
 
 namespace Guardian.Library
 {
     public class Validator
     {
-        private IExpressionConverter _postfixConverter;
+        private IPostfixConverter _postfixConverter;
         private ExpressionTreeBuilder _treeBuilder;
         private Dictionary<int, bool> _ruleOutcomes;
 
-        public Validator(IExpressionConverter postfixConverter) {
+        public Validator(IPostfixConverter postfixConverter) {
             
             _postfixConverter = postfixConverter;
             _treeBuilder = new ExpressionTreeBuilder();
@@ -36,7 +34,7 @@ namespace Guardian.Library
             // Evaluate rule groups
             foreach (var ruleGroup in ruleGroups) {
 
-                Stack<Token> postfixTokens = _postfixConverter.ConvertToStack(ruleGroup.Expression);
+                Stack<IToken> postfixTokens = _postfixConverter.ConvertToStack(ruleGroup.Expression);
                 ExpressionTreeNode root = _treeBuilder.BuildExpressionTree(postfixTokens);
 
                 if (EvaluateNode(root, target, rules))
@@ -54,9 +52,9 @@ namespace Guardian.Library
 
         private bool EvaluateNode(ExpressionTreeNode node, object target, IEnumerable<IRule> rules)
         {
-            if (node.Token.IsIdentifierToken()) {
+            if (!node.Token.IsOperatorToken()) {
 
-                IdentifierToken identifier = (IdentifierToken) node.Token;
+                IIdentifier identifier = (IIdentifier) node.Token;
 
                 IRule rule = rules.FirstOrDefault(r => r.ID == identifier.ID);
 
@@ -64,25 +62,10 @@ namespace Guardian.Library
             }
             else {
 
-                OperatorToken op = (OperatorToken) node.Token;
+                IOperator op = (IOperator) node.Token;
 
-                if (op.Type == OperatorTypeEnum.And) {
-
-                    return EvaluateNode(node.Left, target, rules) && EvaluateNode(node.Right, target, rules);
-                }
-
-                if (op.Type == OperatorTypeEnum.Or) {
-
-                    return EvaluateNode(node.Left, target, rules) || EvaluateNode(node.Right, target, rules);
-                }
-
-                if (op.Type == OperatorTypeEnum.Not) {
-
-                    return !EvaluateNode(node.Left, target, rules);
-                }
+                return op.Evaluate(() => EvaluateNode(node.Left, target, rules), () => EvaluateNode(node.Right, target, rules));
             }
-
-            return true;
         }
 
         private bool EvaluateRule(object target, IRule rule) {
