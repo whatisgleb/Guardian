@@ -399,7 +399,6 @@ namespace Guardian.Tests
             CollectionAssert.AreEqual(expectedResults, results, new ValidationErrorComparer());
         }
 
-
         [TestMethod]
         public void OrderOfOperations_FalseOrTrueAndTrue_ReturnsError()
         {
@@ -418,6 +417,27 @@ namespace Guardian.Tests
 
             // Assert
             List<ValidationError> expectedResults = ruleGroups.Select(r => r.ToValidationError()).ToList();
+            CollectionAssert.AreEqual(expectedResults, results, new ValidationErrorComparer());
+        }
+
+        [TestMethod]
+        public void OrderOfOperations_Not_FalseOrTrueAndTrue_ReturnsNoError()
+        {
+
+            // Arrange
+            Document document = Documents.Document;
+
+            List<RuleGroup> ruleGroups = new List<RuleGroup>() {
+                RuleGroups.OrderOfOperations_Not_FalseOrTrueAndTrue_ReturnsNoError
+            };
+
+            Validator<Document> validator = new Validator<Document>(_testServices.PostfixConverter);
+
+            // Act
+            List<ValidationError> results = validator.Validate(document, ruleGroups, Rules.All);
+
+            // Assert
+            List<ValidationError> expectedResults = new List<ValidationError>();
             CollectionAssert.AreEqual(expectedResults, results, new ValidationErrorComparer());
         }
     }

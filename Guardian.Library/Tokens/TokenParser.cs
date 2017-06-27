@@ -2,22 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Guardian.Library.Interfaces;
-using Guardian.Library.Tokens.Identifiers;
-using Guardian.Library.Tokens.Operators;
 
 namespace Guardian.Library.Tokens
 {
     public class TokenParser : ITokenParser {
 
         private const string _validCharacters = "0123456789 |&!()";
-        private List<IOperator> _operators = new List<IOperator>()
-        {
-            new AndOperator(),
-            new OrOperator(),
-            new NotOperator(),
-            new OpenParanthesisGroupingOperator(),
-            new CloseParanthesisGroupingOperator()
-        }; 
 
         private void ValidateLogicalInfixExpression(string expression) {
 
@@ -52,12 +42,15 @@ namespace Guardian.Library.Tokens
 
                 Type type = token.GetType();
 
-                if (token.IsOperatorToken() && previousToken.IsOperatorToken() && type != typeof(NotOperator) && type != typeof(OpenParanthesisGroupingOperator) && previousToken.GetType() != typeof(CloseParanthesisGroupingOperator))
+                if (token.IsOperatorToken() && previousToken.IsOperatorToken() && type != typeof(NotOperator) &&
+                    type != typeof(OpenParanthesisGroupingOperator) &&
+                    previousToken.GetType() != typeof(CloseParanthesisGroupingOperator))
                 {
                     IOperator previousOperator = (IOperator) previousToken;
                     IOperator currentOperator = (IOperator) token;
 
-                    throw new Exception($"Unable to parse expression. Found illegal consecutive Operators, '{previousOperator.StringRepresentation}' followed by '{currentOperator.StringRepresentation}'.");
+                    throw new Exception(
+                        $"Unable to parse expression. Found illegal consecutive Operators, '{previousOperator.StringRepresentation}' followed by '{currentOperator.StringRepresentation}'.");
                 }
 
                 previousToken = token;
@@ -81,7 +74,7 @@ namespace Guardian.Library.Tokens
             // ( ( ! ( 1 && 2 ) || 3 ) || 4 ) && ! 5
             expression = expression.Replace(" ", string.Empty);
 
-            foreach (IOperator op in _operators)
+            foreach (IOperator op in Operators.All)
             {
                 expression = expression.Replace(op.StringRepresentation, $" {op.StringRepresentation} ");
             }
@@ -91,7 +84,7 @@ namespace Guardian.Library.Tokens
 
             foreach (string token in tokens)
             {
-                IOperator op = _operators.FirstOrDefault(o => o.StringRepresentation == token);
+                IOperator op = Operators.All.FirstOrDefault(o => o.StringRepresentation == token);
 
                 if (op != null)
                 {

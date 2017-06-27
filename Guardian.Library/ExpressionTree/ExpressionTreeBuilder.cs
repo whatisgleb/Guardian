@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Guardian.Library.Interfaces;
 using Guardian.Library.Postfix;
 using Guardian.Library.Tokens;
-using Guardian.Library.Tokens.Operators;
 
 namespace Guardian.Library.ExpressionTree
 {

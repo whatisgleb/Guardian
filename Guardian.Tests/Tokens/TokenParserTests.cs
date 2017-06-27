@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using Guardian.Library.Interfaces;
 using Guardian.Library.Tokens;
-using Guardian.Library.Tokens.Identifiers;
-using Guardian.Library.Tokens.Operators;
 using Guardian.Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -46,7 +44,7 @@ namespace Guardian.Tests.Tokens
             List<IToken> expectedTokens = new List<IToken>() {
 
                 new IdentifierToken(1),
-                new AndOperator(),
+                Operators.And,
                 new IdentifierToken(2)
             };
 
@@ -69,9 +67,9 @@ namespace Guardian.Tests.Tokens
             List<IToken> expectedTokens = new List<IToken>() {
 
                 new IdentifierToken(1),
-                new AndOperator(),
+                Operators.And,
                 new IdentifierToken(2),
-                new AndOperator(),
+                Operators.And,
                 new IdentifierToken(3)
             };
 
@@ -93,7 +91,7 @@ namespace Guardian.Tests.Tokens
             List<IToken> expectedTokens = new List<IToken>() {
 
                 new IdentifierToken(1),
-                new OrOperator(),
+                Operators.Or,
                 new IdentifierToken(2)
             };
 
@@ -116,9 +114,9 @@ namespace Guardian.Tests.Tokens
             List<IToken> expectedTokens = new List<IToken>() {
 
                 new IdentifierToken(1),
-                new OrOperator(),
+                Operators.Or,
                 new IdentifierToken(2),
-                new OrOperator(),
+                Operators.Or,
                 new IdentifierToken(3)
             };
 
@@ -141,9 +139,9 @@ namespace Guardian.Tests.Tokens
             List<IToken> expectedTokens = new List<IToken>() {
 
                 new IdentifierToken(1),
-                new AndOperator(),
+                Operators.And,
                 new IdentifierToken(2),
-                new OrOperator(),
+                Operators.Or,
                 new IdentifierToken(3)
             };
 
@@ -166,9 +164,9 @@ namespace Guardian.Tests.Tokens
             List<IToken> expectedTokens = new List<IToken>() {
 
                 new IdentifierToken(1),
-                new OrOperator(),
+                Operators.Or,
                 new IdentifierToken(2),
-                new AndOperator(),
+                Operators.And,
                 new IdentifierToken(3)
             };
 
@@ -189,7 +187,7 @@ namespace Guardian.Tests.Tokens
             // Assert
             List<IToken> expectedTokens = new List<IToken>() {
 
-                new NotOperator(),
+                Operators.Not,
                 new IdentifierToken(1)
             };
 
@@ -210,9 +208,9 @@ namespace Guardian.Tests.Tokens
             // Assert
             List<IToken> expectedTokens = new List<IToken>() {
 
-                new OpenParanthesisGroupingOperator(),
+                Operators.OpenParanthesis,
                 new IdentifierToken(1),
-                new CloseParanthesisGroupingOperator()
+                Operators.CloseParanthesis
             };
 
             CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());
@@ -232,16 +230,16 @@ namespace Guardian.Tests.Tokens
             // Assert
             List<IToken> expectedTokens = new List<IToken>() {
 
-                new NotOperator(),
-                new OpenParanthesisGroupingOperator(),
+                Operators.Not,
+                Operators.OpenParanthesis,
                 new IdentifierToken(1),
-                new OrOperator(),
+                Operators.Or,
                 new IdentifierToken(2),
-                new CloseParanthesisGroupingOperator(),
-                new AndOperator(),
+                Operators.CloseParanthesis,
+                Operators.And,
                 new IdentifierToken(3),
-                new OrOperator(),
-                new NotOperator(),
+                Operators.Or,
+                Operators.Not,
                 new IdentifierToken(4)
             };
 

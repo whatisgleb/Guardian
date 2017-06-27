@@ -1,6 +1,6 @@
 using Guardian.Library.Interfaces;
 
-namespace Guardian.Library.Tokens.Identifiers {
+namespace Guardian.Library.Tokens {
     public class IdentifierToken : IIdentifier {
         
         public int ID { get; set; }

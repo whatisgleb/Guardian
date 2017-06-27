@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using Guardian.Library.Extensions;
 using Guardian.Library.Interfaces;
 using Guardian.Library.Tokens;
-using Guardian.Library.Tokens.Identifiers;
-using Guardian.Library.Tokens.Operators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Guardian.Tests.ExpressionConversions
@@ -20,8 +18,8 @@ namespace Guardian.Tests.ExpressionConversions
             
             // Arrange
             Stack<IToken> tokenStack = new Stack<IToken>();
-            tokenStack.Push(new AndOperator());
-            tokenStack.Push(new NotOperator());
+            tokenStack.Push(Operators.And);
+            tokenStack.Push(Operators.Not);
             tokenStack.Push(new IdentifierToken(2));
             tokenStack.Push(new IdentifierToken(1));
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using Guardian.Library.Interfaces;
 
-namespace Guardian.Library.Tokens.Operators
+namespace Guardian.Library.Tokens
 {
     public class OrOperator : Operator, IOperator
     {

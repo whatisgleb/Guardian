@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Guardian.Library.Interfaces;
 
-namespace Guardian.Library.Tokens.Operators
+namespace Guardian.Library.Tokens
 {
     public class AndOperator : Operator, IOperator
     {

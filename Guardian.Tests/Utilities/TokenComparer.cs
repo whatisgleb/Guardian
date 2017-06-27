@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Guardian.Library.Interfaces;
 using Guardian.Library.Tokens;
-using Guardian.Library.Tokens.Identifiers;
-using Guardian.Library.Tokens.Operators;
 
 namespace Guardian.Tests.Utilities
 {

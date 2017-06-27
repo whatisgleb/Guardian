@@ -92,6 +92,14 @@ namespace Guardian.Tests.Mock {
             ParameterType = "Document"
         };
 
+        public static RuleGroup OrderOfOperations_Not_FalseOrTrueAndTrue_ReturnsNoError = new RuleGroup()
+        {
+            Expression = "!(101 || 100 && 100)",
+            ErrorMessage = "Error",
+            Key = "",
+            ParameterType = "Document"
+        };
+
         public static List<RuleGroup> All => typeof(RuleGroups).GetFields(BindingFlags.Public | BindingFlags.Static)
             .Where(f => f.FieldType == typeof(RuleGroup))
             .Select(f => (RuleGroup) f.GetValue(null))
