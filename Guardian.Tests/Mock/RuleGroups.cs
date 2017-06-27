@@ -8,7 +8,7 @@ namespace Guardian.Tests.Mock {
         /// This throws an error - cannot pass null into DynamicExpression
         /// </summary>
         public static RuleGroup Target_NotNull = new RuleGroup() {
-            Expression = "!1",
+            Expression = "1",
             ErrorMessage = "A Document is required.",
             Key = "Document",
             ParameterType = "Document"

@@ -14,7 +14,7 @@ using DynamicExpression = System.Linq.Dynamic.DynamicExpression;
 
 namespace Guardian.Library
 {
-    public class Validator
+    public class Validator<T>
     {
         private IPostfixConverter _postfixConverter;
         private ExpressionTreeBuilder _treeBuilder;
@@ -27,7 +27,7 @@ namespace Guardian.Library
             _ruleOutcomes = new Dictionary<int, bool>();
         }
 
-        public List<ValidationError> Validate(object target, IEnumerable<IRuleGroup> ruleGroups, IEnumerable<IRule> rules) {
+        public List<ValidationError> Validate(T target, IEnumerable<IRuleGroup> ruleGroups, IEnumerable<IRule> rules) {
 
             List<ValidationError> errors = new List<ValidationError>();
 
@@ -50,7 +50,7 @@ namespace Guardian.Library
             return errors;
         }
 
-        private bool EvaluateNode(ExpressionTreeNode node, object target, IEnumerable<IRule> rules)
+        private bool EvaluateNode(ExpressionTreeNode node, T target, IEnumerable<IRule> rules)
         {
             if (!node.Token.IsOperatorToken()) {
 
@@ -68,12 +68,12 @@ namespace Guardian.Library
             }
         }
 
-        private bool EvaluateRule(object target, IRule rule) {
+        private bool EvaluateRule(T target, IRule rule) {
 
             if (!_ruleOutcomes.ContainsKey(rule.ID)) {
 
-                var parameter = Expression.Parameter(target.GetType(), target.GetType().Name);
-                var expression = DynamicExpression.ParseLambda(new[] {parameter}, typeof(bool), rule.Expression);
+                ParameterExpression parameterExpression = Expression.Parameter(typeof(T), typeof(T).Name);
+                LambdaExpression expression = DynamicExpression.ParseLambda(new[] {parameterExpression}, typeof(bool), rule.Expression);
 
                 bool outcome = (bool) expression.Compile().DynamicInvoke(target);
 
