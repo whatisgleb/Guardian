@@ -14,8 +14,8 @@ namespace Guardian.Tests.ExpressionConversions
     public class PostfixStackToExpressionTests
     {
         [TestMethod]
-        public void ToExpression_FromTokenStack() {
-            
+        public void ToExpression_FromTokenStack()
+        {
             // Arrange
             Stack<IToken> tokenStack = new Stack<IToken>();
             tokenStack.Push(Operators.And);

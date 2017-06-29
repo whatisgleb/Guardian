@@ -11,9 +11,9 @@ namespace Guardian.Library.Extensions
     public static class TokenExtensions
     {
         /// <summary>
-        /// Converts Token Stack into a Postfix string expression
+        /// Converts specified Token Stack into a string expression
         /// </summary>
-        /// <param name="tokens"></param>
+        /// <param name="tokens">Token representation of a logical expression.</param>
         /// <returns></returns>
         public static string AsPostfixExpression(this Stack<IToken> tokens)
         {
@@ -25,24 +25,21 @@ namespace Guardian.Library.Extensions
 
                 if (token.IsOperatorToken())
                 {
-                    IOperator op = (IOperator)token;
+                    IOperator op = (IOperator) token;
 
                     expression += op.StringRepresentation;
                 }
                 else
                 {
-                    IIdentifier identifierToken = (IIdentifier)token;
+                    IIdentifier identifierToken = (IIdentifier) token;
 
                     expression += identifierToken.ID;
                 }
 
-                if (tokens.Any())
-                {
-                    expression += " ";
-                }
+                expression += " ";
             }
 
-            return expression;
+            return expression.Trim();
         }
     }
 }

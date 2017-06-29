@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="ExpressionConversions\InfixToPostfixConversionTests.cs" />
     <Compile Include="ExpressionConversions\PostfixStackToExpressionTests.cs" />
+    <Compile Include="ExpressionTrees\ExpressionBuilderTests.cs" />
     <Compile Include="Mock\Document.cs" />
     <Compile Include="Mock\Documents.cs" />
     <Compile Include="Mock\Rule.cs" />
@@ -62,7 +63,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Mock\RuleGroups.cs" />
     <Compile Include="Mock\Rules.cs" />
-    <Compile Include="Tokens\ExpressionBuilderTests.cs" />
     <Compile Include="Tokens\TokenParserTests.cs" />
     <Compile Include="Tokens\TokenParserValidationTests.cs" />
     <Compile Include="Utilities\ExpressionTreeNodeComparer.cs" />

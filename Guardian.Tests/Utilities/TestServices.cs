@@ -5,13 +5,13 @@ using Guardian.Library.Tokens;
 
 namespace Guardian.Tests.Utilities
 {
-    public class TestServices {
-        
+    public class TestServices
+    {
         public readonly IPostfixConverter PostfixConverter;
         public readonly ExpressionTreeBuilder ExpressionTreeBuilder;
 
-        public TestServices() {
-            
+        public TestServices()
+        {
             PostfixConverter = new Postfixer(new TokenParser());
             ExpressionTreeBuilder = new ExpressionTreeBuilder();
         }

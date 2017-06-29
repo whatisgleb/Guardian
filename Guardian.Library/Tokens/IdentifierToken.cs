@@ -1,8 +1,9 @@
 using Guardian.Library.Interfaces;
 
-namespace Guardian.Library.Tokens {
-    public class IdentifierToken : IIdentifier {
-        
+namespace Guardian.Library.Tokens
+{
+    public class IdentifierToken : IIdentifier
+    {
         public int ID { get; set; }
 
         public bool IsOperatorToken()
@@ -10,8 +11,8 @@ namespace Guardian.Library.Tokens {
             return false;
         }
 
-        public IdentifierToken(int id) {
-
+        public IdentifierToken(int id)
+        {
             ID = id;
         }
     }

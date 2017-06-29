@@ -8,12 +8,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Guardian.Tests.ExpressionConversions
 {
     [TestClass]
-    public class InfixToPostfixConversionTests {
-
+    public class InfixToPostfixConversionTests
+    {
         private readonly TestServices _testServices;
 
-        public InfixToPostfixConversionTests() {
-        
+        public InfixToPostfixConversionTests()
+        {
             _testServices = new TestServices();
         }
 
@@ -33,8 +33,8 @@ namespace Guardian.Tests.ExpressionConversions
         }
 
         [TestMethod]
-        public void ToPostfix_AndExpression() {
-
+        public void ToPostfix_AndExpression()
+        {
             // Arrange
             string expression = "1 && 2";
 
@@ -50,7 +50,6 @@ namespace Guardian.Tests.ExpressionConversions
         [TestMethod]
         public void ToPostfix_AndAndExpression()
         {
-
             // Arrange
             string expression = "1 && 2 && 3";
 
@@ -66,7 +65,6 @@ namespace Guardian.Tests.ExpressionConversions
         [TestMethod]
         public void ToPostfix_AndParanthesisAndExpression()
         {
-
             // Arrange
             string expression = "1 && (2 && 3)";
 
@@ -82,7 +80,6 @@ namespace Guardian.Tests.ExpressionConversions
         [TestMethod]
         public void ToPostfix_ParanthesisAndAndExpression()
         {
-
             // Arrange
             string expression = "(1 && 2) && 3";
 
@@ -115,7 +112,7 @@ namespace Guardian.Tests.ExpressionConversions
         {
             // Arrange
             string expression = "1 && 2 || 3";
-            
+
             // Act
             Stack<IToken> postfixedTokens = _testServices.PostfixConverter.ConvertToStack(expression);
 
@@ -141,8 +138,8 @@ namespace Guardian.Tests.ExpressionConversions
         }
 
         [TestMethod]
-        public void ToPostfix_AndNotExpression() {
-
+        public void ToPostfix_AndNotExpression()
+        {
             // Arrange
             string expression = "1 && !2";
 
@@ -158,7 +155,6 @@ namespace Guardian.Tests.ExpressionConversions
         [TestMethod]
         public void ToPostfix_NotAndExpression()
         {
-
             // Arrange
             string expression = "!1 && 2";
 
@@ -174,7 +170,6 @@ namespace Guardian.Tests.ExpressionConversions
         [TestMethod]
         public void ToPostfix_OrNotExpression()
         {
-
             // Arrange
             string expression = "1 || !2";
 
@@ -204,8 +199,8 @@ namespace Guardian.Tests.ExpressionConversions
         }
 
         [TestMethod]
-        public void ToPostfix_OrAndNotExpression() {
-
+        public void ToPostfix_OrAndNotExpression()
+        {
             // Arrange
             string expression = "1 || 2 && !3";
 
@@ -234,8 +229,8 @@ namespace Guardian.Tests.ExpressionConversions
         }
 
         [TestMethod]
-        public void ToPostfix_ParantheticalExpression() {
-
+        public void ToPostfix_ParantheticalExpression()
+        {
             // Arrange
             string expression = "(1 || 2)";
 
@@ -249,8 +244,8 @@ namespace Guardian.Tests.ExpressionConversions
         }
 
         [TestMethod]
-        public void ToPostfix_AndParantheticalExpression() {
-
+        public void ToPostfix_AndParantheticalExpression()
+        {
             // Arrange
             string expression = "1 && (2 || 3)";
 

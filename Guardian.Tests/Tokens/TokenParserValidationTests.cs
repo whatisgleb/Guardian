@@ -63,7 +63,6 @@ namespace Guardian.Tests.Tokens
         [ExpectedException(typeof(Exception))]
         public void Expression_Contains_IncompleteOperatorToken()
         {
-
             // Arrange
             string expression = "1 & 2";
 
@@ -77,7 +76,6 @@ namespace Guardian.Tests.Tokens
         [ExpectedException(typeof(Exception))]
         public void Expression_Contains_InvalidOperatorToken()
         {
-
             // Arrange
             string expression = "1 &| 2";
 
@@ -161,7 +159,7 @@ namespace Guardian.Tests.Tokens
 
             // Act
             TokenParser tokenParser = new TokenParser();
-            
+
             tokenParser.ParseInfixExpression(expression);
         }
     }

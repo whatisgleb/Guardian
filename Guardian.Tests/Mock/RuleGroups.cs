@@ -2,26 +2,31 @@
 using System.Linq;
 using System.Reflection;
 
-namespace Guardian.Tests.Mock {
-    public static class RuleGroups {
+namespace Guardian.Tests.Mock
+{
+    public static class RuleGroups
+    {
         /// <summary>
         /// This throws an error - cannot pass null into DynamicExpression
         /// </summary>
-        public static RuleGroup Target_NotNull = new RuleGroup() {
+        public static RuleGroup Target_NotNull = new RuleGroup()
+        {
             Expression = "1",
             ErrorMessage = "A Document is required.",
             Key = "Document",
             ParameterType = "Document"
         };
 
-        public static RuleGroup Document_Title_NotNull = new RuleGroup() {
+        public static RuleGroup Document_Title_NotNull = new RuleGroup()
+        {
             Expression = "2",
             ErrorMessage = "A Document Title is required.",
             Key = "Document.Title",
             ParameterType = "Document"
         };
 
-        public static RuleGroup Document_Title_OfExpectedLength = new RuleGroup() {
+        public static RuleGroup Document_Title_OfExpectedLength = new RuleGroup()
+        {
             Expression = "!2 && 3",
             ErrorMessage = "A Document Title is required.",
             Key = "Document.Title",

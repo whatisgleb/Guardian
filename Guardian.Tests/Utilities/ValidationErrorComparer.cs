@@ -17,8 +17,8 @@ namespace Guardian.Tests.Utilities
 
         public int Compare(object x, object y)
         {
-            ValidationError xError = (ValidationError)x;
-            ValidationError yError = (ValidationError)y;
+            ValidationError xError = (ValidationError) x;
+            ValidationError yError = (ValidationError) y;
 
             return Compare(xError, yError);
         }

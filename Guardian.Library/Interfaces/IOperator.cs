@@ -9,9 +9,4 @@ namespace Guardian.Library.Interfaces
 
         bool Evaluate(params Func<bool>[] operands);
     }
-
-    public interface IIdentifier : IToken
-    {
-        int ID { get; }
-    }
 }

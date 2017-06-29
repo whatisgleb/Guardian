@@ -9,7 +9,8 @@ namespace Guardian.Tests.Mock
         /// <summary>
         /// This throws an error - cannot pass null into DynamicExpression
         /// </summary>
-        public static Rule Document_IsNull = new Rule() {
+        public static Rule Document_IsNull = new Rule()
+        {
             ID = 1,
             Expression = "Document == null",
             ParameterName = "Document"
@@ -21,6 +22,7 @@ namespace Guardian.Tests.Mock
             Expression = "string.IsNullOrWhiteSpace(Document.Title)",
             ParameterName = "Document"
         };
+
         public static Rule Document_Title_GreaterThanLength = new Rule()
         {
             ID = 3,
@@ -42,7 +44,8 @@ namespace Guardian.Tests.Mock
             ParameterName = "Document"
         };
 
-        public static Rule True = new Rule() {
+        public static Rule True = new Rule()
+        {
             ID = 100,
             Expression = "True",
             ParameterName = "Document"

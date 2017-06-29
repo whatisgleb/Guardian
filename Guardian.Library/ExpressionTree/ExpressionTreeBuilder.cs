@@ -11,6 +11,11 @@ namespace Guardian.Library.ExpressionTree
 {
     public class ExpressionTreeBuilder
     {
+        /// <summary>
+        /// Converts specified Token Stack into an expression tree.
+        /// </summary>
+        /// <param name="tokens">Token representation of a logical expression.</param>
+        /// <returns></returns>
         public ExpressionTreeNode BuildExpressionTree(Stack<IToken> tokens)
         {
             Stack<IToken> reverseTokens = new Stack<IToken>(tokens);
@@ -20,6 +25,11 @@ namespace Guardian.Library.ExpressionTree
             return root;
         }
 
+        /// <summary>
+        /// Iterates over specified tokens to recursively build an expression tree node.
+        /// </summary>
+        /// <param name="tokens">Token representation of a logical expression.</param>
+        /// <returns></returns>
         private ExpressionTreeNode GenerateNode(Stack<IToken> tokens)
         {
             ExpressionTreeNode treeNode = new ExpressionTreeNode();

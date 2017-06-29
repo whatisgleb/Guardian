@@ -21,8 +21,8 @@ namespace Guardian.Tests.Tokens
             List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
 
             // Assert
-            List<IToken> expectedTokens = new List<IToken>() {
-
+            List<IToken> expectedTokens = new List<IToken>()
+            {
                 new IdentifierToken(1)
             };
 
@@ -30,8 +30,8 @@ namespace Guardian.Tests.Tokens
         }
 
         [TestMethod]
-        public void Parse_AndExpression() {
-
+        public void Parse_AndExpression()
+        {
             // Arrange
             string expression = "1 && 2";
 
@@ -41,8 +41,8 @@ namespace Guardian.Tests.Tokens
             List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
 
             // Assert
-            List<IToken> expectedTokens = new List<IToken>() {
-
+            List<IToken> expectedTokens = new List<IToken>()
+            {
                 new IdentifierToken(1),
                 Operators.And,
                 new IdentifierToken(2)
@@ -54,7 +54,6 @@ namespace Guardian.Tests.Tokens
         [TestMethod]
         public void Parse_MultipleAndExpression()
         {
-
             // Arrange
             string expression = "1 && 2 && 3";
 
@@ -64,8 +63,8 @@ namespace Guardian.Tests.Tokens
             List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
 
             // Assert
-            List<IToken> expectedTokens = new List<IToken>() {
-
+            List<IToken> expectedTokens = new List<IToken>()
+            {
                 new IdentifierToken(1),
                 Operators.And,
                 new IdentifierToken(2),
@@ -77,8 +76,8 @@ namespace Guardian.Tests.Tokens
         }
 
         [TestMethod]
-        public void Parse_OrExpression() {
-
+        public void Parse_OrExpression()
+        {
             // Arrange
             string expression = "1 || 2";
 
@@ -88,8 +87,8 @@ namespace Guardian.Tests.Tokens
             List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
 
             // Assert
-            List<IToken> expectedTokens = new List<IToken>() {
-
+            List<IToken> expectedTokens = new List<IToken>()
+            {
                 new IdentifierToken(1),
                 Operators.Or,
                 new IdentifierToken(2)
@@ -101,7 +100,6 @@ namespace Guardian.Tests.Tokens
         [TestMethod]
         public void Parse_MultipleOrExpression()
         {
-
             // Arrange
             string expression = "1 || 2 || 3";
 
@@ -111,8 +109,8 @@ namespace Guardian.Tests.Tokens
             List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
 
             // Assert
-            List<IToken> expectedTokens = new List<IToken>() {
-
+            List<IToken> expectedTokens = new List<IToken>()
+            {
                 new IdentifierToken(1),
                 Operators.Or,
                 new IdentifierToken(2),
@@ -126,7 +124,6 @@ namespace Guardian.Tests.Tokens
         [TestMethod]
         public void Parse_AndOrExpression()
         {
-
             // Arrange
             string expression = "1 && 2 || 3";
 
@@ -136,8 +133,8 @@ namespace Guardian.Tests.Tokens
             List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
 
             // Assert
-            List<IToken> expectedTokens = new List<IToken>() {
-
+            List<IToken> expectedTokens = new List<IToken>()
+            {
                 new IdentifierToken(1),
                 Operators.And,
                 new IdentifierToken(2),
@@ -151,7 +148,6 @@ namespace Guardian.Tests.Tokens
         [TestMethod]
         public void Parse_OrAndExpression()
         {
-
             // Arrange
             string expression = "1 || 2 && 3";
 
@@ -161,8 +157,8 @@ namespace Guardian.Tests.Tokens
             List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
 
             // Assert
-            List<IToken> expectedTokens = new List<IToken>() {
-
+            List<IToken> expectedTokens = new List<IToken>()
+            {
                 new IdentifierToken(1),
                 Operators.Or,
                 new IdentifierToken(2),
@@ -174,8 +170,8 @@ namespace Guardian.Tests.Tokens
         }
 
         [TestMethod]
-        public void Parse_NotExpression() {
-
+        public void Parse_NotExpression()
+        {
             // Arrange
             string expression = "!1";
 
@@ -185,8 +181,8 @@ namespace Guardian.Tests.Tokens
             List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
 
             // Assert
-            List<IToken> expectedTokens = new List<IToken>() {
-
+            List<IToken> expectedTokens = new List<IToken>()
+            {
                 Operators.Not,
                 new IdentifierToken(1)
             };
@@ -195,8 +191,8 @@ namespace Guardian.Tests.Tokens
         }
 
         [TestMethod]
-        public void Parse_ParantheticalExpression() {
-
+        public void Parse_ParantheticalExpression()
+        {
             // Arrange
             string expression = "(1)";
 
@@ -206,8 +202,8 @@ namespace Guardian.Tests.Tokens
             List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
 
             // Assert
-            List<IToken> expectedTokens = new List<IToken>() {
-
+            List<IToken> expectedTokens = new List<IToken>()
+            {
                 Operators.OpenParanthesis,
                 new IdentifierToken(1),
                 Operators.CloseParanthesis
@@ -217,8 +213,8 @@ namespace Guardian.Tests.Tokens
         }
 
         [TestMethod]
-        public void Parse_ComplexExpression() {
-
+        public void Parse_ComplexExpression()
+        {
             // Arrange
             string expression = "!(1 || 2) && 3 || !4";
 
@@ -228,8 +224,8 @@ namespace Guardian.Tests.Tokens
             List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
 
             // Assert
-            List<IToken> expectedTokens = new List<IToken>() {
-
+            List<IToken> expectedTokens = new List<IToken>()
+            {
                 Operators.Not,
                 Operators.OpenParanthesis,
                 new IdentifierToken(1),

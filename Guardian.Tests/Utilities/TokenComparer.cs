@@ -19,8 +19,8 @@ namespace Guardian.Tests.Utilities
         /// <param name="x">Token</param>
         /// <param name="y">Token</param>
         /// <returns></returns>
-        public int Compare(IToken x, IToken y) {
-
+        public int Compare(IToken x, IToken y)
+        {
             if (x.GetType() != y.GetType()) return -1;
 
             if (x.GetType() == typeof(IIdentifier)) return ((IIdentifier) x).ID == ((IIdentifier) y).ID ? 0 : -1;
@@ -37,8 +37,8 @@ namespace Guardian.Tests.Utilities
         /// <param name="x">Token</param>
         /// <param name="y">Token</param>
         /// <returns></returns>
-        public int Compare(object x, object y) {
-
+        public int Compare(object x, object y)
+        {
             IToken xToken = (IToken) x;
             IToken yToken = (IToken) y;
 

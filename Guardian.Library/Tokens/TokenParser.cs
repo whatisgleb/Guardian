@@ -5,73 +5,32 @@ using Guardian.Library.Interfaces;
 
 namespace Guardian.Library.Tokens
 {
-    public class TokenParser : ITokenParser {
+    public class TokenParser : ITokenParser
+    {
+        private TokenValidator _validator;
 
-        private const string _validCharacters = "0123456789 |&!()";
-
-        private void ValidateLogicalInfixExpression(string expression) {
-
-            IEnumerable<char> unexpectedCharacters = expression.Where(c => !_validCharacters.Contains(c));
-            if (unexpectedCharacters.Any()) {
-
-                // TODO: This should be logged, not exception'd
-                throw new Exception($"Unable to parse expression. Found unexpected characters, '{string.Join(",", unexpectedCharacters)}'. Verify expression, '{expression}' is valid.");
-            }
-
-            if (expression.Count(c => c == '(') != expression.Count(c => c == ')'))
-            {
-                // TODO: This should be logged, not exception'd
-                throw new Exception($"Unable to parse expression. Found a mismatch in the number of open and closing paranetheses. Verify expression, '{expression}' is valid.");
-            }
-        }
-
-        private void ValidateOutputTokens(List<IToken> tokens)
+        public TokenParser()
         {
-
-            if (!tokens.Any()) return;
-
-            IToken previousToken = null;
-
-            foreach (var token in tokens)
-            {
-                if (previousToken == null)
-                {
-                    previousToken = token;
-                    continue;
-                }
-
-                Type type = token.GetType();
-
-                if (token.IsOperatorToken() && previousToken.IsOperatorToken() && type != typeof(NotOperator) &&
-                    type != typeof(OpenParanthesisGroupingOperator) &&
-                    previousToken.GetType() != typeof(CloseParanthesisGroupingOperator))
-                {
-                    IOperator previousOperator = (IOperator) previousToken;
-                    IOperator currentOperator = (IOperator) token;
-
-                    throw new Exception(
-                        $"Unable to parse expression. Found illegal consecutive Operators, '{previousOperator.StringRepresentation}' followed by '{currentOperator.StringRepresentation}'.");
-                }
-
-                previousToken = token;
-            }
+            _validator = new TokenValidator();
         }
 
         /// <summary>
-        /// Converts a string infix expression into Tokens
+        /// Converts a logical infix expression to a Postfix Token list representation.
         /// </summary>
-        /// <param name="expression">A logical infix string expression</param>
-        /// <returns>A List of Tokens in the order they were encountered in the specified string expression</returns>
-        public List<IToken> ParseInfixExpression(string expression) {
+        /// <param name="expression">A string logical infix expression.</param>
+        /// <returns>Postfix Tokens list representation of an infix expression.</returns>
+        public List<IToken> ParseInfixExpression(string expression)
+        {
+            _validator.ValidateLogicalInfixExpression(expression);
 
-            ValidateLogicalInfixExpression(expression);
+            List<IToken> outputTokens = new List<IToken>();
 
-            // Prepare expression by first removing all spaces, then introducing spaces strategically
-            // ((!(1 &&2) || 3) || 4) && !5 
-            // =>
-            // ((!(1&&2)||3)||4)&&!5
-            // => 
-            // ( ( ! ( 1 && 2 ) || 3 ) || 4 ) && ! 5
+            // Prepare expression for efficient parsing:
+            // - Remove all spaces
+            // - Introduce spaces before and after each operator
+            // - Split on spaces removing any empty items
+            // - Parse
+            // -- Ex: (1 && !2) -> (1&&!2) -> ( 1 && ! 2 ) -> [(, 1, &&, !, 2, )]
             expression = expression.Replace(" ", string.Empty);
 
             foreach (IOperator op in Operators.All)
@@ -80,7 +39,6 @@ namespace Guardian.Library.Tokens
             }
 
             IEnumerable<string> tokens = expression.Split(' ').Where(t => !string.IsNullOrWhiteSpace(t));
-            List<IToken> outputTokens = new List<IToken>();
 
             foreach (string token in tokens)
             {
@@ -88,10 +46,12 @@ namespace Guardian.Library.Tokens
 
                 if (op != null)
                 {
+                    // Token is an operator
                     outputTokens.Add(op);
                 }
                 else
                 {
+                    // Token is an identifier
                     int ID;
 
                     bool succeeded = int.TryParse(token, out ID);
@@ -103,12 +63,13 @@ namespace Guardian.Library.Tokens
                     else
                     {
                         // TODO: This should be logged, not exception'd
-                        throw new Exception($"Unable to parse identifier Token. Found, '{token}'. Verify expression, '{expression}' is valid.");
+                        throw new Exception(
+                            $"Unable to parse identifier Token. Found, '{token}'. Verify expression, '{expression}' is valid.");
                     }
                 }
             }
 
-            ValidateOutputTokens(outputTokens);
+            _validator.ValidateOutputTokens(outputTokens);
 
             return outputTokens;
         }

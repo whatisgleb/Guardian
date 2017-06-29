@@ -47,6 +47,7 @@
     <Compile Include="ExpressionTree\ExpressionTreeBuilder.cs" />
     <Compile Include="ExpressionTree\ExpressionTreeNode.cs" />
     <Compile Include="Extensions\TokenExtensions.cs" />
+    <Compile Include="Interfaces\IIdentifier.cs" />
     <Compile Include="Interfaces\IPostfixConverter.cs" />
     <Compile Include="Interfaces\IRule.cs" />
     <Compile Include="Interfaces\IRuleGroup.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Tokens\Operators.cs" />
     <Compile Include="Tokens\OrOperator.cs" />
     <Compile Include="Tokens\TokenParser.cs" />
+    <Compile Include="Tokens\TokenValidator.cs" />
     <Compile Include="ValidationError.cs" />
     <Compile Include="Validator.cs" />
   </ItemGroup>

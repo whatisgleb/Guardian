@@ -12,26 +12,26 @@ using DynamicExpression = System.Linq.Dynamic.DynamicExpression;
 
 namespace Guardian.Library
 {
-    public class Validator<T>
+    public class Validator
     {
         private IPostfixConverter _postfixConverter;
         private ExpressionTreeBuilder _treeBuilder;
         private Dictionary<int, bool> _ruleOutcomes;
 
-        public Validator(IPostfixConverter postfixConverter) {
-            
+        public Validator(IPostfixConverter postfixConverter)
+        {
             _postfixConverter = postfixConverter;
             _treeBuilder = new ExpressionTreeBuilder();
             _ruleOutcomes = new Dictionary<int, bool>();
         }
 
-        public List<ValidationError> Validate(T target, IEnumerable<IRuleGroup> ruleGroups, IEnumerable<IRule> rules) {
-
+        public List<ValidationError> Validate<T>(T target, IEnumerable<IRuleGroup> ruleGroups, IEnumerable<IRule> rules)
+        {
             List<ValidationError> errors = new List<ValidationError>();
 
             // Evaluate rule groups
-            foreach (var ruleGroup in ruleGroups) {
-
+            foreach (var ruleGroup in ruleGroups)
+            {
                 Stack<IToken> postfixTokens = _postfixConverter.ConvertToStack(ruleGroup.Expression);
                 ExpressionTreeNode root = _treeBuilder.BuildExpressionTree(postfixTokens);
 
@@ -48,28 +48,29 @@ namespace Guardian.Library
             return errors;
         }
 
-        private bool EvaluateNode(ExpressionTreeNode node, T target, IEnumerable<IRule> rules)
+        private bool EvaluateNode<T>(ExpressionTreeNode node, T target, IEnumerable<IRule> rules)
         {
-            if (!node.Token.IsOperatorToken()) {
-
+            if (!node.Token.IsOperatorToken())
+            {
                 IIdentifier identifier = (IIdentifier) node.Token;
 
                 IRule rule = rules.FirstOrDefault(r => r.ID == identifier.ID);
 
                 return EvaluateRule(target, rule);
             }
-            else {
-
+            else
+            {
                 IOperator op = (IOperator) node.Token;
 
-                return op.Evaluate(() => EvaluateNode(node.Left, target, rules), () => EvaluateNode(node.Right, target, rules));
+                return op.Evaluate(() => EvaluateNode(node.Left, target, rules),
+                    () => EvaluateNode(node.Right, target, rules));
             }
         }
 
-        private bool EvaluateRule(T target, IRule rule) {
-
-            if (!_ruleOutcomes.ContainsKey(rule.ID)) {
-
+        private bool EvaluateRule<T>(T target, IRule rule)
+        {
+            if (!_ruleOutcomes.ContainsKey(rule.ID))
+            {
                 ParameterExpression parameterExpression = Expression.Parameter(typeof(T), typeof(T).Name);
                 LambdaExpression expression = DynamicExpression.ParseLambda(new[] {parameterExpression}, typeof(bool), rule.Expression);
 
@@ -82,4 +83,3 @@ namespace Guardian.Library
         }
     }
 }
-
