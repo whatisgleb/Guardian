@@ -11,49 +11,49 @@ namespace Guardian.Tests.Mock
         /// </summary>
         public static Rule Document_IsNull = new Rule()
         {
-            ID = 1,
+            RuleID = 1,
             Expression = "Document == null",
             ParameterName = "Document"
         };
 
         public static Rule Document_Title_IsNull = new Rule()
         {
-            ID = 2,
+            RuleID = 2,
             Expression = "string.IsNullOrWhiteSpace(Document.Title)",
             ParameterName = "Document"
         };
 
         public static Rule Document_Title_GreaterThanLength = new Rule()
         {
-            ID = 3,
+            RuleID = 3,
             Expression = "Document.Title.Length > 10",
             ParameterName = "Document"
         };
 
         public static Rule Document_IsPublic = new Rule()
         {
-            ID = 4,
+            RuleID = 4,
             Expression = "Document.Tags.Any(it.Text == \"Public\")",
             ParameterName = "Document"
         };
 
         public static Rule Document_Tags_IsNull = new Rule()
         {
-            ID = 5,
+            RuleID = 5,
             Expression = "Document.Tags == null",
             ParameterName = "Document"
         };
 
         public static Rule True = new Rule()
         {
-            ID = 100,
+            RuleID = 100,
             Expression = "True",
             ParameterName = "Document"
         };
 
         public static Rule False = new Rule()
         {
-            ID = 101,
+            RuleID = 101,
             Expression = "False",
             ParameterName = "Document"
         };

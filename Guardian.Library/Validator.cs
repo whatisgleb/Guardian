@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Guardian.Common.Interfaces;
 using Guardian.Library.ExpressionTree;
 using Guardian.Library.Interfaces;
 using Guardian.Library.Postfix;
@@ -40,7 +41,7 @@ namespace Guardian.Library
                     errors.Add(new ValidationError()
                     {
                         ErrorMessage = ruleGroup.ErrorMessage,
-                        Key = ruleGroup.Key
+                        ErrorCode = ruleGroup.ErrorCode
                     });
                 }
             }
@@ -54,7 +55,7 @@ namespace Guardian.Library
             {
                 IIdentifier identifier = (IIdentifier) node.Token;
 
-                IRule rule = rules.FirstOrDefault(r => r.ID == identifier.ID);
+                IRule rule = rules.FirstOrDefault(r => r.RuleID == identifier.ID);
 
                 return EvaluateRule(target, rule);
             }
@@ -69,17 +70,17 @@ namespace Guardian.Library
 
         private bool EvaluateRule<T>(T target, IRule rule)
         {
-            if (!_ruleOutcomes.ContainsKey(rule.ID))
+            if (!_ruleOutcomes.ContainsKey(rule.RuleID))
             {
                 ParameterExpression parameterExpression = Expression.Parameter(typeof(T), typeof(T).Name);
                 LambdaExpression expression = DynamicExpression.ParseLambda(new[] {parameterExpression}, typeof(bool), rule.Expression);
 
                 bool outcome = (bool) expression.Compile().DynamicInvoke(target);
 
-                _ruleOutcomes.Add(rule.ID, outcome);
+                _ruleOutcomes.Add(rule.RuleID, outcome);
             }
 
-            return _ruleOutcomes[rule.ID];
+            return _ruleOutcomes[rule.RuleID];
         }
     }
 }

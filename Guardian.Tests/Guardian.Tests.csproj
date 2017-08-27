@@ -54,6 +54,7 @@
     <Compile Include="ExpressionTrees\ExpressionBuilderTests.cs" />
     <Compile Include="Mock\Document.cs" />
     <Compile Include="Mock\Documents.cs" />
+    <Compile Include="Mock\ErrorCodes.cs" />
     <Compile Include="Mock\Rule.cs" />
     <Compile Include="Mock\RuleGroup.cs" />
     <Compile Include="Mock\State.cs" />
@@ -75,6 +76,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Guardian.Common\Guardian.Common.csproj">
+      <Project>{55E8086E-A2FC-478A-8DB7-F2F73FEAEDD8}</Project>
+      <Name>Guardian.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Guardian.Data\Guardian.Data.csproj">
+      <Project>{14707356-0445-413E-A3F9-198F1EEEF906}</Project>
+      <Name>Guardian.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Guardian.Library\Guardian.Library.csproj">
       <Project>{c9265488-4908-47cc-b87d-8a8a3df0afdd}</Project>
       <Name>Guardian.Library</Name>

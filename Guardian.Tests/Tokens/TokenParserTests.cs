@@ -9,16 +9,24 @@ namespace Guardian.Tests.Tokens
     [TestClass]
     public class TokenParserTests
     {
+        private TokenParser _tokenParser;
+        private TokenComparer _tokenComparer;
+
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            _tokenParser = new TokenParser();;
+            _tokenComparer = new TokenComparer();
+        }
+
         [TestMethod]
         public void Parse_Expression()
         {
             // Arrange
             string expression = "1";
 
-            TokenParser tokenParser = new TokenParser();
-
             // Act
-            List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
+            List<IToken> tokens = _tokenParser.ParseInfixExpression(expression);
 
             // Assert
             List<IToken> expectedTokens = new List<IToken>()
@@ -26,7 +34,7 @@ namespace Guardian.Tests.Tokens
                 new IdentifierToken(1)
             };
 
-            CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());
+            CollectionAssert.AreEqual(expectedTokens, tokens, _tokenComparer);
         }
 
         [TestMethod]
@@ -35,10 +43,8 @@ namespace Guardian.Tests.Tokens
             // Arrange
             string expression = "1 && 2";
 
-            TokenParser tokenParser = new TokenParser();
-
             // Act
-            List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
+            List<IToken> tokens = _tokenParser.ParseInfixExpression(expression);
 
             // Assert
             List<IToken> expectedTokens = new List<IToken>()
@@ -48,7 +54,7 @@ namespace Guardian.Tests.Tokens
                 new IdentifierToken(2)
             };
 
-            CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());
+            CollectionAssert.AreEqual(expectedTokens, tokens, _tokenComparer);
         }
 
         [TestMethod]
@@ -57,10 +63,8 @@ namespace Guardian.Tests.Tokens
             // Arrange
             string expression = "1 && 2 && 3";
 
-            TokenParser tokenParser = new TokenParser();
-
             // Act
-            List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
+            List<IToken> tokens = _tokenParser.ParseInfixExpression(expression);
 
             // Assert
             List<IToken> expectedTokens = new List<IToken>()
@@ -72,7 +76,7 @@ namespace Guardian.Tests.Tokens
                 new IdentifierToken(3)
             };
 
-            CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());
+            CollectionAssert.AreEqual(expectedTokens, tokens, _tokenComparer);
         }
 
         [TestMethod]
@@ -81,10 +85,8 @@ namespace Guardian.Tests.Tokens
             // Arrange
             string expression = "1 || 2";
 
-            TokenParser tokenParser = new TokenParser();
-
             // Act
-            List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
+            List<IToken> tokens = _tokenParser.ParseInfixExpression(expression);
 
             // Assert
             List<IToken> expectedTokens = new List<IToken>()
@@ -94,7 +96,7 @@ namespace Guardian.Tests.Tokens
                 new IdentifierToken(2)
             };
 
-            CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());
+            CollectionAssert.AreEqual(expectedTokens, tokens, _tokenComparer);
         }
 
         [TestMethod]
@@ -103,10 +105,8 @@ namespace Guardian.Tests.Tokens
             // Arrange
             string expression = "1 || 2 || 3";
 
-            TokenParser tokenParser = new TokenParser();
-
             // Act
-            List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
+            List<IToken> tokens = _tokenParser.ParseInfixExpression(expression);
 
             // Assert
             List<IToken> expectedTokens = new List<IToken>()
@@ -118,7 +118,7 @@ namespace Guardian.Tests.Tokens
                 new IdentifierToken(3)
             };
 
-            CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());
+            CollectionAssert.AreEqual(expectedTokens, tokens, _tokenComparer);
         }
 
         [TestMethod]
@@ -127,10 +127,8 @@ namespace Guardian.Tests.Tokens
             // Arrange
             string expression = "1 && 2 || 3";
 
-            TokenParser tokenParser = new TokenParser();
-
             // Act
-            List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
+            List<IToken> tokens = _tokenParser.ParseInfixExpression(expression);
 
             // Assert
             List<IToken> expectedTokens = new List<IToken>()
@@ -142,7 +140,7 @@ namespace Guardian.Tests.Tokens
                 new IdentifierToken(3)
             };
 
-            CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());
+            CollectionAssert.AreEqual(expectedTokens, tokens, _tokenComparer);
         }
 
         [TestMethod]
@@ -151,10 +149,8 @@ namespace Guardian.Tests.Tokens
             // Arrange
             string expression = "1 || 2 && 3";
 
-            TokenParser tokenParser = new TokenParser();
-
             // Act
-            List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
+            List<IToken> tokens = _tokenParser.ParseInfixExpression(expression);
 
             // Assert
             List<IToken> expectedTokens = new List<IToken>()
@@ -166,7 +162,7 @@ namespace Guardian.Tests.Tokens
                 new IdentifierToken(3)
             };
 
-            CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());
+            CollectionAssert.AreEqual(expectedTokens, tokens, _tokenComparer);
         }
 
         [TestMethod]
@@ -175,10 +171,8 @@ namespace Guardian.Tests.Tokens
             // Arrange
             string expression = "!1";
 
-            TokenParser tokenParser = new TokenParser();
-
             // Act
-            List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
+            List<IToken> tokens = _tokenParser.ParseInfixExpression(expression);
 
             // Assert
             List<IToken> expectedTokens = new List<IToken>()
@@ -187,7 +181,7 @@ namespace Guardian.Tests.Tokens
                 new IdentifierToken(1)
             };
 
-            CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());
+            CollectionAssert.AreEqual(expectedTokens, tokens, _tokenComparer);
         }
 
         [TestMethod]
@@ -196,10 +190,8 @@ namespace Guardian.Tests.Tokens
             // Arrange
             string expression = "(1)";
 
-            TokenParser tokenParser = new TokenParser();
-
             // Act
-            List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
+            List<IToken> tokens = _tokenParser.ParseInfixExpression(expression);
 
             // Assert
             List<IToken> expectedTokens = new List<IToken>()
@@ -209,7 +201,7 @@ namespace Guardian.Tests.Tokens
                 Operators.CloseParanthesis
             };
 
-            CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());
+            CollectionAssert.AreEqual(expectedTokens, tokens, _tokenComparer);
         }
 
         [TestMethod]
@@ -218,10 +210,8 @@ namespace Guardian.Tests.Tokens
             // Arrange
             string expression = "!(1 || 2) && 3 || !4";
 
-            TokenParser tokenParser = new TokenParser();
-
             // Act
-            List<IToken> tokens = tokenParser.ParseInfixExpression(expression);
+            List<IToken> tokens = _tokenParser.ParseInfixExpression(expression);
 
             // Assert
             List<IToken> expectedTokens = new List<IToken>()
@@ -239,7 +229,7 @@ namespace Guardian.Tests.Tokens
                 new IdentifierToken(4)
             };
 
-            CollectionAssert.AreEqual(expectedTokens, tokens, new TokenComparer());
+            CollectionAssert.AreEqual(expectedTokens, tokens, _tokenComparer);
         }
     }
 }

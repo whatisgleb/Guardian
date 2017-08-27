@@ -12,7 +12,7 @@ namespace Guardian.Tests.Utilities
     {
         public int Compare(ValidationError x, ValidationError y)
         {
-            return string.Equals(x.Key, y.Key) && string.Equals(x.ErrorMessage, y.ErrorMessage) ? 0 : -1;
+            return string.Equals(x.ErrorCode, y.ErrorCode) && string.Equals(x.ErrorMessage, y.ErrorMessage) ? 0 : -1;
         }
 
         public int Compare(object x, object y)
