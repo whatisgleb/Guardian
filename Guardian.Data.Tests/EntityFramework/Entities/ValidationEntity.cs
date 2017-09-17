@@ -3,9 +3,9 @@ using Guardian.Common.Interfaces;
 
 namespace Guardian.Data.Tests.EntityFramework.Entities
 {
-    internal class RuleGroupEntity : IRuleGroup
+    internal class ValidationEntity : IValidation
     {
-        public int RuleGroupID { get; set; }
+        public int ValidationID { get; set; }
         public bool ActiveFlag { get; set; }
         public string Expression { get; set; }
         public string ErrorMessage { get; set; }

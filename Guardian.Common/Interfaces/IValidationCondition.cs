@@ -1,8 +1,8 @@
 namespace Guardian.Common.Interfaces
 {
-    public interface IRule
+    public interface IValidationCondition
     {
-        int RuleID { get; set; }
+        int ValidationConditionID { get; set; }
         string Expression { get; set; }
         string ApplicationID { get; set; }
     }

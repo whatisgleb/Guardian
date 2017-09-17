@@ -41,10 +41,10 @@ namespace Guardian.Data.Tests
         }
 
         [TestMethod]
-        public void Create_Get_Update_RuleGroup_Succeeds()
+        public void Create_Get_Update_Validation_Succeeds()
         {
             // Arrange
-            RuleGroupEntity ruleGroupEntity = new RuleGroupEntity
+            ValidationEntity validationEntity = new ValidationEntity
             {
                 ActiveFlag = true,
                 ApplicationID = "Guardian",
@@ -56,29 +56,29 @@ namespace Guardian.Data.Tests
             };
 
             // Act
-            _dataProvider.CreateRuleGroup(ruleGroupEntity);
+            _dataProvider.CreateValidation(validationEntity);
 
-            RuleGroupEntity createdRuleGroupEntity = 
-                (RuleGroupEntity)_dataProvider.GetRuleGroup(ruleGroupEntity.RuleGroupID);
+            ValidationEntity createdValidationEntity = 
+                (ValidationEntity)_dataProvider.GetValidation(validationEntity.ValidationID);
 
-            createdRuleGroupEntity.ErrorMessage = "There was another problem";
+            createdValidationEntity.ErrorMessage = "There was another problem";
 
-            _dataProvider.UpdateRuleGroup(createdRuleGroupEntity);
+            _dataProvider.UpdateValidation(createdValidationEntity);
 
-            RuleGroupEntity updatedRuleGroupEntity =
-                (RuleGroupEntity) _dataProvider.GetRuleGroup(createdRuleGroupEntity.RuleGroupID);
+            ValidationEntity updatedValidationEntity =
+                (ValidationEntity) _dataProvider.GetValidation(createdValidationEntity.ValidationID);
 
             // Assert
 
             Assert.AreEqual(0,
-                new EntityComparer<RuleGroupEntity>().Compare(createdRuleGroupEntity, updatedRuleGroupEntity));
+                new EntityComparer<ValidationEntity>().Compare(createdValidationEntity, updatedValidationEntity));
         }
 
         [TestMethod]
-        public void Create_Get_Update_Rule_Succeeds()
+        public void Create_Get_Update_ValidationCondition_Succeeds()
         {
             // Arrange
-            RuleEntity ruleEntity = new RuleEntity
+            ValidationConditionEntity validationConditionEntity = new ValidationConditionEntity
             {
                 ActiveFlag = true,
                 ApplicationID = "Guardian",
@@ -88,21 +88,21 @@ namespace Guardian.Data.Tests
             };
 
             // Act
-            _dataProvider.CreateRule(ruleEntity);
+            _dataProvider.CreateValidationCondition(validationConditionEntity);
 
-            RuleEntity createdRuleEntity =
-                (RuleEntity)_dataProvider.GetRule(ruleEntity.RuleID);
+            ValidationConditionEntity createdValidationConditionEntity =
+                (ValidationConditionEntity)_dataProvider.GetValidationCondition(validationConditionEntity.ValidationConditionID);
 
-            createdRuleEntity.Expression = "2";
+            createdValidationConditionEntity.Expression = "2";
 
-            _dataProvider.UpdateRule(createdRuleEntity);
+            _dataProvider.UpdateValidationCondition(createdValidationConditionEntity);
 
-            RuleEntity updatedRuleEntity =
-                (RuleEntity)_dataProvider.GetRule(createdRuleEntity.RuleID);
+            ValidationConditionEntity updatedValidationConditionEntity =
+                (ValidationConditionEntity)_dataProvider.GetValidationCondition(createdValidationConditionEntity.ValidationConditionID);
 
             // Assert
             Assert.AreEqual(0,
-                new EntityComparer<RuleEntity>().Compare(createdRuleEntity, updatedRuleEntity));
+                new EntityComparer<ValidationConditionEntity>().Compare(createdValidationConditionEntity, updatedValidationConditionEntity));
         }
     }
 }

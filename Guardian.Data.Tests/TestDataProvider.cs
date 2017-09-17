@@ -20,18 +20,18 @@ namespace Guardian.Data.Tests
             _ctx = dbContextFactory();
         }
 
-        public override IEnumerable<IRuleGroup> GetRuleGroups(string applicationID)
+        public override IEnumerable<IValidation> GetValidations(string applicationID)
         {
-            return _ctx.RuleGroups
+            return _ctx.Validations
                 .Where(r => r.ActiveFlag)
                 .Where(r => r.ApplicationID == applicationID)
                 .AsNoTracking()
                 .ToArray();
         }
 
-        public override IEnumerable<IRule> GetRules(string applicationID)
+        public override IEnumerable<IValidationCondition> GetValidationConditions(string applicationID)
         {
-            return _ctx.Rules
+            return _ctx.ValidationConditions
                 .Where(r => r.ActiveFlag)
                 .Where(r => r.ApplicationID == applicationID)
                 .AsNoTracking()
@@ -41,76 +41,76 @@ namespace Guardian.Data.Tests
 
         // Implement these interfaces
         // Add transactions to the tests
-        public override IRuleGroup CreateRuleGroup(IRuleGroup ruleGroup)
+        public override IValidation CreateValidation(IValidation validation)
         {
-            RuleGroupEntity ruleGroupEntity = _ctx.RuleGroups.Add((RuleGroupEntity)ruleGroup);
+            ValidationEntity validationEntity = _ctx.Validations.Add((ValidationEntity)validation);
             _ctx.SaveChanges();
 
-            return ruleGroupEntity;
+            return validationEntity;
         }
 
-        public override IRuleGroup UpdateRuleGroup(IRuleGroup ruleGroup)
+        public override IValidation UpdateValidation(IValidation validation)
         {
-            RuleGroupEntity ruleGroupEntity = getRuleGroup(ruleGroup.RuleGroupID);
+            ValidationEntity validationEntity = getValidation(validation.ValidationID);
 
-            ruleGroupEntity.ApplicationID = ruleGroup.ApplicationID;
-            ruleGroupEntity.ActiveFlag = ((RuleGroupEntity)ruleGroup).ActiveFlag;
-            ruleGroupEntity.DateModifiedOffset = new DateTimeOffset(DateTime.UtcNow);
-            ruleGroupEntity.ErrorCode = ruleGroup.ErrorCode;
-            ruleGroupEntity.ErrorMessage = ruleGroup.ErrorMessage;
-            ruleGroupEntity.Expression = ruleGroup.Expression;
-
-            _ctx.SaveChanges();
-
-            return ruleGroupEntity;
-        }
-
-        public override void DeleteRuleGroup(int ruleGroupID)
-        {
-            RuleGroupEntity ruleGroupEntity = getRuleGroup(ruleGroupID);
-
-            _ctx.RuleGroups.Remove(ruleGroupEntity);
-            _ctx.SaveChanges();
-        }
-
-        public override IRuleGroup GetRuleGroup(int ruleGroupID)
-        {
-            return getRuleGroup(ruleGroupID);
-        }
-
-        public override IRule CreateRule(IRule rule)
-        {
-            RuleEntity ruleEntity = _ctx.Rules.Add((RuleEntity) rule);
-            _ctx.SaveChanges();
-
-            return ruleEntity;
-        }
-
-        public override IRule UpdateRule(IRule rule)
-        {
-            RuleEntity ruleEntity = getRule(rule.RuleID);
-
-            ruleEntity.ActiveFlag = ((RuleEntity) rule).ActiveFlag;
-            ruleEntity.ApplicationID = rule.ApplicationID;
-            ruleEntity.DateModifiedOffset = new DateTimeOffset(DateTime.UtcNow);
-            ruleEntity.Expression = rule.Expression;
+            validationEntity.ApplicationID = validation.ApplicationID;
+            validationEntity.ActiveFlag = ((ValidationEntity)validation).ActiveFlag;
+            validationEntity.DateModifiedOffset = new DateTimeOffset(DateTime.UtcNow);
+            validationEntity.ErrorCode = validation.ErrorCode;
+            validationEntity.ErrorMessage = validation.ErrorMessage;
+            validationEntity.Expression = validation.Expression;
 
             _ctx.SaveChanges();
 
-            return ruleEntity;
+            return validationEntity;
         }
 
-        public override void DeleteRule(IRule rule)
+        public override void DeleteValidation(int validationID)
         {
-            RuleEntity ruleEntity = getRule(rule.RuleID);
+            ValidationEntity validationEntity = getValidation(validationID);
 
-            _ctx.Rules.Remove(ruleEntity);
+            _ctx.Validations.Remove(validationEntity);
             _ctx.SaveChanges();
         }
 
-        public override IRule GetRule(int ruleID)
+        public override IValidation GetValidation(int validationID)
         {
-            return getRule(ruleID);
+            return getValidation(validationID);
+        }
+
+        public override IValidationCondition CreateValidationCondition(IValidationCondition validationCondition)
+        {
+            ValidationConditionEntity validationConditionEntity = _ctx.ValidationConditions.Add((ValidationConditionEntity) validationCondition);
+            _ctx.SaveChanges();
+
+            return validationConditionEntity;
+        }
+
+        public override IValidationCondition UpdateValidationCondition(IValidationCondition validationCondition)
+        {
+            ValidationConditionEntity validationConditionEntity = getValidationCondition(validationCondition.ValidationConditionID);
+
+            validationConditionEntity.ActiveFlag = ((ValidationConditionEntity) validationCondition).ActiveFlag;
+            validationConditionEntity.ApplicationID = validationCondition.ApplicationID;
+            validationConditionEntity.DateModifiedOffset = new DateTimeOffset(DateTime.UtcNow);
+            validationConditionEntity.Expression = validationCondition.Expression;
+
+            _ctx.SaveChanges();
+
+            return validationConditionEntity;
+        }
+
+        public override void DeleteValidationCondition(IValidationCondition validationCondition)
+        {
+            ValidationConditionEntity validationConditionEntity = getValidationCondition(validationCondition.ValidationConditionID);
+
+            _ctx.ValidationConditions.Remove(validationConditionEntity);
+            _ctx.SaveChanges();
+        }
+
+        public override IValidationCondition GetValidationCondition(int validationConditionID)
+        {
+            return getValidationCondition(validationConditionID);
         }
 
         public override void BeginTransaction()
@@ -128,17 +128,17 @@ namespace Guardian.Data.Tests
             _trx.Rollback();
         }
 
-        private RuleEntity getRule(int ruleID)
+        private ValidationConditionEntity getValidationCondition(int validationConditionID)
         {
-            return _ctx.Rules
-                .Where(r => r.RuleID == ruleID)
+            return _ctx.ValidationConditions
+                .Where(r => r.ValidationConditionID == validationConditionID)
                 .SingleOrDefault();
         }
 
-        private RuleGroupEntity getRuleGroup(int ruleGroupID)
+        private ValidationEntity getValidation(int validationID)
         {
-            return _ctx.RuleGroups
-                .Where(r => r.RuleGroupID == ruleGroupID)
+            return _ctx.Validations
+                .Where(r => r.ValidationID == validationID)
                 .SingleOrDefault();
         }
     }

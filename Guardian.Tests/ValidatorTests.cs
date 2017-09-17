@@ -38,18 +38,18 @@ namespace Guardian.Tests
             // Arrange
             _document = null;
 
-            List<RuleGroup> ruleGroups = new List<RuleGroup>()
+            List<Validation> validations = new List<Validation>()
             {
-                RuleGroups.Target_NotNull
+                Validations.Target_NotNull
             };
 
             Validator validator = new Validator(_testServices.PostfixConverter);
 
             // Act
-            List<ValidationError> results = validator.Validate(_document, ruleGroups, Rules.All);
+            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
-            List<ValidationError> expectedResults = ruleGroups.Select(r => r.ToValidationError()).ToList();
+            List<ValidationError> expectedResults = validations.Select(r => r.ToValidationError()).ToList();
             CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
         }
 
@@ -60,18 +60,18 @@ namespace Guardian.Tests
             _document = Documents.Document;
             _document.Title = null;
 
-            List<RuleGroup> ruleGroups = new List<RuleGroup>()
+            List<Validation> validations = new List<Validation>()
             {
-                RuleGroups.Document_Title_NotNull
+                Validations.Document_Title_NotNull
             };
 
             Validator validator = new Validator(_testServices.PostfixConverter);
 
             // Act
-            List<ValidationError> results = validator.Validate(_document, ruleGroups, Rules.All);
+            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
-            List<ValidationError> expectedResults = ruleGroups.Select(r => r.ToValidationError()).ToList();
+            List<ValidationError> expectedResults = validations.Select(r => r.ToValidationError()).ToList();
             CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
         }
 
@@ -81,15 +81,15 @@ namespace Guardian.Tests
             // Arrange
             _document = Documents.Document;
 
-            List<RuleGroup> ruleGroups = new List<RuleGroup>()
+            List<Validation> validations = new List<Validation>()
             {
-                RuleGroups.Document_Title_NotNull
+                Validations.Document_Title_NotNull
             };
 
             Validator validator = new Validator(_testServices.PostfixConverter);
 
             // Act
-            List<ValidationError> results = validator.Validate(_document, ruleGroups, Rules.All);
+            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
@@ -102,18 +102,18 @@ namespace Guardian.Tests
             // Arrange
             _document = Documents.Document;
 
-            List<RuleGroup> ruleGroups = new List<RuleGroup>()
+            List<Validation> validations = new List<Validation>()
             {
-                RuleGroups.Document_Title_OfExpectedLength
+                Validations.Document_Title_OfExpectedLength
             };
 
             Validator validator = new Validator(_testServices.PostfixConverter);
 
             // Act
-            List<ValidationError> results = validator.Validate(_document, ruleGroups, Rules.All);
+            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
-            List<ValidationError> expectedResults = ruleGroups.Select(r => r.ToValidationError()).ToList();
+            List<ValidationError> expectedResults = validations.Select(r => r.ToValidationError()).ToList();
             CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
         }
 
@@ -124,15 +124,15 @@ namespace Guardian.Tests
             _document = Documents.Document;
             _document.Title = "Test";
 
-            List<RuleGroup> ruleGroups = new List<RuleGroup>()
+            List<Validation> validations = new List<Validation>()
             {
-                RuleGroups.Document_Title_OfExpectedLength
+                Validations.Document_Title_OfExpectedLength
             };
 
             Validator validator = new Validator(_testServices.PostfixConverter);
 
             // Act
-            List<ValidationError> results = validator.Validate(_document, ruleGroups, Rules.All);
+            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
@@ -146,15 +146,15 @@ namespace Guardian.Tests
             _document = Documents.Document;
             _document.Title = null;
 
-            List<RuleGroup> ruleGroups = new List<RuleGroup>()
+            List<Validation> validations = new List<Validation>()
             {
-                RuleGroups.Document_Title_OfExpectedLength
+                Validations.Document_Title_OfExpectedLength
             };
 
             Validator validator = new Validator(_testServices.PostfixConverter);
 
             // Act
-            List<ValidationError> results = validator.Validate(_document, ruleGroups, Rules.All);
+            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
@@ -172,18 +172,18 @@ namespace Guardian.Tests
                 Tags.PublicTag
             };
 
-            List<RuleGroup> ruleGroups = new List<RuleGroup>()
+            List<Validation> validations = new List<Validation>()
             {
-                RuleGroups.Public_Document_RequiresTitle
+                Validations.Public_Document_RequiresTitle
             };
 
             Validator validator = new Validator(_testServices.PostfixConverter);
 
             // Act
-            List<ValidationError> results = validator.Validate(_document, ruleGroups, Rules.All);
+            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
-            List<ValidationError> expectedResults = ruleGroups.Select(r => r.ToValidationError()).ToList();
+            List<ValidationError> expectedResults = validations.Select(r => r.ToValidationError()).ToList();
             CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
         }
 
@@ -198,15 +198,15 @@ namespace Guardian.Tests
                 Tags.PrivateTag
             };
 
-            List<RuleGroup> ruleGroups = new List<RuleGroup>()
+            List<Validation> validations = new List<Validation>()
             {
-                RuleGroups.Public_Document_RequiresTitle
+                Validations.Public_Document_RequiresTitle
             };
 
             Validator validator = new Validator(_testServices.PostfixConverter);
 
             // Act
-            List<ValidationError> results = validator.Validate(_document, ruleGroups, Rules.All);
+            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
@@ -221,15 +221,15 @@ namespace Guardian.Tests
             _document.Title = null;
             _document.Tags = new List<Tag>() {};
 
-            List<RuleGroup> ruleGroups = new List<RuleGroup>()
+            List<Validation> validations = new List<Validation>()
             {
-                RuleGroups.Public_Document_RequiresTitle
+                Validations.Public_Document_RequiresTitle
             };
 
             Validator validator = new Validator(_testServices.PostfixConverter);
 
             // Act
-            List<ValidationError> results = validator.Validate(_document, ruleGroups, Rules.All);
+            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
@@ -243,15 +243,15 @@ namespace Guardian.Tests
             _document = Documents.Document;
             _document.Title = null;
 
-            List<RuleGroup> ruleGroups = new List<RuleGroup>()
+            List<Validation> validations = new List<Validation>()
             {
-                RuleGroups.Public_Document_RequiresTitle
+                Validations.Public_Document_RequiresTitle
             };
 
             Validator validator = new Validator(_testServices.PostfixConverter);
 
             // Act
-            List<ValidationError> results = validator.Validate(_document, ruleGroups, Rules.All);
+            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
@@ -268,15 +268,15 @@ namespace Guardian.Tests
                 Tags.PrivateTag
             };
 
-            List<RuleGroup> ruleGroups = new List<RuleGroup>()
+            List<Validation> validations = new List<Validation>()
             {
-                RuleGroups.Public_Document_RequiresTitle
+                Validations.Public_Document_RequiresTitle
             };
 
             Validator validator = new Validator(_testServices.PostfixConverter);
 
             // Act
-            List<ValidationError> results = validator.Validate(_document, ruleGroups, Rules.All);
+            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
@@ -293,15 +293,15 @@ namespace Guardian.Tests
                 Tags.PublicTag
             };
 
-            List<RuleGroup> ruleGroups = new List<RuleGroup>()
+            List<Validation> validations = new List<Validation>()
             {
-                RuleGroups.Public_Document_RequiresTitle
+                Validations.Public_Document_RequiresTitle
             };
 
             Validator validator = new Validator(_testServices.PostfixConverter);
 
             // Act
-            List<ValidationError> results = validator.Validate(_document, ruleGroups, Rules.All);
+            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
@@ -319,18 +319,18 @@ namespace Guardian.Tests
                 Tags.PrivateTag
             };
 
-            List<RuleGroup> ruleGroups = new List<RuleGroup>()
+            List<Validation> validations = new List<Validation>()
             {
-                RuleGroups.Document_HasTags_And_IsPublic_Or_HasTitle
+                Validations.Document_HasTags_And_IsPublic_Or_HasTitle
             };
 
             Validator validator = new Validator(_testServices.PostfixConverter);
 
             // Act
-            List<ValidationError> results = validator.Validate(_document, ruleGroups, Rules.All);
+            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
-            List<ValidationError> expectedResults = ruleGroups.Select(r => r.ToValidationError()).ToList();
+            List<ValidationError> expectedResults = validations.Select(r => r.ToValidationError()).ToList();
             CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
         }
 
@@ -345,15 +345,15 @@ namespace Guardian.Tests
                 Tags.PrivateTag
             };
 
-            List<RuleGroup> ruleGroups = new List<RuleGroup>()
+            List<Validation> validations = new List<Validation>()
             {
-                RuleGroups.Document_HasTags_And_Either_IsPublic_Or_HasTitle
+                Validations.Document_HasTags_And_Either_IsPublic_Or_HasTitle
             };
 
             Validator validator = new Validator(_testServices.PostfixConverter);
 
             // Act
-            List<ValidationError> results = validator.Validate(_document, ruleGroups, Rules.All);
+            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
@@ -366,18 +366,18 @@ namespace Guardian.Tests
             // Arrange
             _document = Documents.Document;
 
-            List<RuleGroup> ruleGroups = new List<RuleGroup>()
+            List<Validation> validations = new List<Validation>()
             {
-                RuleGroups.OrderOfOperations_TrueAndTrueOrFalse_ReturnsError
+                Validations.OrderOfOperations_TrueAndTrueOrFalse_ReturnsError
             };
 
             Validator validator = new Validator(_testServices.PostfixConverter);
 
             // Act
-            List<ValidationError> results = validator.Validate(_document, ruleGroups, Rules.All);
+            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
-            List<ValidationError> expectedResults = ruleGroups.Select(r => r.ToValidationError()).ToList();
+            List<ValidationError> expectedResults = validations.Select(r => r.ToValidationError()).ToList();
             CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
         }
 
@@ -388,15 +388,15 @@ namespace Guardian.Tests
             // Arrange
             _document = Documents.Document;
 
-            List<RuleGroup> ruleGroups = new List<RuleGroup>()
+            List<Validation> validations = new List<Validation>()
             {
-                RuleGroups.OrderOfOperations_TrueAndFalseOrFalse_ReturnsNoError
+                Validations.OrderOfOperations_TrueAndFalseOrFalse_ReturnsNoError
             };
 
             Validator validator = new Validator(_testServices.PostfixConverter);
 
             // Act
-            List<ValidationError> results = validator.Validate(_document, ruleGroups, Rules.All);
+            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
@@ -409,18 +409,18 @@ namespace Guardian.Tests
             // Arrange
             _document = Documents.Document;
 
-            List<RuleGroup> ruleGroups = new List<RuleGroup>()
+            List<Validation> validations = new List<Validation>()
             {
-                RuleGroups.OrderOfOperations_TrueAndFalseOrTrue_ReturnsError
+                Validations.OrderOfOperations_TrueAndFalseOrTrue_ReturnsError
             };
 
             Validator validator = new Validator(_testServices.PostfixConverter);
 
             // Act
-            List<ValidationError> results = validator.Validate(_document, ruleGroups, Rules.All);
+            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
-            List<ValidationError> expectedResults = ruleGroups.Select(r => r.ToValidationError()).ToList();
+            List<ValidationError> expectedResults = validations.Select(r => r.ToValidationError()).ToList();
             CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
         }
 
@@ -430,18 +430,18 @@ namespace Guardian.Tests
             // Arrange
             _document = Documents.Document;
 
-            List<RuleGroup> ruleGroups = new List<RuleGroup>()
+            List<Validation> validations = new List<Validation>()
             {
-                RuleGroups.OrderOfOperations_FalseOrTrueAndTrue_ReturnsError
+                Validations.OrderOfOperations_FalseOrTrueAndTrue_ReturnsError
             };
 
             Validator validator = new Validator(_testServices.PostfixConverter);
 
             // Act
-            List<ValidationError> results = validator.Validate(_document, ruleGroups, Rules.All);
+            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
-            List<ValidationError> expectedResults = ruleGroups.Select(r => r.ToValidationError()).ToList();
+            List<ValidationError> expectedResults = validations.Select(r => r.ToValidationError()).ToList();
             CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
         }
 
@@ -451,15 +451,15 @@ namespace Guardian.Tests
             // Arrange
             _document = Documents.Document;
 
-            List<RuleGroup> ruleGroups = new List<RuleGroup>()
+            List<Validation> validations = new List<Validation>()
             {
-                RuleGroups.OrderOfOperations_Not_FalseOrTrueAndTrue_ReturnsNoError
+                Validations.OrderOfOperations_Not_FalseOrTrueAndTrue_ReturnsNoError
             };
 
             Validator validator = new Validator(_testServices.PostfixConverter);
 
             // Act
-            List<ValidationError> results = validator.Validate(_document, ruleGroups, Rules.All);
+            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();

@@ -54,13 +54,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataProviderTests.cs" />
-    <Compile Include="EntityFramework\Entities\RuleEntity.cs" />
-    <Compile Include="EntityFramework\Entities\RuleGroupEntity.cs" />
-    <Compile Include="EntityFramework\Migrations\201708272250135_Initial.cs" />
-    <Compile Include="EntityFramework\Migrations\201708272250135_Initial.Designer.cs">
-      <DependentUpon>201708272250135_Initial.cs</DependentUpon>
+    <Compile Include="EntityFramework\Entities\ValidationConditionEntity.cs" />
+    <Compile Include="EntityFramework\Entities\ValidationEntity.cs" />
+    <Compile Include="Migrations\201709171755410_Initial.cs" />
+    <Compile Include="Migrations\201709171755410_Initial.Designer.cs">
+      <DependentUpon>201709171755410_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="EntityFramework\Migrations\Configuration.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EntityFramework\EntityComparer.cs" />
     <Compile Include="TestDataProvider.cs" />
@@ -84,8 +84,8 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="EntityFramework\Migrations\201708272250135_Initial.resx">
-      <DependentUpon>201708272250135_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201709171755410_Initial.resx">
+      <DependentUpon>201709171755410_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

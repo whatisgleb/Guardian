@@ -43,29 +43,29 @@ namespace Guardian.Library.ExpressionTree
         /// Convenience constructor to enable easy to write Unit Tests.
         /// </summary>
         /// <param name="token">Token Representation of the current node.</param>
-        /// <param name="leftRuleID">RuleID Representation of the leftRuleID child Identifier node.</param>
-        /// <param name="rightRuleID">RuleID Representation of the rightRuleID child Identifier node.</param>
-        public ExpressionTreeNode(IToken token, int leftRuleID, int? rightRuleID)
+        /// <param name="leftID">ValidationConditionID Representation of the leftID child Identifier node.</param>
+        /// <param name="rightID">ValidationConditionID Representation of the rightID child Identifier node.</param>
+        public ExpressionTreeNode(IToken token, int leftID, int? rightID)
             : this(
-                token, new ExpressionTreeNode(new IdentifierToken(leftRuleID)),
-                rightRuleID.HasValue ? new ExpressionTreeNode(new IdentifierToken(rightRuleID.Value)) : null) {}
+                token, new ExpressionTreeNode(new IdentifierToken(leftID)),
+                rightID.HasValue ? new ExpressionTreeNode(new IdentifierToken(rightID.Value)) : null) {}
 
         /// <summary>
         /// Convenience constructor to enable easy to write Unit Tests.
         /// </summary>
         /// <param name="token">Token Representation of the current node.</param>
         /// <param name="left">Left child node.</param>
-        /// <param name="rightRuleID">RuleID Representation of the rightRuleID child Identifier node.</param>
-        public ExpressionTreeNode(IToken token, ExpressionTreeNode left, int? rightRuleID)
-            : this(token, left, rightRuleID.HasValue ? new ExpressionTreeNode(new IdentifierToken(rightRuleID.Value)) : null) {}
+        /// <param name="rightID">ValidationConditionID Representation of the rightID child Identifier node.</param>
+        public ExpressionTreeNode(IToken token, ExpressionTreeNode left, int? rightID)
+            : this(token, left, rightID.HasValue ? new ExpressionTreeNode(new IdentifierToken(rightID.Value)) : null) {}
 
         /// <summary>
         /// Convenience constructor to enable easy to write Unit Tests.
         /// </summary>
         /// <param name="token">Token Representation of the current node.</param>
-        /// <param name="leftRuleID">RuleID Representation of the leftRuleID child Identifier node.</param>
+        /// <param name="leftID">ValidationConditionID Representation of the leftID child Identifier node.</param>
         /// <param name="right">Right child node.</param>
-        public ExpressionTreeNode(IToken token, int leftRuleID, ExpressionTreeNode right = null)
-            : this(token, new ExpressionTreeNode(new IdentifierToken(leftRuleID)), right) {}
+        public ExpressionTreeNode(IToken token, int leftID, ExpressionTreeNode right = null)
+            : this(token, new ExpressionTreeNode(new IdentifierToken(leftID)), right) {}
     }
 }

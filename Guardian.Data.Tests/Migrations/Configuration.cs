@@ -1,6 +1,7 @@
 using System.Data.Entity.Migrations;
+using Guardian.Data.Tests.EntityFramework;
 
-namespace Guardian.Data.Tests.EntityFramework.Migrations
+namespace Guardian.Data.Tests.Migrations
 {
     internal sealed class Configuration : DbMigrationsConfiguration<TestDbContext>
     {

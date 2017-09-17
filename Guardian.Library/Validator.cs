@@ -17,31 +17,31 @@ namespace Guardian.Library
     {
         private IPostfixConverter _postfixConverter;
         private ExpressionTreeBuilder _treeBuilder;
-        private Dictionary<int, bool> _ruleOutcomes;
+        private Dictionary<int, bool> _validationConditionResultDictionary;
 
         public Validator(IPostfixConverter postfixConverter)
         {
             _postfixConverter = postfixConverter;
             _treeBuilder = new ExpressionTreeBuilder();
-            _ruleOutcomes = new Dictionary<int, bool>();
+            _validationConditionResultDictionary = new Dictionary<int, bool>();
         }
 
-        public List<ValidationError> Validate<T>(T target, IEnumerable<IRuleGroup> ruleGroups, IEnumerable<IRule> rules)
+        public List<ValidationError> Validate<T>(T target, IEnumerable<IValidation> validations, IEnumerable<IValidationCondition> validationConditions)
         {
             List<ValidationError> errors = new List<ValidationError>();
 
-            // Evaluate rule groups
-            foreach (var ruleGroup in ruleGroups)
+            // Evaluate validation conditions
+            foreach (var validation in validations)
             {
-                Stack<IToken> postfixTokens = _postfixConverter.ConvertToStack(ruleGroup.Expression);
+                Stack<IToken> postfixTokens = _postfixConverter.ConvertToStack(validation.Expression);
                 ExpressionTreeNode root = _treeBuilder.BuildExpressionTree(postfixTokens);
 
-                if (EvaluateNode(root, target, rules))
+                if (EvaluateNode(root, target, validationConditions))
                 {
                     errors.Add(new ValidationError()
                     {
-                        ErrorMessage = ruleGroup.ErrorMessage,
-                        ErrorCode = ruleGroup.ErrorCode
+                        ErrorMessage = validation.ErrorMessage,
+                        ErrorCode = validation.ErrorCode
                     });
                 }
             }
@@ -49,38 +49,38 @@ namespace Guardian.Library
             return errors;
         }
 
-        private bool EvaluateNode<T>(ExpressionTreeNode node, T target, IEnumerable<IRule> rules)
+        private bool EvaluateNode<T>(ExpressionTreeNode node, T target, IEnumerable<IValidationCondition> validationConditions)
         {
             if (!node.Token.IsOperatorToken())
             {
                 IIdentifier identifier = (IIdentifier) node.Token;
 
-                IRule rule = rules.FirstOrDefault(r => r.RuleID == identifier.ID);
+                IValidationCondition validationCondition = validationConditions.FirstOrDefault(r => r.ValidationConditionID == identifier.ID);
 
-                return EvaluateRule(target, rule);
+                return EvaluateValidationCondition(target, validationCondition);
             }
             else
             {
                 IOperator op = (IOperator) node.Token;
 
-                return op.Evaluate(() => EvaluateNode(node.Left, target, rules),
-                    () => EvaluateNode(node.Right, target, rules));
+                return op.Evaluate(() => EvaluateNode(node.Left, target, validationConditions),
+                    () => EvaluateNode(node.Right, target, validationConditions));
             }
         }
 
-        private bool EvaluateRule<T>(T target, IRule rule)
+        private bool EvaluateValidationCondition<T>(T target, IValidationCondition validationCondition)
         {
-            if (!_ruleOutcomes.ContainsKey(rule.RuleID))
+            if (!_validationConditionResultDictionary.ContainsKey(validationCondition.ValidationConditionID))
             {
                 ParameterExpression parameterExpression = Expression.Parameter(typeof(T), typeof(T).Name);
-                LambdaExpression expression = DynamicExpression.ParseLambda(new[] {parameterExpression}, typeof(bool), rule.Expression);
+                LambdaExpression expression = DynamicExpression.ParseLambda(new[] {parameterExpression}, typeof(bool), validationCondition.Expression);
 
                 bool outcome = (bool) expression.Compile().DynamicInvoke(target);
 
-                _ruleOutcomes.Add(rule.RuleID, outcome);
+                _validationConditionResultDictionary.Add(validationCondition.ValidationConditionID, outcome);
             }
 
-            return _ruleOutcomes[rule.RuleID];
+            return _validationConditionResultDictionary[validationCondition.ValidationConditionID];
         }
     }
 }

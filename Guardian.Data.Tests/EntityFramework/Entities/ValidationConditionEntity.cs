@@ -3,22 +3,22 @@ using Guardian.Common.Interfaces;
 
 namespace Guardian.Data.Tests.EntityFramework.Entities
 {
-    internal class RuleEntity : IRule
+    internal class ValidationConditionEntity : IValidationCondition
     {
-        public static RuleEntity FromInterface(IRule rule)
+        public static ValidationConditionEntity FromInterface(IValidationCondition validationCondition)
         {
-            return new RuleEntity
+            return new ValidationConditionEntity
             {
                 ActiveFlag = true,
-                ApplicationID = rule.ApplicationID,
-                Expression = rule.Expression,
+                ApplicationID = validationCondition.ApplicationID,
+                Expression = validationCondition.Expression,
 
                 DateCreatedOffset = new DateTimeOffset(),
                 DateModifiedOffset = new DateTimeOffset()
             };
         }
 
-        public int RuleID { get; set; }
+        public int ValidationConditionID { get; set; }
         public bool ActiveFlag { get; set; }
         public string Expression { get; set; }
         public string ApplicationID { get; set; }

@@ -11,8 +11,8 @@ namespace Guardian.Data.Tests.EntityFramework
             this.Configuration.LazyLoadingEnabled = false;
         }
 
-        public DbSet<RuleGroupEntity> RuleGroups { get; set; }
-        public DbSet<RuleEntity> Rules { get; set; }
+        public DbSet<ValidationEntity> Validations { get; set; }
+        public DbSet<ValidationConditionEntity> ValidationConditions { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -21,13 +21,13 @@ namespace Guardian.Data.Tests.EntityFramework
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
-            modelBuilder.Entity<RuleEntity>()
-                .ToTable("Rules")
-                .HasKey(r => r.RuleID);
+            modelBuilder.Entity<ValidationConditionEntity>()
+                .ToTable("ValidationConditions")
+                .HasKey(r => r.ValidationConditionID);
 
-            modelBuilder.Entity<RuleGroupEntity>()
-                .ToTable("RuleGroups")
-                .HasKey(r => r.RuleGroupID);
+            modelBuilder.Entity<ValidationEntity>()
+                .ToTable("Validations")
+                .HasKey(r => r.ValidationID);
         }
     }
 }

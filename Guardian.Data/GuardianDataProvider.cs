@@ -9,17 +9,17 @@ namespace Guardian.Data
         public abstract void CommitTransaction();
         public abstract void RollbackTransaction();
 
-        public abstract IRuleGroup CreateRuleGroup(IRuleGroup ruleGroup);
-        public abstract IRuleGroup UpdateRuleGroup(IRuleGroup ruleGroup);
-        public abstract void DeleteRuleGroup(int ruleGroupID);
-        public abstract IRuleGroup GetRuleGroup(int ruleGroupID);
-        public abstract IEnumerable<IRuleGroup> GetRuleGroups(string applicationID);
+        public abstract IValidation CreateValidation(IValidation validation);
+        public abstract IValidation UpdateValidation(IValidation validation);
+        public abstract void DeleteValidation(int validationID);
+        public abstract IValidation GetValidation(int validationID);
+        public abstract IEnumerable<IValidation> GetValidations(string applicationID);
 
 
-        public abstract IRule CreateRule(IRule rule);
-        public abstract IRule UpdateRule(IRule rule);
-        public abstract void DeleteRule(IRule rule);
-        public abstract IRule GetRule(int ruleID);
-        public abstract IEnumerable<IRule> GetRules(string applicationID);
+        public abstract IValidationCondition CreateValidationCondition(IValidationCondition validationCondition);
+        public abstract IValidationCondition UpdateValidationCondition(IValidationCondition validationCondition);
+        public abstract void DeleteValidationCondition(IValidationCondition validationCondition);
+        public abstract IValidationCondition GetValidationCondition(int validationConditionID);
+        public abstract IEnumerable<IValidationCondition> GetValidationConditions(string applicationID);
     }
 }

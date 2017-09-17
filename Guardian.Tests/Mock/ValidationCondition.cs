@@ -3,9 +3,9 @@ using Guardian.Library;
 
 namespace Guardian.Tests.Mock
 {
-    public class Rule : IRule
+    public class ValidationCondition : IValidationCondition
     {
-        public int RuleID { get; set; }
+        public int ValidationConditionID { get; set; }
         public string ApplicationName { get; set; }
         public string ParameterName { get; set; }
         public string Expression { get; set; }
