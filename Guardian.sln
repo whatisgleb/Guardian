@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guardian.Data.Tests", "Guar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guardian.Common", "Guardian.Common\Guardian.Common.csproj", "{55E8086E-A2FC-478A-8DB7-F2F73FEAEDD8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guardian.Web", "Guardian.Web\Guardian.Web.csproj", "{87F1FBA9-3398-49B4-AB64-70A11DA139B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guardian.Website", "Guardian.Website\Guardian.Website.csproj", "{E37EA1B6-754D-4F62-8B4E-2523270DBA23}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{55E8086E-A2FC-478A-8DB7-F2F73FEAEDD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55E8086E-A2FC-478A-8DB7-F2F73FEAEDD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55E8086E-A2FC-478A-8DB7-F2F73FEAEDD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87F1FBA9-3398-49B4-AB64-70A11DA139B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87F1FBA9-3398-49B4-AB64-70A11DA139B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87F1FBA9-3398-49B4-AB64-70A11DA139B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87F1FBA9-3398-49B4-AB64-70A11DA139B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E37EA1B6-754D-4F62-8B4E-2523270DBA23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E37EA1B6-754D-4F62-8B4E-2523270DBA23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E37EA1B6-754D-4F62-8B4E-2523270DBA23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E37EA1B6-754D-4F62-8B4E-2523270DBA23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
