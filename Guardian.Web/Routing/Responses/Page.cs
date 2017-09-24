@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Guardian.Web.Helpers;
+using Guardian.Web.Owin;
 using Guardian.Web.Routing.Responses.Interfaces;
 
 namespace Guardian.Web.Routing.Responses
@@ -15,8 +16,11 @@ namespace Guardian.Web.Routing.Responses
             _name = name;
         }
 
-        public void CopyTo(Stream stream)
+        public void Execute(GuardianOwinContext context)
         {
+            context.Response.ContentType = ContentType;
+            context.Response.SetExpire(DateTimeOffset.UtcNow.AddMinutes(1));
+
             var executingAssembly = ReflectionHelper.GetExecutingAssembly();
             var pagePath = $"{executingAssembly.GetName().Name}.Pages.{_name}.html";
 
@@ -27,7 +31,7 @@ namespace Guardian.Web.Routing.Responses
                     throw new ArgumentException($"Page, '{_name}' not found in assembly {executingAssembly}.");
                 }
 
-                inputStream.CopyTo(stream);
+                inputStream.CopyTo(context.Response.Body);
             }
         }
     }

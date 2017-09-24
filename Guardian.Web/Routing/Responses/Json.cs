@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
+using Guardian.Web.Owin;
 using Guardian.Web.Routing.Responses.Interfaces;
 using Newtonsoft.Json;
 
@@ -15,11 +17,14 @@ namespace Guardian.Web.Routing.Responses
             _payload = payload;
         }
 
-        public void CopyTo(Stream stream)
+        public void Execute(GuardianOwinContext context)
         {
+            context.Response.ContentType = ContentType;
+            context.Response.SetExpire(DateTimeOffset.UtcNow.AddMinutes(1));
+
             string serialized = JsonConvert.SerializeObject(_payload);
             byte[] bytes = Encoding.UTF8.GetBytes(serialized);
-            new MemoryStream(bytes).CopyTo(stream);
+            new MemoryStream(bytes).CopyTo(context.Response.Body);
         }
     }
 }

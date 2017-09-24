@@ -42,9 +42,7 @@ namespace Guardian.Web.Routing
 
             IResponse response = (IResponse)_methodInfo.Invoke(controllerInstance, methodParameters.ToArray());
 
-            populateResponse(context, response);
-
-            return Task.FromResult(true);
+            return Task.Factory.StartNew(() => response.Execute(context));
         }
 
         private object getControllerInstance()
@@ -62,13 +60,6 @@ namespace Guardian.Web.Routing
 
                 return Encoding.UTF8.GetString(bytes);
             }
-        }
-
-        private void populateResponse(GuardianOwinContext context, IResponse response)
-        {
-            context.Response.ContentType = response.ContentType;
-            context.Response.SetExpire(DateTimeOffset.UtcNow.AddMinutes(1));
-            response.CopyTo(context.Response.Body);
         }
     }
 }

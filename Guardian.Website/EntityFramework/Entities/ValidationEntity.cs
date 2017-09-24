@@ -10,6 +10,7 @@ namespace Guardian.Website.EntityFramework.Entities
     {
         public ValidationEntity()
         {
+            ActiveFlag = true;
             DateCreatedOffset = DateTimeOffset.UtcNow;
         }
 
