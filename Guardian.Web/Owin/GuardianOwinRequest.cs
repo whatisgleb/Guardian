@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,13 +25,8 @@ namespace Guardian.Web.Owin
         public override string PathBase => _context.Request.PathBase.Value;
         public override string LocalIpAddress => _context.Request.LocalIpAddress;
         public override string RemoteIpAddress => _context.Request.RemoteIpAddress;
+        public override Stream Body => _context.Request.Body;
 
         public override string GetQuery(string key) => _context.Request.Query[key];
-
-        public override async Task<IList<string>> GetFormValuesAsync(string key)
-        {
-            var form = await _context.Request.ReadFormAsync();
-            return form.GetValues(key) ?? new List<string>();
-        }
     }
 }

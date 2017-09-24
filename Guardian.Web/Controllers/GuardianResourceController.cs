@@ -2,13 +2,16 @@
 using System.IO;
 using System.Threading.Tasks;
 using Guardian.Web.Abstractions;
-using Guardian.Web.Attributes;
 using Guardian.Web.Helpers;
+using Guardian.Web.Routing;
+using Guardian.Web.Routing.Attributes;
+using Guardian.Web.Routing.Responses;
+using Guardian.Web.Routing.Responses.Interfaces;
 
 namespace Guardian.Web.Controllers
 {
     [RoutePrefix("content")]
-    public class GuardianResourceController : GuardianBaseController
+    public class GuardianResourceController
     {
         private string[] _javascripts = new string[]
         {
@@ -21,20 +24,16 @@ namespace Guardian.Web.Controllers
             "bootstrap.min.css"
         };
 
-        public GuardianResourceController(GuardianContext context) : base(context)
-        {
-        }
-
         [Route("css")]
-        public Task Style()
+        public IResponse Style()
         {
-            return Resource(_stylesheets, "Content.css", "text/css");
+            return new CssBundle(_stylesheets);
         }
 
         [Route("scripts")]
-        public Task Script()
+        public IResponse Script()
         {
-            return Resource(_javascripts, "Content.scripts", "text/javascript");
+            return new JsBundle(_javascripts);
         }
     }
 }

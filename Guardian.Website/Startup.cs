@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using Guardian.Web;
 using Guardian.Web.Extensions;
+using Guardian.Website.EntityFramework;
+using Guardian.Website.Guardian;
 using Microsoft.Owin;
 using Owin;
 
@@ -13,7 +15,12 @@ namespace Guardian.Website
     {
         public void Configuration(IAppBuilder app)
         {
-            app.UseGuardianDashboard();
+            string applicationID = "DemoApplication";
+
+            app.UseGuardianDashboard(new GuardianOptions(applicationID)
+            {
+                GuardianDataProviderFactory = () => new ApplicationValidationDataProvider(() => new ApplicationDbContext())
+            });
         }
     }
 }

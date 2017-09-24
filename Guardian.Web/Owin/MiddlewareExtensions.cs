@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
+using Guardian.Data;
 using Guardian.Web.Routing;
 using Microsoft.Owin;
 
@@ -23,9 +24,12 @@ namespace Guardian.Web.Owin
 
     public static class MiddlewareExtensions
     {
-        public static BuildFunc UseGuardianDashboard(this BuildFunc builder)
+        public static BuildFunc UseGuardianDashboard(this BuildFunc builder, GuardianOptions options)
         {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
+            if (options == null) throw new ArgumentNullException(nameof(options));
+
+            GuardianOptionsFactory.RegisterOptionsFactory(() => options);
 
             builder(_ => UseGuardianDashboard());
 
@@ -38,16 +42,15 @@ namespace Guardian.Web.Owin
                 next =>
                     env =>
                     {
-                        var context = new GuardianOwinContext(env);
-                        
-                        RouteHandler handler = GuardianRouter.GetRouteHandler(context.Request.Path);
+                        GuardianOwinContext context = new GuardianOwinContext(env);
+                        RouteHandler handler = GuardianRouter.GetRouteHandler(context);
 
                         if (handler == null)
                         {
                             return next(env);
                         }
 
-                        return handler.Execute(context);
+                        return handler.HandleRequest(context);
                     };
         }
 

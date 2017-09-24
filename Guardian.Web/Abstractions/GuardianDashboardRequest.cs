@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Guardian.Web.Abstractions
@@ -11,8 +12,8 @@ namespace Guardian.Web.Abstractions
 
         public abstract string LocalIpAddress { get; }
         public abstract string RemoteIpAddress { get; }
+        public abstract Stream Body { get; }
 
         public abstract string GetQuery(string key);
-        public abstract Task<IList<string>> GetFormValuesAsync(string key);
     }
 }

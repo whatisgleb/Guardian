@@ -16,12 +16,12 @@ namespace Guardian.Web.Extensions
 
     public static class AppBuilderExtensions
     {
-        public static IAppBuilder UseGuardianDashboard(this IAppBuilder builder)
+        public static IAppBuilder UseGuardianDashboard(this IAppBuilder builder, GuardianOptions options)
         {
             builder.Map("/guardian",
                 subApp => subApp
                     .UseOwin()
-                    .UseGuardianDashboard());
+                    .UseGuardianDashboard(options));
 
             return builder;
         }

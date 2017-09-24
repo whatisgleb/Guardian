@@ -1,19 +1,18 @@
 ﻿using System.Threading.Tasks;
 using Guardian.Web.Abstractions;
-using Guardian.Web.Attributes;
+using Guardian.Web.Routing;
+using Guardian.Web.Routing.Attributes;
+using Guardian.Web.Routing.Responses;
+using Guardian.Web.Routing.Responses.Interfaces;
 
 namespace Guardian.Web.Controllers
 {
-    public class GuardianDashboardController : GuardianBaseController
+    public class GuardianDashboardController
     {
-        public GuardianDashboardController(GuardianContext context) : base(context)
-        {
-        }
-
         [Route("dashboard")]
-        public Task Dashboard()
+        public IResponse Dashboard()
         {
-            return Page(nameof(Dashboard));
+            return new Page(nameof(Dashboard));
         }
     }
 }
