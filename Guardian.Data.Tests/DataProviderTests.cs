@@ -48,8 +48,8 @@ namespace Guardian.Data.Tests
             {
                 ActiveFlag = true,
                 ApplicationID = "Guardian",
-                DateCreatedOffset = new DateTimeOffset(DateTime.UtcNow),
-                DateModifiedOffset = new DateTimeOffset(DateTime.UtcNow),
+                DateCreatedOffset = DateTimeOffset.UtcNow,
+                DateModifiedOffset = DateTimeOffset.UtcNow,
                 ErrorCode = 0,
                 ErrorMessage = "There was a problem",
                 Expression = "1"
@@ -82,8 +82,8 @@ namespace Guardian.Data.Tests
             {
                 ActiveFlag = true,
                 ApplicationID = "Guardian",
-                DateCreatedOffset = new DateTimeOffset(DateTime.UtcNow),
-                DateModifiedOffset = new DateTimeOffset(DateTime.UtcNow),
+                DateCreatedOffset = DateTimeOffset.UtcNow,
+                DateModifiedOffset = DateTimeOffset.UtcNow,
                 Expression = "1"
             };
 

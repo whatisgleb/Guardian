@@ -53,7 +53,7 @@
     <Compile Include="Controllers\Api\GuardianValidationApiController.cs" />
     <Compile Include="Implementations\Validation.cs" />
     <Compile Include="Implementations\ValidationCondition.cs" />
-    <Compile Include="Routing\HTTP.cs" />
+    <Compile Include="Routing\Enums\HTTP.cs" />
     <Compile Include="Routing\Responses\Interfaces\IResponse.cs" />
     <Compile Include="Extensions\AppBuilderExtensions.cs" />
     <Compile Include="Routing\Attributes\RouteAttribute.cs" />
@@ -75,26 +75,20 @@
     <Compile Include="Routing\Responses\JsBundle.cs" />
     <Compile Include="Routing\Responses\Json.cs" />
     <Compile Include="Routing\Responses\Page.cs" />
+    <Compile Include="Routing\Responses\Resource.cs" />
     <Compile Include="Routing\Responses\ResourceBundle.cs" />
     <Compile Include="Routing\RouteHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Content\fonts\glyphicons-halflings-regular.eot" />
-    <EmbeddedResource Include="Content\fonts\glyphicons-halflings-regular.ttf" />
-    <EmbeddedResource Include="Content\fonts\glyphicons-halflings-regular.woff" />
-    <EmbeddedResource Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <EmbeddedResource Include="Content\app\dist\inline.bundle.js.map" />
+    <EmbeddedResource Include="Content\app\dist\main.bundle.js.map" />
+    <EmbeddedResource Include="Content\app\dist\polyfills.bundle.js.map" />
+    <EmbeddedResource Include="Content\app\dist\styles.bundle.js.map" />
+    <EmbeddedResource Include="Content\app\dist\vendor.bundle.js.map" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Content\scripts\jquery-3.2.1.min.js" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Pages\Dashboard.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Content\css\bootstrap.min.css" />
-    <EmbeddedResource Include="Content\fonts\glyphicons-halflings-regular.svg" />
-    <EmbeddedResource Include="Content\scripts\bootstrap.min.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Guardian.Common\Guardian.Common.csproj">
@@ -105,6 +99,15 @@
       <Project>{14707356-0445-413e-a3f9-198f1eeef906}</Project>
       <Name>Guardian.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\app\dist\favicon.ico" />
+    <EmbeddedResource Include="Content\app\dist\index.html" />
+    <EmbeddedResource Include="Content\app\dist\inline.bundle.js" />
+    <EmbeddedResource Include="Content\app\dist\main.bundle.js" />
+    <EmbeddedResource Include="Content\app\dist\polyfills.bundle.js" />
+    <EmbeddedResource Include="Content\app\dist\styles.bundle.js" />
+    <EmbeddedResource Include="Content\app\dist\vendor.bundle.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

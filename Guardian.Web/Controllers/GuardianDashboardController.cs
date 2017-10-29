@@ -12,7 +12,13 @@ namespace Guardian.Web.Controllers
         [Route("dashboard")]
         public IResponse Dashboard()
         {
-            return new Page(nameof(Dashboard));
+            return new Page($"Pages.{nameof(Dashboard)}");
+        }
+
+        [Route("index")]
+        public IResponse Index()
+        {
+            return new Page("Content.app.dist.index");
         }
     }
 }

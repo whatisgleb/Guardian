@@ -1,4 +1,5 @@
 ﻿using System;
+using Guardian.Web.Routing.Enums;
 
 namespace Guardian.Web.Routing.Attributes
 {

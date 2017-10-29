@@ -10,7 +10,6 @@ using Guardian.Web.Routing.Responses.Interfaces;
 
 namespace Guardian.Web.Controllers
 {
-    [RoutePrefix("content")]
     public class GuardianResourceController
     {
         private string[] _javascripts = new string[]
@@ -34,6 +33,12 @@ namespace Guardian.Web.Controllers
         public IResponse Script()
         {
             return new JsBundle(_javascripts);
+        }
+
+        [Route("resource")]
+        public IResponse Resource(string resourceName)
+        {
+            return new Resource(resourceName);
         }
     }
 }

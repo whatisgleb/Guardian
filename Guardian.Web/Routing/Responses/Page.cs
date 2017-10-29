@@ -8,12 +8,12 @@ namespace Guardian.Web.Routing.Responses
 {
     internal class Page : IResponse
     {
-        private readonly string _name;
+        private readonly string _path;
         public string ContentType { get; } = "text/html";
 
-        public Page(string name)
+        public Page(string path)
         {
-            _name = name;
+            _path = path;
         }
 
         public void Execute(GuardianOwinContext context)
@@ -22,13 +22,13 @@ namespace Guardian.Web.Routing.Responses
             context.Response.SetExpire(DateTimeOffset.UtcNow.AddMinutes(1));
 
             var executingAssembly = ReflectionHelper.GetExecutingAssembly();
-            var pagePath = $"{executingAssembly.GetName().Name}.Pages.{_name}.html";
+            var pagePath = $"{executingAssembly.GetName().Name}.{_path}.html";
 
             using (var inputStream = executingAssembly.GetManifestResourceStream(pagePath))
             {
                 if (inputStream == null)
                 {
-                    throw new ArgumentException($"Page, '{_name}' not found in assembly {executingAssembly}.");
+                    throw new ArgumentException($"Page, '{_path}' not found in assembly {executingAssembly}.");
                 }
 
                 inputStream.CopyTo(context.Response.Body);

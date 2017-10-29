@@ -9,6 +9,7 @@ using Guardian.Web.Abstractions;
 using Guardian.Web.Implementations;
 using Guardian.Web.Routing;
 using Guardian.Web.Routing.Attributes;
+using Guardian.Web.Routing.Enums;
 using Guardian.Web.Routing.Responses;
 using Guardian.Web.Routing.Responses.Interfaces;
 

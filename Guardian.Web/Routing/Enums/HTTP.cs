@@ -1,4 +1,4 @@
-﻿namespace Guardian.Web.Routing
+﻿namespace Guardian.Web.Routing.Enums
 {
     public enum HTTP
     {

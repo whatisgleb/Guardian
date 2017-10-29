@@ -53,16 +53,5 @@ namespace Guardian.Web.Owin
                         return handler.HandleRequest(context);
                     };
         }
-
-        private static Task Unauthorized(IOwinContext owinContext)
-        {
-            var isAuthenticated = owinContext.Authentication?.User?.Identity?.IsAuthenticated;
-
-            owinContext.Response.StatusCode = isAuthenticated == true
-                ? (int) HttpStatusCode.Forbidden
-                : (int) HttpStatusCode.Unauthorized;
-
-            return Task.FromResult(0);
-        }
     }
 }

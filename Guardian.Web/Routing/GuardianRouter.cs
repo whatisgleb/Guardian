@@ -54,7 +54,7 @@ namespace Guardian.Web.Routing
 
                 if (match.Success)
                 {
-                    return new RouteHandler(controllerType, methodInfo);
+                    return new RouteHandler(controllerType, methodInfo, Regex.Replace(context.Request.Path, $"{pattern}", ""));
                 }
             }
 

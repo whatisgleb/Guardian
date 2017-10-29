@@ -17,11 +17,13 @@ namespace Guardian.Web.Routing
     {
         private readonly Type _controllerType;
         private readonly MethodInfo _methodInfo;
+        private readonly string _routeParam;
 
-        public RouteHandler(Type controllerType, MethodInfo methodInfo)
+        public RouteHandler(Type controllerType, MethodInfo methodInfo, string routeParam)
         {
             _controllerType = controllerType;
             _methodInfo = methodInfo;
+            _routeParam = routeParam;
         }
 
         public Task HandleRequest(GuardianOwinContext context)
@@ -35,9 +37,16 @@ namespace Guardian.Web.Routing
 
             if (expectedParameterTypes.Any())
             {
-                string json = getRequestBodyJson(context);
-                object parameter = JsonConvert.DeserializeObject(json, expectedParameterTypes.First());
-                methodParameters.Add(parameter);
+                if (context.Request.Body.Length > 0)
+                {
+                    string json = getRequestBodyJson(context);
+                    object parameter = JsonConvert.DeserializeObject(json, expectedParameterTypes.First());
+                    methodParameters.Add(parameter);
+                }
+                else
+                {
+                    methodParameters.Add(_routeParam);
+                }
             }
 
             IResponse response = (IResponse)_methodInfo.Invoke(controllerInstance, methodParameters.ToArray());

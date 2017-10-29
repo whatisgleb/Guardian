@@ -13,8 +13,8 @@ namespace Guardian.Data.Tests.EntityFramework.Entities
                 ApplicationID = validationCondition.ApplicationID,
                 Expression = validationCondition.Expression,
 
-                DateCreatedOffset = new DateTimeOffset(),
-                DateModifiedOffset = new DateTimeOffset()
+                DateCreatedOffset = DateTimeOffset.UtcNow,
+                DateModifiedOffset = DateTimeOffset.UtcNow
             };
         }
 

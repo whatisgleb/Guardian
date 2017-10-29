@@ -56,7 +56,7 @@ namespace Guardian.Website.Guardian
 
             validationEntity.ApplicationID = validation.ApplicationID;
             validationEntity.ActiveFlag = ((ValidationEntity)validation).ActiveFlag;
-            validationEntity.DateModifiedOffset = new DateTimeOffset(DateTime.UtcNow);
+            validationEntity.DateModifiedOffset = DateTimeOffset.UtcNow;
             validationEntity.ErrorCode = validation.ErrorCode;
             validationEntity.ErrorMessage = validation.ErrorMessage;
             validationEntity.Expression = validation.Expression;
@@ -93,7 +93,7 @@ namespace Guardian.Website.Guardian
 
             validationConditionEntity.ActiveFlag = ((ValidationConditionEntity)validationCondition).ActiveFlag;
             validationConditionEntity.ApplicationID = validationCondition.ApplicationID;
-            validationConditionEntity.DateModifiedOffset = new DateTimeOffset(DateTime.UtcNow);
+            validationConditionEntity.DateModifiedOffset = DateTimeOffset.UtcNow;;
             validationConditionEntity.Expression = validationCondition.Expression;
 
             _ctx.SaveChanges();
