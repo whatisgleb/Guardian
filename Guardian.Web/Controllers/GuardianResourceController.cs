@@ -10,35 +10,12 @@ using Guardian.Web.Routing.Responses.Interfaces;
 
 namespace Guardian.Web.Controllers
 {
-    public class GuardianResourceController
+    internal class GuardianResourceController
     {
-        private string[] _javascripts = new string[]
-        {
-            "jquery-3.2.1.min.js",
-            "bootstrap.min.js"
-        };
-
-        private string[] _stylesheets = new string[]
-        {
-            "bootstrap.min.css"
-        };
-
-        [Route("css")]
-        public IResponse Style()
-        {
-            return new CssBundle(_stylesheets);
-        }
-
-        [Route("scripts")]
-        public IResponse Script()
-        {
-            return new JsBundle(_javascripts);
-        }
-
-        [Route("resource")]
+        [Route("resources")]
         public IResponse Resource(string resourceName)
         {
-            return new Resource(resourceName);
+            return new ResourceResponse(resourceName);
         }
     }
 }

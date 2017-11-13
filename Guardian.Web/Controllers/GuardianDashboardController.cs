@@ -7,18 +7,12 @@ using Guardian.Web.Routing.Responses.Interfaces;
 
 namespace Guardian.Web.Controllers
 {
-    public class GuardianDashboardController
+    internal class GuardianDashboardController
     {
-        [Route("dashboard")]
+        [Route("Dashboard")]
         public IResponse Dashboard()
         {
-            return new Page($"Pages.{nameof(Dashboard)}");
-        }
-
-        [Route("index")]
-        public IResponse Index()
-        {
-            return new Page("Content.app.dist.index");
+            return new PageResponse($"Content.app.dist.{nameof(Dashboard).ToLower()}");
         }
     }
 }
