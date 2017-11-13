@@ -1,6 +1,6 @@
 ﻿namespace Guardian.Web.Routing.Enums
 {
-    public enum HTTP
+    public enum HTTPRequestMethod
     {
         GET,
         POST,

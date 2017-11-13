@@ -6,12 +6,12 @@ namespace Guardian.Web.Routing.Attributes
     public sealed class RouteAttribute : Attribute
     {
         public readonly string Route;
-        public readonly HTTP Verb;
+        public readonly HTTPRequestMethod HTTPRequestMethod;
 
-        public RouteAttribute(string route, HTTP verb = HTTP.GET)
+        public RouteAttribute(string route, HTTPRequestMethod httpRequestMethod = HTTPRequestMethod.GET)
         {
             Route = route;
-            Verb = verb;
+            HTTPRequestMethod = httpRequestMethod;
         }
     }
 }
