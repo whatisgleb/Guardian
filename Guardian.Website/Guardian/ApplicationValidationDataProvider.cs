@@ -69,8 +69,7 @@ namespace Guardian.Website.Guardian
         public override void DeleteValidation(int validationID)
         {
             ValidationEntity validationEntity = getValidation(validationID);
-
-            _ctx.Validations.Remove(validationEntity);
+            validationEntity.ActiveFlag = false;
             _ctx.SaveChanges();
         }
 
