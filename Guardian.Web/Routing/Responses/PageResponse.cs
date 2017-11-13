@@ -6,12 +6,12 @@ using Guardian.Web.Routing.Responses.Interfaces;
 
 namespace Guardian.Web.Routing.Responses
 {
-    internal class Page : IResponse
+    internal class PageResponse : IResponse
     {
         private readonly string _path;
         public string ContentType { get; } = "text/html";
 
-        public Page(string path)
+        public PageResponse(string path)
         {
             _path = path;
         }

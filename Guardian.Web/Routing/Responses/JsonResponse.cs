@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace Guardian.Web.Routing.Responses
 {
-    public class Json : IResponse
+    internal class JsonResponse : IResponse
     {
         private readonly object _payload;
         public string ContentType { get; } = "application/json";
 
-        public Json(object payload)
+        public JsonResponse(object payload)
         {
             _payload = payload;
         }

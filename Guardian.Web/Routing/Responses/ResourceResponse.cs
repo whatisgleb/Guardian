@@ -11,13 +11,14 @@ using Guardian.Web.Routing.Responses.Interfaces;
 
 namespace Guardian.Web.Routing.Responses
 {
-    public class Resource : IResponse
+    internal class ResourceResponse : IResponse
     {
         private readonly string _resourceName;
 
-        public Resource(string resourceName)
+        public ResourceResponse(string resourceName)
         {
-            _resourceName = resourceName.Replace("/", ".");
+            _resourceName = resourceName
+                .Replace("/", ".");
         }
         
         private Dictionary<string, string> _contentTypesByFileExtension = new Dictionary<string, string>()
@@ -29,7 +30,8 @@ namespace Guardian.Web.Routing.Responses
 
         public string ContentType
         {
-            get { return _contentTypesByFileExtension[Path.GetExtension(_resourceName)]; }
+            get { return _contentTypesByFileExtension[Path.GetExtension(_resourceName
+                .Replace("-", "."))]; }
         }
 
         public void Execute(GuardianOwinContext context)
@@ -39,7 +41,7 @@ namespace Guardian.Web.Routing.Responses
 
             Assembly executingAssembly = ReflectionHelper.GetExecutingAssembly();
             string executingAssemblyName = executingAssembly.GetName().Name;
-            string resourcePath = $"{executingAssemblyName}.Content.app.dist{_resourceName}";
+            string resourcePath = $"{executingAssemblyName}.Content.app.dist.resources{_resourceName}";
 
             using (var inputStream = executingAssembly.GetManifestResourceStream(resourcePath))
             {
