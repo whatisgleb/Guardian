@@ -4,6 +4,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const postcssUrl = require('postcss-url');
 const cssnano = require('cssnano');
@@ -85,12 +86,12 @@ module.exports = {
       "./src\\polyfills.ts"
     ],
     "styles": [
-      "./src\\styles.css"
+      "./src\\styles.less"
     ]
   },
   "output": {
     "path": path.join(process.cwd(), "dist"),
-    "filename": "guardian/resource/[name]/bundle/js",
+    "filename": "resources/[name]-bundle-js",
     "chunkFilename": "[id].chunk.js"
   },
   "module": {
@@ -140,7 +141,7 @@ module.exports = {
       },
       {
         "exclude": [
-          path.join(process.cwd(), "src\\styles.css")
+          path.join(process.cwd(), "src\\styles.less")
         ],
         "test": /\.scss$|\.sass$/,
         "use": [
@@ -171,7 +172,7 @@ module.exports = {
       },
       {
         "exclude": [
-          path.join(process.cwd(), "src\\styles.css")
+          path.join(process.cwd(), "src\\styles.less")
         ],
         "test": /\.less$/,
         "use": [
@@ -200,7 +201,7 @@ module.exports = {
       },
       {
         "exclude": [
-          path.join(process.cwd(), "src\\styles.css")
+          path.join(process.cwd(), "src\\styles.less")
         ],
         "test": /\.styl$/,
         "use": [
@@ -230,7 +231,7 @@ module.exports = {
       },
       {
         "include": [
-          path.join(process.cwd(), "src\\styles.css")
+          path.join(process.cwd(), "src\\styles.less")
         ],
         "test": /\.css$/,
         "use": [
@@ -253,7 +254,7 @@ module.exports = {
       },
       {
         "include": [
-          path.join(process.cwd(), "src\\styles.css")
+          path.join(process.cwd(), "src\\styles.less")
         ],
         "test": /\.scss$|\.sass$/,
         "use": [
@@ -284,7 +285,7 @@ module.exports = {
       },
       {
         "include": [
-          path.join(process.cwd(), "src\\styles.css")
+          path.join(process.cwd(), "src\\styles.less")
         ],
         "test": /\.less$/,
         "use": [
@@ -313,7 +314,7 @@ module.exports = {
       },
       {
         "include": [
-          path.join(process.cwd(), "src\\styles.css")
+          path.join(process.cwd(), "src\\styles.less")
         ],
         "test": /\.styl$/,
         "use": [
@@ -349,6 +350,7 @@ module.exports = {
   },
   "plugins": [
     new NoEmitOnErrorsPlugin(),
+    new CleanWebpackPlugin(['dist']),
     new CopyWebpackPlugin([
       {
         "context": "C:\\Users\\Gleb\\Source\\Repos\\Guardian\\Guardian.Web\\Content\\app\\src/",
@@ -379,8 +381,8 @@ module.exports = {
     }),
     new NamedLazyChunksWebpackPlugin(),
     new HtmlWebpackPlugin({
-      "template": "./src\\index.html",
-      "filename": "./index.html",
+      "template": "./src\\dashboard.html",
+      "filename": "./dashboard.html",
       "hash": false,
       "inject": true,
       "compile": true,
