@@ -53,7 +53,10 @@
     <Compile Include="Controllers\Api\GuardianValidationApiController.cs" />
     <Compile Include="Implementations\Validation.cs" />
     <Compile Include="Implementations\ValidationCondition.cs" />
-    <Compile Include="Routing\Enums\HTTP.cs" />
+    <Compile Include="Routing\Enums\HTTPRequestMethod.cs" />
+    <Compile Include="Routing\IRoutingRequest.cs" />
+    <Compile Include="Routing\MethodParameterResolver.cs" />
+    <Compile Include="Routing\RoutingRequest.cs" />
     <Compile Include="Routing\Responses\Interfaces\IResponse.cs" />
     <Compile Include="Extensions\AppBuilderExtensions.cs" />
     <Compile Include="Routing\Attributes\RouteAttribute.cs" />
@@ -63,7 +66,6 @@
     <Compile Include="Controllers\GuardianDashboardController.cs" />
     <Compile Include="Abstractions\GuardianDashboardResponse.cs" />
     <Compile Include="GuardianOptions.cs" />
-    <Compile Include="Routing\Responses\CssBundle.cs" />
     <Compile Include="Routing\GuardianRouter.cs" />
     <Compile Include="Owin\GuardianOwinRequest.cs" />
     <Compile Include="Owin\GuardianOwinResponse.cs" />
@@ -72,19 +74,17 @@
     <Compile Include="Owin\MiddlewareExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\ReflectionHelper.cs" />
-    <Compile Include="Routing\Responses\JsBundle.cs" />
-    <Compile Include="Routing\Responses\Json.cs" />
-    <Compile Include="Routing\Responses\Page.cs" />
-    <Compile Include="Routing\Responses\Resource.cs" />
-    <Compile Include="Routing\Responses\ResourceBundle.cs" />
+    <Compile Include="Routing\Responses\JsonResponse.cs" />
+    <Compile Include="Routing\Responses\PageResponse.cs" />
+    <Compile Include="Routing\Responses\ResourceResponse.cs" />
     <Compile Include="Routing\RouteHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Content\app\dist\inline.bundle.js.map" />
-    <EmbeddedResource Include="Content\app\dist\main.bundle.js.map" />
-    <EmbeddedResource Include="Content\app\dist\polyfills.bundle.js.map" />
-    <EmbeddedResource Include="Content\app\dist\styles.bundle.js.map" />
-    <EmbeddedResource Include="Content\app\dist\vendor.bundle.js.map" />
+    <EmbeddedResource Include="Content\app\dist\resources\inline-bundle-js" />
+    <EmbeddedResource Include="Content\app\dist\resources\main-bundle-js" />
+    <EmbeddedResource Include="Content\app\dist\resources\polyfills-bundle-js" />
+    <EmbeddedResource Include="Content\app\dist\resources\styles-bundle-js" />
+    <EmbeddedResource Include="Content\app\dist\resources\vendor-bundle-js" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -102,12 +102,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Content\app\dist\favicon.ico" />
-    <EmbeddedResource Include="Content\app\dist\index.html" />
-    <EmbeddedResource Include="Content\app\dist\inline.bundle.js" />
-    <EmbeddedResource Include="Content\app\dist\main.bundle.js" />
-    <EmbeddedResource Include="Content\app\dist\polyfills.bundle.js" />
-    <EmbeddedResource Include="Content\app\dist\styles.bundle.js" />
-    <EmbeddedResource Include="Content\app\dist\vendor.bundle.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\app\dist\dashboard.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

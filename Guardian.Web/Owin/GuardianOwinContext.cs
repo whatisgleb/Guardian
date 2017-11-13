@@ -7,9 +7,9 @@ using Guardian.Web.Abstractions;
 
 namespace Guardian.Web.Owin
 {
-    public sealed class GuardianOwinContext : GuardianContext
+    internal sealed class GuardianOwinContext : GuardianContext
     {
-        public GuardianOwinContext(IDictionary<string, object> environment)
+        internal GuardianOwinContext(IDictionary<string, object> environment)
         {
             if (environment == null) throw new ArgumentNullException(nameof(environment));
 

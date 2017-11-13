@@ -43,7 +43,8 @@ namespace Guardian.Web.Owin
                     env =>
                     {
                         GuardianOwinContext context = new GuardianOwinContext(env);
-                        RouteHandler handler = GuardianRouter.GetRouteHandler(context);
+                        RoutingRequest routingRequest = new RoutingRequest(context.Request.Path, context.Request.Method);
+                        RouteHandler handler = GuardianRouter.GetRouteHandler(routingRequest);
 
                         if (handler == null)
                         {

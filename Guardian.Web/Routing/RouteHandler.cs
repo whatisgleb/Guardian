@@ -3,73 +3,103 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using Guardian.Web.Controllers;
 using Guardian.Web.Owin;
 using Guardian.Web.Routing.Responses;
 using Guardian.Web.Routing.Responses.Interfaces;
-using Newtonsoft.Json;
 
 namespace Guardian.Web.Routing
 {
-    public class RouteHandler
+    internal class RouteHandler
     {
-        private readonly Type _controllerType;
-        private readonly MethodInfo _methodInfo;
-        private readonly string _routeParam;
+        internal readonly Type ControllerType;
+        internal readonly MethodInfo ControllerMethodInfo;
+        internal readonly string QueryString;
 
-        public RouteHandler(Type controllerType, MethodInfo methodInfo, string routeParam)
+        internal RouteHandler(Type controllerType, MethodInfo controllerMethodInfo, string queryString)
         {
-            _controllerType = controllerType;
-            _methodInfo = methodInfo;
-            _routeParam = routeParam;
+            ControllerType = controllerType;
+            ControllerMethodInfo = controllerMethodInfo;
+            QueryString = queryString;
         }
 
-        public Task HandleRequest(GuardianOwinContext context)
+        internal Task HandleRequest(GuardianOwinContext context)
         {
-            object controllerInstance = getControllerInstance();
-
-            List<object> methodParameters = new List<object>();
-            List<Type> expectedParameterTypes = _methodInfo.GetParameters()
-                .Select(p => p.ParameterType)
-                .ToList();
-
-            if (expectedParameterTypes.Any())
-            {
-                if (context.Request.Body.Length > 0)
-                {
-                    string json = getRequestBodyJson(context);
-                    object parameter = JsonConvert.DeserializeObject(json, expectedParameterTypes.First());
-                    methodParameters.Add(parameter);
-                }
-                else
-                {
-                    methodParameters.Add(_routeParam);
-                }
-            }
-
-            IResponse response = (IResponse)_methodInfo.Invoke(controllerInstance, methodParameters.ToArray());
+            object controllerInstance = GetControllerInstance();
+            IEnumerable<object> parameters = GetMethodParameters(context.Request.Body);
+            IResponse response = (IResponse)ControllerMethodInfo.Invoke(controllerInstance, parameters.ToArray());
 
             return Task.Factory.StartNew(() => response.Execute(context));
         }
 
-        private object getControllerInstance()
+        internal IDictionary<string, object> GetTypeCastedQueryStringParameters()
+        {
+            if (string.IsNullOrWhiteSpace(QueryString))
+            {
+                return new Dictionary<string, object>();
+            }
+
+            if (!QueryString.StartsWith("?"))
+            {
+                return new Dictionary<string, object>()
+                {
+                    { string.Empty, QueryString }
+                };
+            }
+
+            IDictionary<string, string> queryStringDictionary = QueryString
+                .Replace("?", "")
+                .Split('&')
+                .Select(s => new
+                {
+                    ParameterName = s.Split('=')[0],
+                    ParameterStringValue = s.Split('=')[1]
+                })
+                .ToDictionary(v => v.ParameterName, v => v.ParameterStringValue); ;
+
+            IDictionary<string, Type> parameterTypeMap = ControllerMethodInfo.GetParameters()
+                .ToDictionary(p => p.Name, p => p.ParameterType);
+
+            Dictionary<string, object> typeCastedParameters = new Dictionary<string, object>();
+
+            foreach (string parameterName in parameterTypeMap.Keys)
+            {
+                if (queryStringDictionary.ContainsKey(parameterName))
+                {
+                    Type parameterType = parameterTypeMap[parameterName];
+                    string parameterStringValue = queryStringDictionary[parameterName];
+                    object parameterValue = Convert.ChangeType(parameterStringValue, parameterType);
+
+                    typeCastedParameters.Add(parameterName, parameterValue);
+                }
+            }
+
+            return typeCastedParameters;
+        }
+
+        internal IEnumerable<object> GetMethodParameters(Stream contentStream)
+        {
+            List<object> methodParameters = new List<object>();
+
+            if (!string.IsNullOrWhiteSpace(QueryString))
+            {
+                methodParameters.AddRange(GetTypeCastedQueryStringParameters().Values);
+            }
+            else if (contentStream.Length > 0)
+            {
+                methodParameters.Add(MethodParameterResolver.GetMethodParameter(ControllerMethodInfo, contentStream));
+            }
+
+            return methodParameters;
+        }
+
+        private object GetControllerInstance()
         {
             object[] controllerConstructorParameters = new object[] { };
-            return Activator.CreateInstance(_controllerType, controllerConstructorParameters);
+            return Activator.CreateInstance(ControllerType, controllerConstructorParameters);
         }
 
-        private string getRequestBodyJson(GuardianOwinContext context)
-        {
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                context.Request.Body.CopyTo(memoryStream);
-                byte[] bytes = memoryStream.ToArray();
-
-                return Encoding.UTF8.GetString(bytes);
-            }
-        }
     }
 }
 
