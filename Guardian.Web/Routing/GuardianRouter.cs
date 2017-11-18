@@ -75,7 +75,7 @@ namespace Guardian.Web.Routing
             }
 
             // Does the targe tmethod have an expected parameter?
-            Type parameterType = matchingRouteConfiguration.MethodInfo.GetParameters()
+            Type parameterType = matchingRouteConfiguration.ControllerMethodInfo.GetParameters()
                 .Select(mi => mi.ParameterType)
                 .SingleOrDefault();
             List<object> parameters = new List<object>();
@@ -118,7 +118,7 @@ namespace Guardian.Web.Routing
                 }
             }
 
-            return new RouteHandler(matchingRouteConfiguration.MethodInfo, parameters);
+            return new RouteHandler(matchingRouteConfiguration.ControllerMethodInfo, parameters);
         }
     }
 }

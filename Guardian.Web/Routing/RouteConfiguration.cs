@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using Guardian.Web.Routing.Enums;
 
 [assembly: InternalsVisibleTo("Guardian.Web.Tests")]
 namespace Guardian.Web.Routing
@@ -9,19 +8,19 @@ namespace Guardian.Web.Routing
     internal class RouteConfiguration
     {
         public string Path { get; set; }
-        public string HttpRequestMethod { get; set; }
-        public MethodInfo MethodInfo { get; set; }
+        public string RequestMethod { get; set; }
+        public MethodInfo ControllerMethodInfo { get; set; }
 
-        public RouteConfiguration(string path, string httpRequestMethod, MethodInfo methodInfo)
+        public RouteConfiguration(string path, string requestMethod, MethodInfo controllerMethodInfo)
         {
             Path = path;
-            HttpRequestMethod = httpRequestMethod;
-            MethodInfo = methodInfo;
+            RequestMethod = requestMethod;
+            ControllerMethodInfo = controllerMethodInfo;
         }
 
         public bool IsMatch(string path, string httpRequestMethod)
         {
-            if (httpRequestMethod != HttpRequestMethod)
+            if (httpRequestMethod != RequestMethod)
             {
                 return false;
             }
