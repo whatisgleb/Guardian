@@ -16,30 +16,23 @@ namespace Guardian.Web.Routing
     internal class RouteHandler
     {
         public IEnumerable<object> Parameters { get; }
-        public readonly MethodInfo TargetMethodInfo;
+        public readonly MethodInfo ControllerMethodInfo;
 
-        internal RouteHandler(MethodInfo targetMethodInfo, IEnumerable<object> parameters)
+        internal RouteHandler(MethodInfo controllerMethodInfo, IEnumerable<object> parameters)
         {
             Parameters = parameters;
-            TargetMethodInfo = targetMethodInfo;
+            ControllerMethodInfo = controllerMethodInfo;
         }
 
         internal Task HandleRequest(GuardianOwinContext context)
         {
             // Instantiate controller and execute the target method with the deserialized parameters
-            object controllerInstance = GetControllerInstance();
-            IResponse response = (IResponse)TargetMethodInfo.Invoke(controllerInstance, Parameters.ToArray());
+            object controllerInstance = Activator.CreateInstance(ControllerMethodInfo.ReflectedType);
+            IResponse response = (IResponse)ControllerMethodInfo.Invoke(controllerInstance, Parameters.ToArray());
 
             // Return a Task that will return the actual response to the client
             return Task.Factory.StartNew(() => response.Execute(context));
         }
-
-        private object GetControllerInstance()
-        {
-            object[] controllerConstructorParameters = new object[] { };
-            return Activator.CreateInstance(TargetMethodInfo.ReflectedType, controllerConstructorParameters);
-        }
-
     }
 }
 
