@@ -51,12 +51,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\Api\GuardianValidationApiController.cs" />
+    <Compile Include="Controllers\Api\GuardianValidationConditionApiController.cs" />
     <Compile Include="Implementations\Validation.cs" />
     <Compile Include="Implementations\ValidationCondition.cs" />
     <Compile Include="Routing\Enums\HTTPRequestMethod.cs" />
-    <Compile Include="Routing\IRoutingRequest.cs" />
-    <Compile Include="Routing\MethodParameterResolver.cs" />
-    <Compile Include="Routing\RoutingRequest.cs" />
+    <Compile Include="Routing\ContentStreamParameterResolver.cs" />
     <Compile Include="Routing\Responses\Interfaces\IResponse.cs" />
     <Compile Include="Extensions\AppBuilderExtensions.cs" />
     <Compile Include="Routing\Attributes\RouteAttribute.cs" />
@@ -64,12 +63,12 @@
     <Compile Include="Controllers\GuardianResourceController.cs" />
     <Compile Include="Abstractions\GuardianContext.cs" />
     <Compile Include="Controllers\GuardianDashboardController.cs" />
-    <Compile Include="Abstractions\GuardianDashboardResponse.cs" />
+    <Compile Include="Abstractions\GuardianResponse.cs" />
     <Compile Include="GuardianOptions.cs" />
     <Compile Include="Routing\GuardianRouter.cs" />
     <Compile Include="Owin\GuardianOwinRequest.cs" />
     <Compile Include="Owin\GuardianOwinResponse.cs" />
-    <Compile Include="Abstractions\GuardianDashboardRequest.cs" />
+    <Compile Include="Abstractions\GuardianRequest.cs" />
     <Compile Include="Owin\GuardianOwinContext.cs" />
     <Compile Include="Owin\MiddlewareExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,6 +76,7 @@
     <Compile Include="Routing\Responses\JsonResponse.cs" />
     <Compile Include="Routing\Responses\PageResponse.cs" />
     <Compile Include="Routing\Responses\ResourceResponse.cs" />
+    <Compile Include="Routing\RouteConfiguration.cs" />
     <Compile Include="Routing\RouteHandler.cs" />
   </ItemGroup>
   <ItemGroup>

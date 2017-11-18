@@ -30,6 +30,7 @@ namespace Guardian.Web.Owin
             if (options == null) throw new ArgumentNullException(nameof(options));
 
             GuardianOptionsFactory.RegisterOptionsFactory(() => options);
+            GuardianRouter.BuildRoutes();
 
             builder(_ => UseGuardianDashboard());
 
@@ -43,8 +44,7 @@ namespace Guardian.Web.Owin
                     env =>
                     {
                         GuardianOwinContext context = new GuardianOwinContext(env);
-                        RoutingRequest routingRequest = new RoutingRequest(context.Request.Path, context.Request.Method);
-                        RouteHandler handler = GuardianRouter.GetRouteHandler(routingRequest);
+                        RouteHandler handler = GuardianRouter.GetRouteHandler(context.Request);
 
                         if (handler == null)
                         {

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Guardian.Web.Abstractions
 {
-    public abstract class GuardianDashboardRequest
+    public abstract class GuardianRequest
     {
         public abstract string Method { get; }
         public abstract string Path { get; }

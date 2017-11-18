@@ -41,7 +41,7 @@ namespace Guardian.Web.Routing.Responses
 
             Assembly executingAssembly = ReflectionHelper.GetExecutingAssembly();
             string executingAssemblyName = executingAssembly.GetName().Name;
-            string resourcePath = $"{executingAssemblyName}.Content.app.dist.resources{_resourceName}";
+            string resourcePath = $"{executingAssemblyName}.Content.app.dist.resources.{_resourceName}";
 
             using (var inputStream = executingAssembly.GetManifestResourceStream(resourcePath))
             {

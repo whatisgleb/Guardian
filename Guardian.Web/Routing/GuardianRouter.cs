@@ -8,14 +8,15 @@ using Guardian.Web.Abstractions;
 using Guardian.Web.Controllers;
 using Guardian.Web.Helpers;
 using Guardian.Web.Routing.Attributes;
-using Guardian.Web.Routing.Enums;
 
 [assembly: InternalsVisibleTo("Guardian.Web.Tests")]
 namespace Guardian.Web.Routing
 {
     internal static class GuardianRouter
     {
-        internal static RouteHandler GetRouteHandler(IRoutingRequest routingRequest)
+        private static IEnumerable<RouteConfiguration> _congifuredRoutes;
+
+        public static void BuildRoutes()
         {
             Assembly assembly = ReflectionHelper.GetExecutingAssembly();
 
@@ -24,68 +25,100 @@ namespace Guardian.Web.Routing
                 .SelectMany(t => t.GetMethods())
                 .Where(m => m.IsDefined(typeof(RouteAttribute), false));
 
-            foreach (MethodInfo methodInfo in methodInfos)
-            {
-                // If the controller has a RoutePrefix attribute, we need to build the pattern matching prefix
-                Type controllerType = methodInfo.ReflectedType;
-
-                // Build pattern to match controller/requestMethod against current path
-                RouteAttribute routeAttribute =
-                    (RouteAttribute)Attribute.GetCustomAttribute(methodInfo, typeof(RouteAttribute));
-
-                if (routeAttribute.HTTPRequestMethod != routingRequest.HTTPRequestMethod)
-                {
-                    continue;
-                }
-
-                string prefix = GetRoutePrefix(controllerType);
-                string pattern = routeAttribute.Route == string.Empty 
-                    ? $@"^{prefix}"
-                    : $@"^{prefix}/{routeAttribute.Route}";
-
-                Match match = Regex.Match(
-                    routingRequest.Path,
-                    pattern,
-                    RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Singleline);
-
-                if (match.Success)
-                {
-                    string queryString = Regex.Replace(
-                        routingRequest.Path, 
-                        $"{pattern}", "",
-                        RegexOptions.CultureInvariant | RegexOptions.IgnoreCase | RegexOptions.Singleline);
-
-                    if (routingRequest.HTTPRequestMethod == HTTPRequestMethod.GET 
-                        && methodInfo.GetParameters().Any() 
-                        && string.IsNullOrWhiteSpace(queryString))
-                    {
-                        continue;
-                    }
-
-                    if (routingRequest.HTTPRequestMethod == HTTPRequestMethod.GET
-                        &&!methodInfo.GetParameters().Any() 
-                        && !string.IsNullOrWhiteSpace(queryString))
-                    {
-                        continue;
-                    }
-
-                    return new RouteHandler(controllerType, methodInfo, queryString);
-                }
-            }
-
-            return null;
+            _congifuredRoutes = methodInfos
+                .Select(GetRouteConfiguration)
+                .ToList();
         }
 
-        private static string GetRoutePrefix(Type type)
+        internal static RouteConfiguration GetRouteConfiguration(MethodInfo methodInfo)
         {
+            Type controllerType = methodInfo.ReflectedType;
+
+            RouteAttribute routeAttribute =
+                (RouteAttribute)Attribute.GetCustomAttribute(methodInfo, typeof(RouteAttribute));
             RoutePrefixAttribute routePrefixAttribute =
-                (RoutePrefixAttribute) Attribute.GetCustomAttribute(type, typeof(RoutePrefixAttribute));
+                (RoutePrefixAttribute)Attribute.GetCustomAttribute(controllerType, typeof(RoutePrefixAttribute));
 
             string prefix = routePrefixAttribute == null
                 ? string.Empty
                 : $"/{routePrefixAttribute.RoutePrefix}";
 
-            return prefix;
+            string parameterDelimiter = "{";
+            int parameterDelimiterIdx = routeAttribute.Route.IndexOf(parameterDelimiter);
+            string route = parameterDelimiterIdx == -1
+                ? $"{routeAttribute.Route}$" 
+                : routeAttribute.Route.Substring(0, parameterDelimiterIdx);
+
+            string pattern = routeAttribute.Route == string.Empty
+                ? $@"^{prefix}$"
+                : $@"^{prefix}/{route}";
+
+            return new RouteConfiguration(pattern, routeAttribute.RequestMethod, methodInfo);
+        }
+
+        internal static RouteConfiguration GetConfiguredRoute(GuardianRequest request)
+        {
+            return _congifuredRoutes
+                .Where(cr => cr.IsMatch(request.Path, request.Method))
+                .FirstOrDefault();
+        }
+
+        internal static RouteHandler GetRouteHandler(GuardianRequest request)
+        {
+            RouteConfiguration matchingRouteConfiguration = _congifuredRoutes
+                .Where(rc => rc.IsMatch(request.Path, request.Method))
+                .FirstOrDefault();
+
+            if (matchingRouteConfiguration == null)
+            {
+                return null;
+            }
+
+            // Does the targe tmethod have an expected parameter?
+            Type parameterType = matchingRouteConfiguration.MethodInfo.GetParameters()
+                .Select(mi => mi.ParameterType)
+                .SingleOrDefault();
+            List<object> parameters = new List<object>();
+
+            if (parameterType != null)
+            {
+                if (request.Body != null && request.Body.Length > 0)
+                {
+                    // Body contains a payload
+                    // .. deserialize
+                    object parameter = ContentStreamParameterResolver.GetTypedParameter(request.Body, parameterType);
+
+                    parameters.Add(parameter);
+                } else 
+                {
+                    RegexOptions regexOptions = RegexOptions.CultureInvariant
+                                                | RegexOptions.IgnoreCase
+                                                | RegexOptions.Singleline;
+
+                    string routeParameter = Regex.Replace(
+                        request.Path,
+                        matchingRouteConfiguration.Path,
+                        string.Empty,
+                        regexOptions);
+
+                    object parameter;
+
+                    if (string.IsNullOrWhiteSpace(routeParameter))
+                    {
+                        parameter = parameterType.IsValueType
+                            ? Activator.CreateInstance(parameterType)
+                            : null;
+                    }
+                    else
+                    {
+                        parameter = Convert.ChangeType(routeParameter, parameterType);
+                    }
+
+                    parameters.Add(parameter);
+                }
+            }
+
+            return new RouteHandler(matchingRouteConfiguration.MethodInfo, parameters);
         }
     }
 }

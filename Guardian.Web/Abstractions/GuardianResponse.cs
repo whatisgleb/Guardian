@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Guardian.Web.Abstractions
 {
-    public abstract class GuardianDashboardResponse
+    public abstract class GuardianResponse
     {
         public abstract string ContentType { get; set; }
         public abstract int StatusCode { get; set; }

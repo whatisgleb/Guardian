@@ -12,7 +12,7 @@ namespace Guardian.Web.Controllers
 {
     internal class GuardianResourceController
     {
-        [Route("resources")]
+        [Route("resources/{resourceName}")]
         public IResponse Resource(string resourceName)
         {
             return new ResourceResponse(resourceName);

@@ -9,7 +9,7 @@ using Microsoft.Owin;
 
 namespace Guardian.Web.Owin
 {
-    internal sealed class GuardianOwinRequest : GuardianDashboardRequest
+    internal sealed class GuardianOwinRequest : GuardianRequest
     {
         private readonly IOwinContext _context;
 

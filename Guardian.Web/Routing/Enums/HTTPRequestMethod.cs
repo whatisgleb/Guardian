@@ -1,10 +1,10 @@
 ﻿namespace Guardian.Web.Routing.Enums
 {
-    public enum HTTPRequestMethod
+    internal static class HttpRequestMethod
     {
-        GET,
-        POST,
-        PUT,
-        DELETE
+        public const string GET = "GET";
+        public const string POST = "POST";
+        public const string PUT = "PUT";
+        public const string DELETE = "DELETE";
     }
 }
