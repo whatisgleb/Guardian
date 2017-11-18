@@ -54,7 +54,6 @@ namespace Guardian.Data.Tests
             ValidationEntity validationEntity = getValidation(validation.ValidationID);
 
             validationEntity.ApplicationID = validation.ApplicationID;
-            validationEntity.ActiveFlag = ((ValidationEntity)validation).ActiveFlag;
             validationEntity.DateModifiedOffset = DateTimeOffset.UtcNow;
             validationEntity.ErrorCode = validation.ErrorCode;
             validationEntity.ErrorMessage = validation.ErrorMessage;
@@ -90,7 +89,6 @@ namespace Guardian.Data.Tests
         {
             ValidationConditionEntity validationConditionEntity = getValidationCondition(validationCondition.ValidationConditionID);
 
-            validationConditionEntity.ActiveFlag = ((ValidationConditionEntity) validationCondition).ActiveFlag;
             validationConditionEntity.ApplicationID = validationCondition.ApplicationID;
             validationConditionEntity.DateModifiedOffset = DateTimeOffset.UtcNow;
             validationConditionEntity.Expression = validationCondition.Expression;
@@ -100,9 +98,9 @@ namespace Guardian.Data.Tests
             return validationConditionEntity;
         }
 
-        public override void DeleteValidationCondition(IValidationCondition validationCondition)
+        public override void DeleteValidationCondition(int validationConditionID)
         {
-            ValidationConditionEntity validationConditionEntity = getValidationCondition(validationCondition.ValidationConditionID);
+            ValidationConditionEntity validationConditionEntity = getValidationCondition(validationConditionID);
 
             _ctx.ValidationConditions.Remove(validationConditionEntity);
             _ctx.SaveChanges();

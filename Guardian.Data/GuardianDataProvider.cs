@@ -18,7 +18,7 @@ namespace Guardian.Data
 
         public abstract IValidationCondition CreateValidationCondition(IValidationCondition validationCondition);
         public abstract IValidationCondition UpdateValidationCondition(IValidationCondition validationCondition);
-        public abstract void DeleteValidationCondition(IValidationCondition validationCondition);
+        public abstract void DeleteValidationCondition(int validationConditionID);
         public abstract IValidationCondition GetValidationCondition(int validationConditionID);
         public abstract IEnumerable<IValidationCondition> GetValidationConditions(string applicationID);
     }
