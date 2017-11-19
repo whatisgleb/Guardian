@@ -18,9 +18,9 @@ namespace Guardian.Web.Routing
         public IEnumerable<object> Parameters { get; }
         public readonly MethodInfo ControllerMethodInfo;
 
-        internal RouteHandler(MethodInfo controllerMethodInfo, IEnumerable<object> parameters)
+        internal RouteHandler(MethodInfo controllerMethodInfo, IEnumerable<object> parameters = null)
         {
-            Parameters = parameters;
+            Parameters = parameters ?? new List<object>();
             ControllerMethodInfo = controllerMethodInfo;
         }
 

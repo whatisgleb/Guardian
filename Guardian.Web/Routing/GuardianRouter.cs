@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.RegularExpressions;
 using Guardian.Web.Abstractions;
 using Guardian.Web.Controllers;
-using Guardian.Web.Helpers;
-using Guardian.Web.Routing.Attributes;
+using Newtonsoft.Json;
 
 [assembly: InternalsVisibleTo("Guardian.Web.Tests")]
 namespace Guardian.Web.Routing
@@ -15,45 +15,13 @@ namespace Guardian.Web.Routing
     internal static class GuardianRouter
     {
         private static IEnumerable<RouteConfiguration> _congifuredRoutes;
+        private static RegexOptions _regexOptions;
 
         public static void BuildRoutes()
         {
-            Assembly assembly = ReflectionHelper.GetExecutingAssembly();
+            GuardianRoutingEngine routingEngine = new GuardianRoutingEngine();
 
-            // Methods with RouteAttribute in the current assembly (candidates for routing to)
-            IEnumerable<MethodInfo> methodInfos = assembly.GetTypes()
-                .SelectMany(t => t.GetMethods())
-                .Where(m => m.IsDefined(typeof(RouteAttribute), false));
-
-            _congifuredRoutes = methodInfos
-                .Select(GetRouteConfiguration)
-                .ToList();
-        }
-
-        internal static RouteConfiguration GetRouteConfiguration(MethodInfo methodInfo)
-        {
-            Type controllerType = methodInfo.ReflectedType;
-
-            RouteAttribute routeAttribute =
-                (RouteAttribute)Attribute.GetCustomAttribute(methodInfo, typeof(RouteAttribute));
-            RoutePrefixAttribute routePrefixAttribute =
-                (RoutePrefixAttribute)Attribute.GetCustomAttribute(controllerType, typeof(RoutePrefixAttribute));
-
-            string prefix = routePrefixAttribute == null
-                ? string.Empty
-                : $"/{routePrefixAttribute.RoutePrefix}";
-
-            string parameterDelimiter = "{";
-            int parameterDelimiterIdx = routeAttribute.Route.IndexOf(parameterDelimiter);
-            string route = parameterDelimiterIdx == -1
-                ? $"{routeAttribute.Route}$" 
-                : routeAttribute.Route.Substring(0, parameterDelimiterIdx);
-
-            string pattern = routeAttribute.Route == string.Empty
-                ? $@"^{prefix}$"
-                : $@"^{prefix}/{route}";
-
-            return new RouteConfiguration(pattern, routeAttribute.RequestMethod, methodInfo);
+            _congifuredRoutes = routingEngine.GetRoutingConfigurations();
         }
 
         internal static RouteConfiguration GetConfiguredRoute(GuardianRequest request)
@@ -65,60 +33,70 @@ namespace Guardian.Web.Routing
 
         internal static RouteHandler GetRouteHandler(GuardianRequest request)
         {
-            RouteConfiguration matchingRouteConfiguration = _congifuredRoutes
-                .Where(rc => rc.IsMatch(request.Path, request.Method))
-                .FirstOrDefault();
+            RouteConfiguration matchingRouteConfiguration = GetConfiguredRoute(request);
 
             if (matchingRouteConfiguration == null)
             {
                 return null;
             }
 
-            // Does the targe tmethod have an expected parameter?
+            // Does the targe tmethod have an expected parameter? (Only one is allowed currently)
             Type parameterType = matchingRouteConfiguration.ControllerMethodInfo.GetParameters()
                 .Select(mi => mi.ParameterType)
                 .SingleOrDefault();
-            List<object> parameters = new List<object>();
 
-            if (parameterType != null)
+            if (parameterType == null)
             {
-                if (request.Body != null && request.Body.Length > 0)
-                {
-                    // Body contains a payload
-                    // .. deserialize
-                    object parameter = ContentStreamParameterResolver.GetTypedParameter(request.Body, parameterType);
-
-                    parameters.Add(parameter);
-                } else 
-                {
-                    RegexOptions regexOptions = RegexOptions.CultureInvariant
-                                                | RegexOptions.IgnoreCase
-                                                | RegexOptions.Singleline;
-
-                    string routeParameter = Regex.Replace(
-                        request.Path,
-                        matchingRouteConfiguration.Path,
-                        string.Empty,
-                        regexOptions);
-
-                    object parameter;
-
-                    if (string.IsNullOrWhiteSpace(routeParameter))
-                    {
-                        parameter = parameterType.IsValueType
-                            ? Activator.CreateInstance(parameterType)
-                            : null;
-                    }
-                    else
-                    {
-                        parameter = Convert.ChangeType(routeParameter, parameterType);
-                    }
-
-                    parameters.Add(parameter);
-                }
+                return new RouteHandler(matchingRouteConfiguration.ControllerMethodInfo);
             }
 
+            List<object> potentialParameters = new List<object>();
+
+            potentialParameters.Add(GetDeserializedRequestBody(request, parameterType));
+            potentialParameters.Add(GetTypedRouteParameter(request.Path, matchingRouteConfiguration.Path, parameterType));
+
+            IEnumerable<object> parameters = potentialParameters
+                .Where(p => p != null)
+                .ToList();
+
             return new RouteHandler(matchingRouteConfiguration.ControllerMethodInfo, parameters);
+        }
+
+        private static object GetDeserializedRequestBody(GuardianRequest request, Type targetType)
+        {
+            if (request.Body == null || request.Body.Length == 0)
+            {
+                return null;
+            }
+
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                request.Body.CopyTo(memoryStream);
+
+                byte[] bytes = memoryStream.ToArray();
+
+                string bodyAsString = Encoding.UTF8.GetString(bytes);
+
+                return JsonConvert.DeserializeObject(bodyAsString, targetType);
+            }
+        }
+
+        private static object GetTypedRouteParameter(string requestPath, string routePath, Type targetType)
+        {
+            string routeParameter = Regex.Replace(
+                requestPath,
+                routePath,
+                string.Empty,
+                _regexOptions);
+
+            if (string.IsNullOrWhiteSpace(routeParameter))
+            {
+                return targetType.IsValueType
+                    ? Activator.CreateInstance(targetType)
+                    : null;
+            }
+
+            return Convert.ChangeType(routeParameter, targetType);
         }
     }
 }

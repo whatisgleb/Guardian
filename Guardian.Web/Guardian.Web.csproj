@@ -55,7 +55,7 @@
     <Compile Include="Implementations\Validation.cs" />
     <Compile Include="Implementations\ValidationCondition.cs" />
     <Compile Include="Routing\Enums\HTTPRequestMethod.cs" />
-    <Compile Include="Routing\ContentStreamParameterResolver.cs" />
+    <Compile Include="Routing\GuardianRoutingEngine.cs" />
     <Compile Include="Routing\Responses\Interfaces\IResponse.cs" />
     <Compile Include="Extensions\AppBuilderExtensions.cs" />
     <Compile Include="Routing\Attributes\RouteAttribute.cs" />
