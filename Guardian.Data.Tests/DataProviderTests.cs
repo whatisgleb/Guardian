@@ -17,13 +17,13 @@ namespace Guardian.Data.Tests
         [ClassInitialize]
         public static void ClassInitialize(TestContext testContext)
         {
-            GuardianDataProviderFactory.RegisterDataProviderFactory(() => new TestDataProvider(() => new TestDbContext()));
+            GuardianDataProviderConfiguration.RegisterDataProviderFactory(() => new TestDataProvider(() => new TestDbContext()));
         }
 
         [TestInitialize]
         public void TestInitialize()
         {
-            _dataProvider = GuardianDataProviderFactory.GetDataProvider();
+            _dataProvider = GuardianDataProviderConfiguration.GetDataProvider();
             _dataProvider.BeginTransaction();
         }
 

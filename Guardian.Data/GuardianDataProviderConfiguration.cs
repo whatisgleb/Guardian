@@ -6,7 +6,7 @@ using Guardian.Common.Interfaces;
 
 namespace Guardian.Data
 {
-    public static class GuardianDataProviderFactory
+    public static class GuardianDataProviderConfiguration
     {
         private static Func<GuardianDataProvider> _dataProviderFactory { get; set; }
 

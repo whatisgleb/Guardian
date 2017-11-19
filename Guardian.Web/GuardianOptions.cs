@@ -32,7 +32,7 @@ namespace Guardian.Web
         {
             if (string.IsNullOrWhiteSpace(applicationID))
             {
-                throw new ArgumentException($"Guardian requires an application identifier. You specified {applicationID} which is not valid.");
+                throw new ArgumentException($"Guardian requires an application identifier. You specified '{applicationID}' which is not valid.");
             }
 
             ApplicationID = applicationID;
