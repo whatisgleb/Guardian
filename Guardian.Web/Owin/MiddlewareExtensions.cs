@@ -4,6 +4,7 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using Guardian.Data;
+using Guardian.Web.Helpers;
 using Guardian.Web.Routing;
 using Microsoft.Owin;
 
@@ -30,7 +31,7 @@ namespace Guardian.Web.Owin
             if (options == null) throw new ArgumentNullException(nameof(options));
 
             GuardianOptionsFactory.RegisterOptionsFactory(() => options);
-            GuardianRouter.BuildRoutes();
+            GuardianRouter.BuildRoutes(ReflectionHelper.GetExecutingAssembly());
 
             builder(_ => UseGuardianDashboard());
 

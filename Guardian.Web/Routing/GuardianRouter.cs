@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using Guardian.Web.Abstractions;
 using Guardian.Web.Controllers;
+using Guardian.Web.Helpers;
 using Newtonsoft.Json;
 
 [assembly: InternalsVisibleTo("Guardian.Web.Tests")]
@@ -17,11 +19,11 @@ namespace Guardian.Web.Routing
         private static IEnumerable<RouteConfiguration> _congifuredRoutes;
         private static RegexOptions _regexOptions;
 
-        public static void BuildRoutes()
+        public static void BuildRoutes(Assembly assembly)
         {
             GuardianRoutingEngine routingEngine = new GuardianRoutingEngine();
 
-            _congifuredRoutes = routingEngine.GetRoutingConfigurations();
+            _congifuredRoutes = routingEngine.GetRoutingConfigurations(assembly);
         }
 
         internal static RouteConfiguration GetConfiguredRoute(GuardianRequest request)
@@ -40,7 +42,7 @@ namespace Guardian.Web.Routing
                 return null;
             }
 
-            // Does the targe tmethod have an expected parameter? (Only one is allowed currently)
+            // Does the target method have an expected parameter? (Only one is allowed currently)
             Type parameterType = matchingRouteConfiguration.ControllerMethodInfo.GetParameters()
                 .Select(mi => mi.ParameterType)
                 .SingleOrDefault();
@@ -52,7 +54,7 @@ namespace Guardian.Web.Routing
 
             List<object> potentialParameters = new List<object>();
 
-            potentialParameters.Add(GetDeserializedRequestBody(request, parameterType));
+            potentialParameters.Add(GetDeserializedStream(request.Body, parameterType));
             potentialParameters.Add(GetTypedRouteParameter(request.Path, matchingRouteConfiguration.Path, parameterType));
 
             IEnumerable<object> parameters = potentialParameters
@@ -62,16 +64,16 @@ namespace Guardian.Web.Routing
             return new RouteHandler(matchingRouteConfiguration.ControllerMethodInfo, parameters);
         }
 
-        private static object GetDeserializedRequestBody(GuardianRequest request, Type targetType)
+        internal static object GetDeserializedStream(Stream contentStream, Type targetType)
         {
-            if (request.Body == null || request.Body.Length == 0)
+            if (contentStream == null || contentStream.Length == 0)
             {
                 return null;
             }
 
             using (MemoryStream memoryStream = new MemoryStream())
             {
-                request.Body.CopyTo(memoryStream);
+                contentStream.CopyTo(memoryStream);
 
                 byte[] bytes = memoryStream.ToArray();
 
@@ -81,19 +83,26 @@ namespace Guardian.Web.Routing
             }
         }
 
-        private static object GetTypedRouteParameter(string requestPath, string routePath, Type targetType)
+        internal static object GetTypedRouteParameter(string requestPath, string pathPattern, Type targetType)
         {
+            object defaultValue = targetType.IsValueType
+                ? Activator.CreateInstance(targetType)
+                : null;
+
+            if (string.IsNullOrWhiteSpace(requestPath) || string.IsNullOrWhiteSpace(pathPattern))
+            {
+                return defaultValue;
+            }
+
             string routeParameter = Regex.Replace(
                 requestPath,
-                routePath,
+                pathPattern,
                 string.Empty,
                 _regexOptions);
 
             if (string.IsNullOrWhiteSpace(routeParameter))
             {
-                return targetType.IsValueType
-                    ? Activator.CreateInstance(targetType)
-                    : null;
+                return defaultValue;
             }
 
             return Convert.ChangeType(routeParameter, targetType);

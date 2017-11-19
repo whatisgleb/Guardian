@@ -1,4 +1,7 @@
-﻿namespace Guardian.Web.Routing.Enums
+﻿using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("Guardian.Web.Tests")]
+namespace Guardian.Web.Routing.Enums
 {
     internal static class HttpRequestMethod
     {

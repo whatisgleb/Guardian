@@ -2,19 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Guardian.Web.Helpers;
 using Guardian.Web.Routing.Attributes;
 
+[assembly: InternalsVisibleTo("Guardian.Web.Tests")]
 namespace Guardian.Web.Routing
 {
     internal class GuardianRoutingEngine
     {
         private const string _routeParameterDelimiter = "{";
 
-        public IEnumerable<RouteConfiguration> GetRoutingConfigurations()
+        public IEnumerable<RouteConfiguration> GetRoutingConfigurations(Assembly assembly)
         {
-            Assembly assembly = ReflectionHelper.GetExecutingAssembly();
-
             // Methods with RouteAttribute in the current assembly (candidates for routing to)
             IEnumerable<MethodInfo> methodInfos = assembly.GetTypes()
                 .SelectMany(t => t.GetMethods())
@@ -25,7 +25,7 @@ namespace Guardian.Web.Routing
                 .ToList();
         }
 
-        private RouteConfiguration GetRouteConfiguration(MethodInfo controllerMethodInfo)
+        internal RouteConfiguration GetRouteConfiguration(MethodInfo controllerMethodInfo)
         {
             RouteAttribute routeAttribute =
                 (RouteAttribute)Attribute.GetCustomAttribute(controllerMethodInfo, typeof(RouteAttribute));
@@ -36,7 +36,7 @@ namespace Guardian.Web.Routing
             return new RouteConfiguration($@"^{prefix}{suffix}", routeAttribute.RequestMethod, controllerMethodInfo);
         }
 
-        private string GetRoutePrefix(MethodInfo controllerMethodInfo)
+        internal string GetRoutePrefix(MethodInfo controllerMethodInfo)
         {
             string prefix = string.Empty;
 
@@ -53,7 +53,7 @@ namespace Guardian.Web.Routing
             return prefix;
         }
 
-        private string GetRouteSuffix(MethodInfo controllerMethodInfo)
+        internal string GetRouteSuffix(MethodInfo controllerMethodInfo)
         {
             string suffix = "$";
 
