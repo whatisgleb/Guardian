@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Guardian.Web.Abstractions;
 using Guardian.Web.Helpers;
 using Guardian.Web.Owin;
 using Guardian.Web.Routing.Responses.Interfaces;
@@ -16,7 +17,7 @@ namespace Guardian.Web.Routing.Responses
             _path = path;
         }
 
-        public void Execute(GuardianOwinContext context)
+        public void Execute(GuardianContext context)
         {
             context.Response.ContentType = ContentType;
             context.Response.SetExpire(DateTimeOffset.UtcNow.AddMinutes(1));

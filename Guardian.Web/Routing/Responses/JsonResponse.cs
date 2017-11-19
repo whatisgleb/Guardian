@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using Guardian.Web.Abstractions;
 using Guardian.Web.Owin;
 using Guardian.Web.Routing.Responses.Interfaces;
 using Newtonsoft.Json;
@@ -17,7 +18,7 @@ namespace Guardian.Web.Routing.Responses
             _payload = payload;
         }
 
-        public void Execute(GuardianOwinContext context)
+        public void Execute(GuardianContext context)
         {
             context.Response.ContentType = ContentType;
             context.Response.SetExpire(DateTimeOffset.UtcNow.AddMinutes(1));
