@@ -3,12 +3,12 @@ using Guardian.Library.Interfaces;
 
 namespace Guardian.Library.Tokens
 {
-    public class OrOperator : Operator, IOperator
+    public class OrOperator : Operator
     {
-        public string StringRepresentation { get; } = "||";
-        public byte? Precedence { get; } = 0;
+        public override string StringRepresentation { get; } = "||";
+        public override byte? Precedence { get; } = 0;
 
-        public bool Evaluate(params Func<bool>[] operands)
+        public override bool Evaluate(params Func<bool>[] operands)
         {
             if (operands.Length != 2)
             {
