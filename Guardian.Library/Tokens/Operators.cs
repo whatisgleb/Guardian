@@ -11,13 +11,13 @@ namespace Guardian.Library.Tokens
         public static OpenParanthesisGroupingOperator OpenParanthesis = new OpenParanthesisGroupingOperator();
         public static CloseParanthesisGroupingOperator CloseParanthesis = new CloseParanthesisGroupingOperator();
 
-        public static List<IOperator> All = new List<IOperator>()
+        public static IDictionary<string, IOperator> All = new Dictionary<string, IOperator>()
         {
-            And,
-            Or,
-            Not,
-            OpenParanthesis,
-            CloseParanthesis
+            { And.StringRepresentation, And },
+            { Or.StringRepresentation, Or },
+            { Not.StringRepresentation, Not },
+            { OpenParanthesis.StringRepresentation, OpenParanthesis },
+            { CloseParanthesis.StringRepresentation, CloseParanthesis }
         };
     }
 }

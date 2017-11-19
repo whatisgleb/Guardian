@@ -46,8 +46,7 @@ namespace Guardian.Library.ExpressionTree
 
                 treeNode.Left = GenerateNode(tokens);
             }
-
-            if (!currentToken.IsOperatorToken())
+            else
             {
                 treeNode.Token = currentToken;
             }

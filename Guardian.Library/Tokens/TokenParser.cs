@@ -33,7 +33,7 @@ namespace Guardian.Library.Tokens
             // -- Ex: (1 && !2) -> (1&&!2) -> ( 1 && ! 2 ) -> [(, 1, &&, !, 2, )]
             expression = expression.Replace(" ", string.Empty);
 
-            foreach (IOperator op in Operators.All)
+            foreach (IOperator op in Operators.All.Values)
             {
                 expression = expression.Replace(op.StringRepresentation, $" {op.StringRepresentation} ");
             }
@@ -42,12 +42,10 @@ namespace Guardian.Library.Tokens
 
             foreach (string token in tokens)
             {
-                IOperator op = Operators.All.FirstOrDefault(o => o.StringRepresentation == token);
-
-                if (op != null)
+                if (Operators.All.ContainsKey(token))
                 {
                     // Token is an operator
-                    outputTokens.Add(op);
+                    outputTokens.Add(Operators.All[token]);
                 }
                 else
                 {
