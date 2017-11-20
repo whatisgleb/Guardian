@@ -80,11 +80,11 @@
     <Compile Include="Routing\RouteHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Content\app\dist\resources\inline-bundle-js" />
-    <EmbeddedResource Include="Content\app\dist\resources\main-bundle-js" />
-    <EmbeddedResource Include="Content\app\dist\resources\polyfills-bundle-js" />
-    <EmbeddedResource Include="Content\app\dist\resources\styles-bundle-js" />
-    <EmbeddedResource Include="Content\app\dist\resources\vendor-bundle-js" />
+    <EmbeddedResource Include="Content\app\dist\guardian\resources\inline.bundle.js.map" />
+    <EmbeddedResource Include="Content\app\dist\guardian\resources\main.bundle.js.map" />
+    <EmbeddedResource Include="Content\app\dist\guardian\resources\polyfills.bundle.js.map" />
+    <EmbeddedResource Include="Content\app\dist\guardian\resources\styles.bundle.js.map" />
+    <EmbeddedResource Include="Content\app\dist\guardian\resources\vendor.bundle.js.map" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +105,13 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Content\app\dist\dashboard.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\app\dist\guardian\resources\inline.bundle.js" />
+    <EmbeddedResource Include="Content\app\dist\guardian\resources\main.bundle.js" />
+    <EmbeddedResource Include="Content\app\dist\guardian\resources\polyfills.bundle.js" />
+    <EmbeddedResource Include="Content\app\dist\guardian\resources\styles.bundle.js" />
+    <EmbeddedResource Include="Content\app\dist\guardian\resources\vendor.bundle.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

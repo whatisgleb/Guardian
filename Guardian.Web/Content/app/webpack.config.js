@@ -8,6 +8,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const postcssUrl = require('postcss-url');
 const cssnano = require('cssnano');
+const webpack = require('webpack');
 
 const { NoEmitOnErrorsPlugin, SourceMapDevToolPlugin, NamedModulesPlugin } = require('webpack');
 const { NamedLazyChunksWebpackPlugin, BaseHrefWebpackPlugin } = require('@angular/cli/plugins/webpack');
@@ -87,11 +88,16 @@ module.exports = {
     ],
     "styles": [
       "./src\\styles.less"
+    ],
+    "vendor": [
+      "./node_modules/jquery/dist/jquery.min.js",
+      "./node_modules/tether/dist/js/tether.min.js",
+      "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
     ]
   },
   "output": {
     "path": path.join(process.cwd(), "dist"),
-    "filename": "resources/[name]-bundle-js",
+    "filename": "guardian/resources/[name].bundle.js",
     "chunkFilename": "[id].chunk.js"
   },
   "module": {
@@ -452,6 +458,10 @@ module.exports = {
       "exclude": [],
       "tsConfigPath": "src\\tsconfig.app.json",
       "skipCodeGeneration": true
+    }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
     })
   ],
   "node": {

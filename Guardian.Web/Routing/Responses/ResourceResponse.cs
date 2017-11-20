@@ -15,24 +15,19 @@ namespace Guardian.Web.Routing.Responses
     internal class ResourceResponse : IResponse
     {
         private readonly string _resourceName;
-
-        public ResourceResponse(string resourceName)
-        {
-            _resourceName = resourceName
-                .Replace("/", ".");
-        }
-        
         private Dictionary<string, string> _contentTypesByFileExtension = new Dictionary<string, string>()
         {
             { ".js", "text/javascript" },
             { ".css", "text/css" },
-            { ".html",  "text/html" }
+            { ".html",  "text/html" },
+            { ".map", "application/octet-stream" }
         };
 
-        public string ContentType
+        public string ContentType => _contentTypesByFileExtension[Path.GetExtension(_resourceName)];
+
+        public ResourceResponse(string resourceName)
         {
-            get { return _contentTypesByFileExtension[Path.GetExtension(_resourceName
-                .Replace("-", "."))]; }
+            _resourceName = resourceName;
         }
 
         public void Execute(GuardianContext context)
@@ -42,7 +37,7 @@ namespace Guardian.Web.Routing.Responses
 
             Assembly executingAssembly = ReflectionHelper.GetExecutingAssembly();
             string executingAssemblyName = executingAssembly.GetName().Name;
-            string resourcePath = $"{executingAssemblyName}.Content.app.dist.resources.{_resourceName}";
+            string resourcePath = $"{executingAssemblyName}.Content.app.dist.guardian.resources.{_resourceName}";
 
             using (var inputStream = executingAssembly.GetManifestResourceStream(resourcePath))
             {
