@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IApplicableObjectGrapher.cs" />
     <Compile Include="Nodes\ComplexObjectGraphNode.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="GuardianObjectGrapher.cs" />
