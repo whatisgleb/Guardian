@@ -38,7 +38,7 @@ namespace Guardian.ObjectGrapher
             Type genericType = type.GenericTypeArguments.SingleOrDefault();
 
             IObjectGrapher objectGrapher = ObjectGraphers.GetApplicableObjectGrapher(genericType);
-            IObjectGraphNode childNode = objectGrapher?.BuildObjectGraph(genericType, nodeName);
+            IObjectGraphNode childNode = objectGrapher?.BuildObjectGraph(genericType, genericType.Name);
 
             node.ChildrenObjectGraphNodes.Add(childNode);
 

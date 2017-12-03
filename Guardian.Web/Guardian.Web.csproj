@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Api\GuardianObjectGraphsApiControllers.cs" />
     <Compile Include="Controllers\Api\GuardianValidationApiController.cs" />
     <Compile Include="Controllers\Api\GuardianValidationConditionApiController.cs" />
     <Compile Include="Implementations\Validation.cs" />
@@ -98,6 +99,10 @@
     <ProjectReference Include="..\Guardian.Data\Guardian.Data.csproj">
       <Project>{14707356-0445-413e-a3f9-198f1eeef906}</Project>
       <Name>Guardian.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Guardian.ObjectGrapher\Guardian.ObjectGrapher.csproj">
+      <Project>{0504170d-e4b1-481c-b091-547d3211f1f8}</Project>
+      <Name>Guardian.ObjectGrapher</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

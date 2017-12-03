@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Guardian.Web;
 using Guardian.Web.Extensions;
 using Guardian.Website.EntityFramework;
 using Guardian.Website.Guardian;
+using Guardian.Website.Models;
 using Microsoft.Owin;
 using Owin;
 
@@ -19,7 +21,11 @@ namespace Guardian.Website
 
             app.UseGuardianDashboard(new GuardianOptions(applicationID)
             {
-                GuardianDataProviderFactory = () => new ApplicationValidationDataProvider(() => new ApplicationDbContext())
+                GuardianDataProviderFactory = () => new ApplicationValidationDataProvider(() => new ApplicationDbContext()),
+                TypesToValidate = new List<Type>()
+                {
+                    typeof(Document)
+                }
             });
         }
     }
