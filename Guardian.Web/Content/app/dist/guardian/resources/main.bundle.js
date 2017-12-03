@@ -20,7 +20,7 @@ webpackEmptyAsyncContext.id = "./src/$$_gendir lazy recursive";
 /***/ "./src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<ngb-accordion #acc=\"ngbAccordion\" activeIds=\"ngb-panel-0\">\n    <ngb-panel title=\"Simple\">\n      <ng-template ngbPanelContent>\n        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia\n        aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,\n        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,\n        craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings\n        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus\n        labore sustainable VHS.\n      </ng-template>\n    </ngb-panel>\n    <ngb-panel>\n      <ng-template ngbPanelTitle>\n        <span>&#9733; <b>Fancy</b> title &#9733;</span>\n      </ng-template>\n      <ng-template ngbPanelContent>\n        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia\n        aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,\n        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,\n        craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings\n        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus\n        labore sustainable VHS.\n      </ng-template>\n    </ngb-panel>\n    <ngb-panel title=\"Disabled\" [disabled]=\"true\">\n      <ng-template ngbPanelContent>\n        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia\n        aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,\n        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica,\n        craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings\n        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus\n        labore sustainable VHS.\n      </ng-template>\n    </ngb-panel>\n  </ngb-accordion>"
+module.exports = "<div class=\"container\">\n    <div class=\"header clearfix\">\n      <h3 class=\"text-muted\">Guardian</h3>\n    </div>\n\n    \n  </div>"
 
 /***/ }),
 
@@ -32,7 +32,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, ".nav-header {\n  height: 64px;\n  width: 100%;\n  background-color: #2c3e50;\n}\n", ""]);
+exports.push([module.i, ".g-header {\n  background: linear-gradient(135deg, #2980b9, #3498db);\n}\n.g-header h1 {\n  color: white;\n}\n", ""]);
 
 // exports
 
