@@ -18,7 +18,7 @@ namespace Guardian.Web.Routing
             ControllerMethodInfo = controllerMethodInfo;
         }
 
-        public bool IsMatch(string path, string httpRequestMethod)
+        public bool IsMatch(string requestPath, string httpRequestMethod)
         {
             if (httpRequestMethod != RequestMethod)
             {
@@ -30,7 +30,7 @@ namespace Guardian.Web.Routing
                 | RegexOptions.Singleline;
 
             Match match = Regex.Match(
-                    path,
+                    requestPath,
                     Path,
                     regexOptions);
 
