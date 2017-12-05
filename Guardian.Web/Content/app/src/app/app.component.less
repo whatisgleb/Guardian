@@ -1,9 +1,30 @@
 @import "app.colors.less";
 
-.g-header {
-    background: linear-gradient(135deg, @belizeHole, @peterRivier);
-    
-    h1 {
-        color: white;
+.container .header {
+    color: @emerald;
+    border-bottom: @clouds;
+}
+
+
+ul.object-graph-nodes li {
+    list-style: none;
+    margin-bottom: 4px;
+
+    &:first-child {
+        margin-top: 4px;
     }
+}
+
+/* Creates a vertical nav starting at 768px (sm) */
+@media (min-width: 768px) {
+    .bootstrap-vertical-nav .collapse {
+        display: block;
+    }
+}
+
+.rules-editor {
+    background-color: @clouds;
+    height: 500px;
+    border-radius: 8px;
+    padding-top: 10px;
 }

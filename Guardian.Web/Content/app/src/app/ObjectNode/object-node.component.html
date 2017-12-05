@@ -1,0 +1,6 @@
+<button class="btn btn-primary" (click)="select(node)">{{ node.NodeName }}</button>
+<ul>
+    <li *ngFor="let childNode of node.ChildrenObjectGraphNodes">
+        <object-node [node]="childNode" (onNodeSelected)="select($event)"></object-node>
+    </li>
+</ul>
