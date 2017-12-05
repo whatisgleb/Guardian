@@ -19,12 +19,12 @@ namespace Guardian.Web.Routing
     /// </summary>
     internal class RouteHandler
     {
-        public IEnumerable<object> Parameters { get; }
+        public object[] Parameters { get; }
         public readonly MethodInfo ControllerMethodInfo;
 
-        internal RouteHandler(MethodInfo controllerMethodInfo, IEnumerable<object> parameters = null)
+        internal RouteHandler(MethodInfo controllerMethodInfo, object[] parameters = null)
         {
-            Parameters = parameters ?? new List<object>();
+            Parameters = parameters ?? new object[0];
             ControllerMethodInfo = controllerMethodInfo;
 
             Debug.Assert(Parameters.Count() <= 1, "Guardian Routing supports only one parameter at a time. Route Handler was given a collection of more than one Parameter.");
@@ -37,7 +37,7 @@ namespace Guardian.Web.Routing
         {
             // Instantiate controller and execute the target method with the deserialized parameters
             object controllerInstance = Activator.CreateInstance(ControllerMethodInfo.ReflectedType);
-            IResponse response = (IResponse)ControllerMethodInfo.Invoke(controllerInstance, Parameters.ToArray());
+            IResponse response = (IResponse)ControllerMethodInfo.Invoke(controllerInstance, Parameters);
 
             // Return a Task that will return the actual response to the client
             return Task.Factory.StartNew(() => response.Execute(context));

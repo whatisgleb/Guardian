@@ -117,7 +117,7 @@ namespace Guardian.Web.Routing
         /// <summary>
         /// Returns non-null parameters foudn in given request.
         /// </summary>
-        private static IEnumerable<object> GetRequestParameters(GuardianRequest request, Type parameterType, RouteConfiguration routeConfiguration)
+        private static object[] GetRequestParameters(GuardianRequest request, Type parameterType, RouteConfiguration routeConfiguration)
         {
             List<object> potentialParameters = new List<object>();
 
@@ -126,7 +126,7 @@ namespace Guardian.Web.Routing
 
             return potentialParameters
                 .Where(p => p != null)
-                .ToList();
+                .ToArray();
         }
     }
 }
