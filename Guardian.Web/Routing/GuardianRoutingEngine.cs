@@ -13,6 +13,9 @@ namespace Guardian.Web.Routing
     {
         private const string _routeParameterDelimiter = "{";
 
+        /// <summary>
+        /// Returns a collection of route configurations found in the specified assembly.
+        /// </summary>
         public IEnumerable<RouteConfiguration> GetRoutingConfigurations(Assembly assembly)
         {
             // Methods with RouteAttribute in the current assembly (candidates for routing to)
@@ -25,6 +28,9 @@ namespace Guardian.Web.Routing
                 .ToList();
         }
 
+        /// <summary>
+        /// Returns a route configuration obtained from the specified MethodInfo
+        /// </summary>
         internal RouteConfiguration GetRouteConfiguration(MethodInfo controllerMethodInfo)
         {
             RouteAttribute routeAttribute =
@@ -36,6 +42,9 @@ namespace Guardian.Web.Routing
             return new RouteConfiguration($@"^{prefix}{suffix}", routeAttribute.RequestMethod, controllerMethodInfo);
         }
 
+        /// <summary>
+        /// Returns a route prefix which is parsed from the specified MethodInfo.
+        /// </summary>
         internal string GetRoutePrefix(MethodInfo controllerMethodInfo)
         {
             string prefix = string.Empty;
@@ -53,6 +62,9 @@ namespace Guardian.Web.Routing
             return prefix;
         }
 
+        /// <summary>
+        /// Returns a route suffix which is parsed from the specified MethodInfo.
+        /// </summary>
         internal string GetRouteSuffix(MethodInfo controllerMethodInfo)
         {
             string suffix = "$";

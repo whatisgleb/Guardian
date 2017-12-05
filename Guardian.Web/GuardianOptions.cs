@@ -43,7 +43,7 @@ namespace Guardian.Web
     {
         public Func<GuardianDataProvider> GuardianDataProviderFactory { get; set; }
         public string ApplicationID { get; private set; }
-        public List<Type> TypesToValidate { get; set; }
+        public List<Type> TypesToValidate { get; set; } //TODO: Is there a better way to include types to validate?
 
         public GuardianOptions(string applicationID)
         {

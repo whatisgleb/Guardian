@@ -14,6 +14,9 @@ using Guardian.Web.Routing.Responses.Interfaces;
 
 namespace Guardian.Web.Routing
 {
+    /// <summary>
+    /// This class orchestrates the pieces that can generate a server response for a given request context.
+    /// </summary>
     internal class RouteHandler
     {
         public IEnumerable<object> Parameters { get; }
@@ -27,6 +30,9 @@ namespace Guardian.Web.Routing
             Debug.Assert(Parameters.Count() <= 1, "Guardian Routing supports only one parameter at a time. Route Handler was given a collection of more than one Parameter.");
         }
 
+        /// <summary>
+        /// Returns a Task that executes the work that will ultimately respond to the request.
+        /// </summary>
         internal Task HandleRequest(GuardianContext context)
         {
             // Instantiate controller and execute the target method with the deserialized parameters

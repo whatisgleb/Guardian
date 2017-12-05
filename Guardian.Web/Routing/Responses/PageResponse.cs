@@ -23,7 +23,7 @@ namespace Guardian.Web.Routing.Responses
             context.Response.SetExpire(DateTimeOffset.UtcNow.AddMinutes(1));
 
             var executingAssembly = ReflectionHelper.GetExecutingAssembly();
-            var pagePath = $"{executingAssembly.GetName().Name}.{_path}.html";
+            var pagePath = $"{executingAssembly.GetName().Name}.{_path}.html"; //TODO: Some hardcoded magic here.
 
             using (var inputStream = executingAssembly.GetManifestResourceStream(pagePath))
             {

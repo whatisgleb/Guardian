@@ -5,6 +5,9 @@ using System.Text.RegularExpressions;
 [assembly: InternalsVisibleTo("Guardian.Web.Tests")]
 namespace Guardian.Web.Routing
 {
+    /// <summary>
+    /// This class represents a known route configuration. A route configuration can be used to compare against an incoming request in order to identify a matching known/configured route.
+    /// </summary>
     internal class RouteConfiguration
     {
         public string Path { get; set; }
@@ -18,6 +21,9 @@ namespace Guardian.Web.Routing
             ControllerMethodInfo = controllerMethodInfo;
         }
 
+        /// <summary>
+        /// Checks if the given request matches this route configuration.
+        /// </summary>
         public bool IsMatch(string requestPath, string httpRequestMethod)
         {
             if (httpRequestMethod != RequestMethod)
