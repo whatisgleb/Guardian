@@ -1,11 +1,10 @@
-﻿using Guardian.Tests.Mock;
-using Guardian.Tests.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Guardian.Core;
+using Guardian.Core.Tests.Mock;
+using Guardian.Core.Tests.Utilities;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Guardian.Tests
+namespace Guardian.Core.Tests
 {
     [TestClass]
     public class ValidatorTests

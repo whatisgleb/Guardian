@@ -1,8 +1,8 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Guardian.Core.Tokens;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Guardian.Tests.Tokens
+namespace Guardian.Core.Tests.Tokens
 {
     [TestClass]
     public class TokenParserValidationTests

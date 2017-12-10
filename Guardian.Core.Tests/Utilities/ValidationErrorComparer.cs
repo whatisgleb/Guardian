@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Guardian.Core;
 
-namespace Guardian.Tests.Utilities
+namespace Guardian.Core.Tests.Utilities
 {
     public class ValidationErrorComparer : IComparer, IComparer<ValidationError>
     {

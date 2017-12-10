@@ -1,10 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Guardian.Core.Extensions;
 using Guardian.Core.Interfaces;
 using Guardian.Core.Tokens;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Guardian.Tests.ExpressionConversions
+namespace Guardian.Core.Tests.ExpressionConversions
 {
     [TestClass]
     public class PostfixStackToExpressionTests

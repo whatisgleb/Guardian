@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Guardian.Core.ExpressionTree;
 using Guardian.Core.Interfaces;
 
-namespace Guardian.Tests.Utilities
+namespace Guardian.Core.Tests.Utilities
 {
     public class ExpressionTreeNodeComparer : IComparer, IComparer<ExpressionTreeNode>
     {

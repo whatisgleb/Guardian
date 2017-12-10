@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace Guardian.Tests.Mock
+namespace Guardian.Core.Tests.Mock
 {
     public static class Validations
     {

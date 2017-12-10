@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Guardian.Tests.Mock
+namespace Guardian.Core.Tests.Mock
 {
     public class Document
     {

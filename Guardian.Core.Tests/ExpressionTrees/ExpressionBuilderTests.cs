@@ -1,11 +1,11 @@
-﻿using Guardian.Tests.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Guardian.Core.ExpressionTree;
 using Guardian.Core.Interfaces;
+using Guardian.Core.Tests.Utilities;
 using Guardian.Core.Tokens;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Guardian.Tests.ExpressionTrees
+namespace Guardian.Core.Tests.ExpressionTrees
 {
     [TestClass]
     public class ExpressionBuilderTests

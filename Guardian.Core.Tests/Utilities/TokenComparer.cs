@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Guardian.Core.Interfaces;
 
-namespace Guardian.Tests.Utilities
+namespace Guardian.Core.Tests.Utilities
 {
     /// <summary>
     /// Custom comparer to handle Token comparisons

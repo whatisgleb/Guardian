@@ -1,4 +1,4 @@
-namespace Guardian.Tests.Mock
+namespace Guardian.Core.Tests.Mock
 {
     public class State
     {

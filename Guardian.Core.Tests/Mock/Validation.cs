@@ -1,7 +1,6 @@
 using Guardian.Common.Interfaces;
-using Guardian.Core;
 
-namespace Guardian.Tests.Mock
+namespace Guardian.Core.Tests.Mock
 {
     public class Validation : IValidation
     {

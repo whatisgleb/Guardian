@@ -3,7 +3,7 @@ using Guardian.Core.Interfaces;
 using Guardian.Core.Postfix;
 using Guardian.Core.Tokens;
 
-namespace Guardian.Tests.Utilities
+namespace Guardian.Core.Tests.Utilities
 {
     public class TestServices
     {

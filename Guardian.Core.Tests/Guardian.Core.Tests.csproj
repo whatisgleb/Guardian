@@ -7,8 +7,8 @@
     <ProjectGuid>{E458A9C6-E082-4FFC-BD8B-5C1C08FE1D47}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Guardian.Tests</RootNamespace>
-    <AssemblyName>Guardian.Tests</AssemblyName>
+    <RootNamespace>Guardian.Core.Tests</RootNamespace>
+    <AssemblyName>Guardian.Core.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -84,7 +84,7 @@
       <Project>{14707356-0445-413E-A3F9-198F1EEEF906}</Project>
       <Name>Guardian.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Guardian.Library\Guardian.Core.csproj">
+    <ProjectReference Include="..\Guardian.Core\Guardian.Core.csproj">
       <Project>{c9265488-4908-47cc-b87d-8a8a3df0afdd}</Project>
       <Name>Guardian.Core</Name>
     </ProjectReference>
