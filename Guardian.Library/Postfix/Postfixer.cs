@@ -1,9 +1,9 @@
-﻿using Guardian.Library.Interfaces;
-using Guardian.Library.Tokens;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Guardian.Core.Interfaces;
+using Guardian.Core.Tokens;
 
-namespace Guardian.Library.Postfix
+namespace Guardian.Core.Postfix
 {
     public class Postfixer : IPostfixConverter
     {

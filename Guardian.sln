@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guardian.Tests", "Guardian.Tests\Guardian.Tests.csproj", "{E458A9C6-E082-4FFC-BD8B-5C1C08FE1D47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guardian.Library", "Guardian.Library\Guardian.Library.csproj", "{C9265488-4908-47CC-B87D-8A8A3DF0AFDD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guardian.Core", "Guardian.Library\Guardian.Core.csproj", "{C9265488-4908-47CC-B87D-8A8A3DF0AFDD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guardian.Data", "Guardian.Data\Guardian.Data.csproj", "{14707356-0445-413E-A3F9-198F1EEEF906}"
 EndProject

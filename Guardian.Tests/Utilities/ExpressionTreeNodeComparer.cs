@@ -1,7 +1,7 @@
-﻿using Guardian.Library.ExpressionTree;
-using Guardian.Library.Interfaces;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using Guardian.Core.ExpressionTree;
+using Guardian.Core.Interfaces;
 
 namespace Guardian.Tests.Utilities
 {

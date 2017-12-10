@@ -1,9 +1,9 @@
-﻿using Guardian.Library;
-using Guardian.Tests.Mock;
+﻿using Guardian.Tests.Mock;
 using Guardian.Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
+using Guardian.Core;
 
 namespace Guardian.Tests
 {

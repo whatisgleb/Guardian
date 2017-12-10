@@ -1,7 +1,7 @@
-﻿using Guardian.Library.Interfaces;
-using System;
+﻿using System;
+using Guardian.Core.Interfaces;
 
-namespace Guardian.Library.Tokens
+namespace Guardian.Core.Tokens
 {
     public abstract class Operator : IOperator
     {

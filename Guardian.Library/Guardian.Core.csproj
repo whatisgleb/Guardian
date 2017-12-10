@@ -7,8 +7,8 @@
     <ProjectGuid>{C9265488-4908-47CC-B87D-8A8A3DF0AFDD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Guardian.Library</RootNamespace>
-    <AssemblyName>Guardian.Library</AssemblyName>
+    <RootNamespace>Guardian.Core</RootNamespace>
+    <AssemblyName>Guardian.Core</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

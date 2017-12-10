@@ -1,8 +1,8 @@
-﻿using Guardian.Library.Interfaces;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Guardian.Core.Interfaces;
 
-namespace Guardian.Library.Extensions
+namespace Guardian.Core.Extensions
 {
     public static class TokenExtensions
     {

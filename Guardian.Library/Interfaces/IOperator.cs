@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Guardian.Library.Interfaces
+namespace Guardian.Core.Interfaces
 {
     public interface IOperator : IToken
     {

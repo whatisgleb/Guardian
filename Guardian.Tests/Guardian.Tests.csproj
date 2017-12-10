@@ -84,9 +84,9 @@
       <Project>{14707356-0445-413E-A3F9-198F1EEEF906}</Project>
       <Name>Guardian.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Guardian.Library\Guardian.Library.csproj">
+    <ProjectReference Include="..\Guardian.Library\Guardian.Core.csproj">
       <Project>{c9265488-4908-47cc-b87d-8a8a3df0afdd}</Project>
-      <Name>Guardian.Library</Name>
+      <Name>Guardian.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

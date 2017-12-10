@@ -1,8 +1,8 @@
-using Guardian.Library.Interfaces;
-using Guardian.Library.Tokens;
 using Guardian.Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using Guardian.Core.Interfaces;
+using Guardian.Core.Tokens;
 
 namespace Guardian.Tests.Tokens
 {

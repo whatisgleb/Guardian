@@ -1,4 +1,4 @@
-﻿namespace Guardian.Library
+﻿namespace Guardian.Core
 {
     public class ValidationError
     {

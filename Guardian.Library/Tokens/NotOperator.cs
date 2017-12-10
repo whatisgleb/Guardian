@@ -1,6 +1,6 @@
 using System;
 
-namespace Guardian.Library.Tokens
+namespace Guardian.Core.Tokens
 {
     public class NotOperator : Operator
     {

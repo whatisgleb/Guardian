@@ -1,9 +1,9 @@
-﻿using Guardian.Library.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Guardian.Core.Interfaces;
 
-namespace Guardian.Library.Tokens
+namespace Guardian.Core.Tokens
 {
     public class TokenParser : ITokenParser
     {

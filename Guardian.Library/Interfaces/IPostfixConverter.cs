@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Guardian.Library.Interfaces
+namespace Guardian.Core.Interfaces
 {
     public interface IPostfixConverter
     {

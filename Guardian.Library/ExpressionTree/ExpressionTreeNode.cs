@@ -1,7 +1,7 @@
-﻿using Guardian.Library.Interfaces;
-using Guardian.Library.Tokens;
+﻿using Guardian.Core.Interfaces;
+using Guardian.Core.Tokens;
 
-namespace Guardian.Library.ExpressionTree
+namespace Guardian.Core.ExpressionTree
 {
     public class ExpressionTreeNode
     {

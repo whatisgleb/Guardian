@@ -1,7 +1,7 @@
-﻿using Guardian.Library.ExpressionTree;
-using Guardian.Library.Interfaces;
-using Guardian.Library.Postfix;
-using Guardian.Library.Tokens;
+﻿using Guardian.Core.ExpressionTree;
+using Guardian.Core.Interfaces;
+using Guardian.Core.Postfix;
+using Guardian.Core.Tokens;
 
 namespace Guardian.Tests.Utilities
 {

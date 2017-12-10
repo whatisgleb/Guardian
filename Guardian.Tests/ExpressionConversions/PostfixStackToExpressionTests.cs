@@ -1,8 +1,8 @@
-﻿using Guardian.Library.Extensions;
-using Guardian.Library.Interfaces;
-using Guardian.Library.Tokens;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using Guardian.Core.Extensions;
+using Guardian.Core.Interfaces;
+using Guardian.Core.Tokens;
 
 namespace Guardian.Tests.ExpressionConversions
 {

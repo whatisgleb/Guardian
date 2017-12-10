@@ -1,4 +1,4 @@
-﻿namespace Guardian.Library.Interfaces
+﻿namespace Guardian.Core.Interfaces
 {
     public interface IToken
     {
