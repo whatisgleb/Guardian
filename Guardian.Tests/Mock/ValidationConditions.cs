@@ -6,9 +6,6 @@ namespace Guardian.Tests.Mock
 {
     public static class ValidationConditions
     {
-        /// <summary>
-        /// This throws an error - cannot pass null into DynamicExpression
-        /// </summary>
         public static ValidationCondition Document_IsNull = new ValidationCondition()
         {
             ValidationConditionID = 1,

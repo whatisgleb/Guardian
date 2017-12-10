@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Guardian.Web.Abstractions;
+using Guardian.Web.Routing.Responses.Interfaces;
+using System;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Guardian.Web.Abstractions;
-using Guardian.Web.Controllers;
-using Guardian.Web.Extensions;
-using Guardian.Web.Owin;
-using Guardian.Web.Routing.Responses;
-using Guardian.Web.Routing.Responses.Interfaces;
 
 namespace Guardian.Web.Routing
 {
@@ -33,6 +27,8 @@ namespace Guardian.Web.Routing
         /// <summary>
         /// Returns a Task that executes the work that will ultimately respond to the request.
         /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         internal Task HandleRequest(GuardianContext context)
         {
             // Instantiate controller and execute the target method with the deserialized parameters

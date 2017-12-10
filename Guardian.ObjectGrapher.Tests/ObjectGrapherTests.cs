@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Guardian.ObjectGrapher.Interfaces;
+﻿using Guardian.ObjectGrapher.Interfaces;
 using Guardian.ObjectGrapher.Tests.TestObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Guardian.ObjectGrapher.Tests
 {

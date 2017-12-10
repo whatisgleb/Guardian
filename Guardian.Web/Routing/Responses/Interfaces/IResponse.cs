@@ -1,6 +1,4 @@
-﻿using System.IO;
-using Guardian.Web.Abstractions;
-using Guardian.Web.Owin;
+﻿using Guardian.Web.Abstractions;
 
 namespace Guardian.Web.Routing.Responses.Interfaces
 {

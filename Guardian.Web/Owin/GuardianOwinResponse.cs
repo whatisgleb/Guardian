@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Guardian.Web.Abstractions;
+using Microsoft.Owin;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Guardian.Web.Abstractions;
-using Microsoft.Owin;
 
 namespace Guardian.Web.Owin
 {

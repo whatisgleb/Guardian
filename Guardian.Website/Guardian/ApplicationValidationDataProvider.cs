@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using Guardian.Common.Interfaces;
+﻿using Guardian.Common.Interfaces;
 using Guardian.Data;
 using Guardian.Website.EntityFramework;
 using Guardian.Website.EntityFramework.Entities;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 
 namespace Guardian.Website.Guardian
 {
@@ -38,9 +37,6 @@ namespace Guardian.Website.Guardian
                 .ToArray();
         }
 
-
-        // Implement these interfaces
-        // Add transactions to the tests
         public override IValidation CreateValidation(IValidation validation)
         {
             ValidationEntity newValidationEntity = new ValidationEntity().MapFromInterface(validation);

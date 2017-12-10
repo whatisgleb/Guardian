@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Guardian.ObjectGrapher.Interfaces;
+using System;
 using System.Collections.Generic;
-using Guardian.ObjectGrapher.Interfaces;
 
 namespace Guardian.ObjectGrapher.Nodes
 {

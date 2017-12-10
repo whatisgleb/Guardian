@@ -1,5 +1,4 @@
 using Guardian.Common.Interfaces;
-using Guardian.Library;
 
 namespace Guardian.Tests.Mock
 {

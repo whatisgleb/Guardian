@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Guardian.Web;
+﻿using Guardian.Web;
 using Guardian.Web.Extensions;
 using Guardian.Website.EntityFramework;
 using Guardian.Website.Guardian;
 using Guardian.Website.Models;
 using Microsoft.Owin;
 using Owin;
+using System;
+using System.Collections.Generic;
 
 [assembly: OwinStartup(typeof(Guardian.Website.Startup))]
 

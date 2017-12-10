@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Guardian.Library.Interfaces;
-using Guardian.Library.Postfix;
+﻿using Guardian.Library.Interfaces;
 using Guardian.Library.Tokens;
+using System.Collections.Generic;
 
 namespace Guardian.Library.ExpressionTree
 {

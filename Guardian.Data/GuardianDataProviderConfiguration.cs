@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Guardian.Common.Interfaces;
 
 namespace Guardian.Data
 {

@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Reflection;
-using System.Threading.Tasks;
-using Guardian.Data;
-using Guardian.Web.Helpers;
+﻿using Guardian.Web.Helpers;
 using Guardian.Web.Routing;
-using Microsoft.Owin;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Guardian.Web.Owin
 {
-    using MidFunc = Func<
-        Func<IDictionary<string, object>, Task>,
-        Func<IDictionary<string, object>, Task>
-    >;
-
     using BuildFunc = Action<
         Func<
             IDictionary<string, object>,
@@ -22,6 +13,10 @@ namespace Guardian.Web.Owin
                 Func<IDictionary<string, object>, Task>,
                 Func<IDictionary<string, object>, Task>
             >>>;
+    using MidFunc = Func<
+        Func<IDictionary<string, object>, Task>,
+        Func<IDictionary<string, object>, Task>
+    >;
 
     public static class MiddlewareExtensions
     {

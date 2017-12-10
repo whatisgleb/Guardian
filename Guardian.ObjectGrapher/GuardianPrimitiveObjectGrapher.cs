@@ -1,7 +1,7 @@
-﻿using System;
-using Guardian.ObjectGrapher.Extensions;
+﻿using Guardian.ObjectGrapher.Extensions;
 using Guardian.ObjectGrapher.Interfaces;
 using Guardian.ObjectGrapher.Nodes;
+using System;
 
 namespace Guardian.ObjectGrapher
 {

@@ -1,6 +1,6 @@
-using System;
 using Guardian.Library.Tokens;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Guardian.Tests.Tokens
 {

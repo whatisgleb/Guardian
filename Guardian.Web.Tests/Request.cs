@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Guardian.Web.Abstractions;
+using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Guardian.Web.Abstractions;
 
 namespace Guardian.Web.Tests
 {

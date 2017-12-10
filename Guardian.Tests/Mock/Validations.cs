@@ -6,9 +6,6 @@ namespace Guardian.Tests.Mock
 {
     public static class Validations
     {
-        /// <summary>
-        /// This throws an error - cannot pass null into DynamicExpression
-        /// </summary>
         public static Validation Target_NotNull = new Validation()
         {
             Expression = "1",

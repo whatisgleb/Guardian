@@ -1,7 +1,5 @@
-﻿using System;
-using System.Text;
-using System.Threading.Tasks;
-using Guardian.ObjectGrapher.Interfaces;
+﻿using Guardian.ObjectGrapher.Interfaces;
+using System;
 
 namespace Guardian.ObjectGrapher
 {

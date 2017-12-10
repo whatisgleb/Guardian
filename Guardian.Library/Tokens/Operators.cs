@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Guardian.Library.Interfaces;
+﻿using Guardian.Library.Interfaces;
+using System.Collections.Generic;
 
 namespace Guardian.Library.Tokens
 {

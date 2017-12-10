@@ -24,6 +24,9 @@ namespace Guardian.Web.Routing
         /// <summary>
         /// Checks if the given request matches this route configuration.
         /// </summary>
+        /// <param name="requestPath"></param>
+        /// <param name="httpRequestMethod"></param>
+        /// <returns></returns>
         public bool IsMatch(string requestPath, string httpRequestMethod)
         {
             if (httpRequestMethod != RequestMethod)

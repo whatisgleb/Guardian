@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Guardian.Data.Tests.EntityFramework;
+﻿using Guardian.Data.Tests.EntityFramework;
 using Guardian.Data.Tests.EntityFramework.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Guardian.Data.Tests
 {

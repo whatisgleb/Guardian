@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Guardian.Web.Owin;
+using Owin;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Guardian.Web.Owin;
-using Owin;
 
 namespace Guardian.Web.Extensions
 {

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Guardian.ObjectGrapher.Extensions
 {
@@ -11,6 +7,8 @@ namespace Guardian.ObjectGrapher.Extensions
         /// <summary>
         /// Returns whether the specified Type is complex
         /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static bool IsComplexType(this Type type)
         {
             return !type.IsValueType && !type.IsPrimitive && type != typeof(string);
@@ -19,6 +17,8 @@ namespace Guardian.ObjectGrapher.Extensions
         /// <summary>
         /// Returns whether the specified Type is a collection
         /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static bool IsCollectionType(this Type type)
         {
             return type.GetInterface("IEnumerable") != null && type != typeof(string);

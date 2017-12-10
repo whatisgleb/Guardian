@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Guardian.Common.Interfaces;
+using Guardian.Data.Tests.EntityFramework;
+using Guardian.Data.Tests.EntityFramework.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Guardian.Common.Interfaces;
-using Guardian.Data.Tests.EntityFramework;
-using Guardian.Data.Tests.EntityFramework.Entities;
 
 namespace Guardian.Data.Tests
 {
@@ -38,9 +36,6 @@ namespace Guardian.Data.Tests
                 .ToArray();
         }
 
-
-        // Implement these interfaces
-        // Add transactions to the tests
         public override IValidation CreateValidation(IValidation validation)
         {
             ValidationEntity validationEntity = _ctx.Validations.Add((ValidationEntity)validation);
