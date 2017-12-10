@@ -1,10 +1,10 @@
-﻿using Guardian.Web.Routing;
+﻿using System;
+using System.IO;
+using System.Text;
+using Guardian.Web.Routing;
 using Guardian.Web.Routing.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using System;
-using System.IO;
-using System.Text;
 
 namespace Guardian.Web.Tests
 {

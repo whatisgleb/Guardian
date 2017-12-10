@@ -1,6 +1,4 @@
-﻿using Guardian.Web.Abstractions;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,6 +6,8 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using Guardian.Web.Abstractions;
+using Newtonsoft.Json;
 
 [assembly: InternalsVisibleTo("Guardian.Web.Tests")]
 namespace Guardian.Web.Routing

@@ -1,6 +1,6 @@
-﻿using Guardian.Web.Abstractions;
-using System;
+﻿using System;
 using System.IO;
+using Guardian.Web.Abstractions;
 
 namespace Guardian.Web.Tests
 {

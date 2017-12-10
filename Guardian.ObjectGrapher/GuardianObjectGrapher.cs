@@ -1,5 +1,5 @@
-﻿using Guardian.ObjectGrapher.Interfaces;
-using System;
+﻿using System;
+using Guardian.ObjectGrapher.Interfaces;
 
 namespace Guardian.ObjectGrapher
 {

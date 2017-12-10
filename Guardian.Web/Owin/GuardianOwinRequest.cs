@@ -1,8 +1,8 @@
-﻿using Guardian.Web.Abstractions;
-using Microsoft.Owin;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Guardian.Web.Abstractions;
+using Microsoft.Owin;
 
 namespace Guardian.Web.Owin
 {

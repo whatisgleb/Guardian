@@ -1,8 +1,8 @@
-﻿using Guardian.Web.Helpers;
-using Guardian.Web.Routing;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Guardian.Web.Helpers;
+using Guardian.Web.Routing;
 
 namespace Guardian.Web.Owin
 {

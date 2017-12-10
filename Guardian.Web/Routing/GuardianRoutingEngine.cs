@@ -1,9 +1,9 @@
-using Guardian.Web.Routing.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using Guardian.Web.Routing.Attributes;
 
 [assembly: InternalsVisibleTo("Guardian.Web.Tests")]
 namespace Guardian.Web.Routing

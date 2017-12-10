@@ -1,10 +1,10 @@
-﻿using Guardian.Common.Interfaces;
-using Guardian.Data.Tests.EntityFramework;
-using Guardian.Data.Tests.EntityFramework.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using Guardian.Common.Interfaces;
+using Guardian.Data.Tests.EntityFramework;
+using Guardian.Data.Tests.EntityFramework.Entities;
 
 namespace Guardian.Data.Tests
 {

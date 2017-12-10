@@ -1,7 +1,7 @@
+using System;
 using Guardian.Web.Abstractions;
 using Guardian.Web.Helpers;
 using Guardian.Web.Routing.Responses.Interfaces;
-using System;
 
 namespace Guardian.Web.Routing.Responses
 {

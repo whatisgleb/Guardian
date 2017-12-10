@@ -1,10 +1,10 @@
-﻿using Guardian.Web.Abstractions;
-using Guardian.Web.Helpers;
-using Guardian.Web.Routing.Responses.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Guardian.Web.Abstractions;
+using Guardian.Web.Helpers;
+using Guardian.Web.Routing.Responses.Interfaces;
 
 namespace Guardian.Web.Routing.Responses
 {

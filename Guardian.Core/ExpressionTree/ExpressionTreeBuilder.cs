@@ -1,6 +1,6 @@
-﻿using Guardian.Core.Interfaces;
+﻿using System.Collections.Generic;
+using Guardian.Core.Interfaces;
 using Guardian.Core.Tokens;
-using System.Collections.Generic;
 
 namespace Guardian.Core.ExpressionTree
 {

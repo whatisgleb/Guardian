@@ -1,7 +1,7 @@
-﻿using Guardian.Data.Tests.EntityFramework;
+﻿using System;
+using Guardian.Data.Tests.EntityFramework;
 using Guardian.Data.Tests.EntityFramework.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace Guardian.Data.Tests
 {

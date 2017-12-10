@@ -1,9 +1,9 @@
-﻿using Guardian.Web.Abstractions;
-using Guardian.Web.Routing.Responses.Interfaces;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
+using Guardian.Web.Abstractions;
+using Guardian.Web.Routing.Responses.Interfaces;
+using Newtonsoft.Json;
 
 namespace Guardian.Web.Routing.Responses
 {

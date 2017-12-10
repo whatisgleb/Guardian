@@ -1,9 +1,9 @@
-﻿using Guardian.ObjectGrapher.Extensions;
-using Guardian.ObjectGrapher.Interfaces;
-using Guardian.ObjectGrapher.Nodes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Guardian.ObjectGrapher.Extensions;
+using Guardian.ObjectGrapher.Interfaces;
+using Guardian.ObjectGrapher.Nodes;
 
 namespace Guardian.ObjectGrapher
 {
