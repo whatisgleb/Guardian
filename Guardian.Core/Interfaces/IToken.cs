@@ -1,6 +1,6 @@
 ﻿namespace Guardian.Core.Interfaces
 {
-    public interface IToken
+    internal interface IToken
     {
         bool IsOperatorToken();
     }

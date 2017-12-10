@@ -2,7 +2,7 @@
 
 namespace Guardian.Web.Abstractions
 {
-    public abstract class GuardianRequest
+    internal abstract class GuardianRequest
     {
         public abstract string Method { get; }
         public abstract string Path { get; }

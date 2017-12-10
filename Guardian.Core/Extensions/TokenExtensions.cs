@@ -4,7 +4,7 @@ using Guardian.Core.Interfaces;
 
 namespace Guardian.Core.Extensions
 {
-    public static class TokenExtensions
+    internal static class TokenExtensions
     {
         /// <summary>
         /// Converts specified Token Stack into a string expression

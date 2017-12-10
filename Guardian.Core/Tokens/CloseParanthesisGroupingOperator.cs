@@ -2,7 +2,7 @@
 
 namespace Guardian.Core.Tokens
 {
-    public class CloseParanthesisGroupingOperator : Operator
+    internal class CloseParanthesisGroupingOperator : Operator
     {
         public override string StringRepresentation { get; } = ")";
         public override byte? Precedence { get; }

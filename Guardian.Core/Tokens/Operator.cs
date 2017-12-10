@@ -3,7 +3,7 @@ using Guardian.Core.Interfaces;
 
 namespace Guardian.Core.Tokens
 {
-    public abstract class Operator : IOperator
+    internal abstract class Operator : IOperator
     {
         public bool IsOperatorToken()
         {

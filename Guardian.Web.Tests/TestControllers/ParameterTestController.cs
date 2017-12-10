@@ -3,7 +3,7 @@
 namespace Guardian.Web.Tests.TestControllers
 {
     [RoutePrefix("api/testing/parameters")]
-    public class ParameterTestController
+    internal class ParameterTestController
     {
         [Route("{ID}")]
         public void ID(string ID) { }

@@ -1,8 +1,6 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
-[assembly: InternalsVisibleTo("Guardian.Web.Tests")]
 namespace Guardian.Web.Routing
 {
     /// <summary>

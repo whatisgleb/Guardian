@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Guardian.Core.ExpressionTree;
 using Guardian.Core.Interfaces;
+using Guardian.Core.Postfix;
 using Guardian.Core.Tests.Utilities;
 using Guardian.Core.Tokens;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -10,11 +11,13 @@ namespace Guardian.Core.Tests.ExpressionTrees
     [TestClass]
     public class ExpressionBuilderTests
     {
-        private TestServices _testServices;
+        private IPostfixConverter _postFixer;
+        private IExpressionTreeBuilder _expressionTreeBuilder;
 
         public ExpressionBuilderTests()
         {
-            _testServices = new TestServices();
+            _postFixer = new Postfixer(new TokenParser());
+            _expressionTreeBuilder = new ExpressionTreeBuilder();
         }
 
         [TestMethod]
@@ -22,10 +25,10 @@ namespace Guardian.Core.Tests.ExpressionTrees
         {
             // Arrange
             string expression = "1 && 2";
-            Stack<IToken> postfixTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixTokens = _postFixer.ConvertToStack(expression);
 
             // Act
-            ExpressionTreeNode root = _testServices.ExpressionTreeBuilder.BuildExpressionTree(postfixTokens);
+            ExpressionTreeNode root = _expressionTreeBuilder.BuildExpressionTree(postfixTokens);
 
             // Assert
             ExpressionTreeNode expected = new ExpressionTreeNode(Operators.And, 1, 2);
@@ -38,10 +41,10 @@ namespace Guardian.Core.Tests.ExpressionTrees
         {
             // Arrange
             string expression = "1 && 2 && 3";
-            Stack<IToken> postfixTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixTokens = _postFixer.ConvertToStack(expression);
 
             // Act
-            ExpressionTreeNode root = _testServices.ExpressionTreeBuilder.BuildExpressionTree(postfixTokens);
+            ExpressionTreeNode root = _expressionTreeBuilder.BuildExpressionTree(postfixTokens);
 
             // Assert
             ExpressionTreeNode expected = new ExpressionTreeNode(Operators.And, 1,
@@ -55,10 +58,10 @@ namespace Guardian.Core.Tests.ExpressionTrees
         {
             // Arrange
             string expression = "1 && 2 || 3";
-            Stack<IToken> postfixTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixTokens = _postFixer.ConvertToStack(expression);
 
             // Act
-            ExpressionTreeNode root = _testServices.ExpressionTreeBuilder.BuildExpressionTree(postfixTokens);
+            ExpressionTreeNode root = _expressionTreeBuilder.BuildExpressionTree(postfixTokens);
 
             // Assert
             ExpressionTreeNode expected = new ExpressionTreeNode(Operators.Or,
@@ -73,10 +76,10 @@ namespace Guardian.Core.Tests.ExpressionTrees
         {
             // Arrange
             string expression = "1 || 2 && 3";
-            Stack<IToken> postfixTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixTokens = _postFixer.ConvertToStack(expression);
 
             // Act
-            ExpressionTreeNode root = _testServices.ExpressionTreeBuilder.BuildExpressionTree(postfixTokens);
+            ExpressionTreeNode root = _expressionTreeBuilder.BuildExpressionTree(postfixTokens);
 
             // Assert
             ExpressionTreeNode expected = new ExpressionTreeNode(Operators.Or, 1,
@@ -90,10 +93,10 @@ namespace Guardian.Core.Tests.ExpressionTrees
         {
             // Arrange
             string expression = "1 || 2 && !3";
-            Stack<IToken> postfixTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixTokens = _postFixer.ConvertToStack(expression);
 
             // Act
-            ExpressionTreeNode root = _testServices.ExpressionTreeBuilder.BuildExpressionTree(postfixTokens);
+            ExpressionTreeNode root = _expressionTreeBuilder.BuildExpressionTree(postfixTokens);
 
             // Assert
             ExpressionTreeNode expected = new ExpressionTreeNode(Operators.Or, 1,
@@ -107,10 +110,10 @@ namespace Guardian.Core.Tests.ExpressionTrees
         {
             // Arrange
             string expression = "!(1 || 2 && 3)";
-            Stack<IToken> postfixTokens = _testServices.PostfixConverter.ConvertToStack(expression);
+            Stack<IToken> postfixTokens = _postFixer.ConvertToStack(expression);
 
             // Act
-            ExpressionTreeNode root = _testServices.ExpressionTreeBuilder.BuildExpressionTree(postfixTokens);
+            ExpressionTreeNode root = _expressionTreeBuilder.BuildExpressionTree(postfixTokens);
 
             // Assert
             ExpressionTreeNode expected = new ExpressionTreeNode(Operators.Not, new ExpressionTreeNode(Operators.Or, 1,

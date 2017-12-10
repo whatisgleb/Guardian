@@ -53,6 +53,7 @@
     <Compile Include="Controllers\Api\GuardianObjectGraphsApiControllers.cs" />
     <Compile Include="Controllers\Api\GuardianValidationApiController.cs" />
     <Compile Include="Controllers\Api\GuardianValidationConditionApiController.cs" />
+    <Compile Include="GuardianOptionsFactory.cs" />
     <Compile Include="Implementations\Validation.cs" />
     <Compile Include="Implementations\ValidationCondition.cs" />
     <Compile Include="Routing\Enums\HTTPRequestMethod.cs" />

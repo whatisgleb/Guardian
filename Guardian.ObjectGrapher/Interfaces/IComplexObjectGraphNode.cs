@@ -2,7 +2,7 @@
 
 namespace Guardian.ObjectGrapher.Interfaces
 {
-    public interface IComplexObjectGraphNode : IObjectGraphNode
+    internal interface IComplexObjectGraphNode : IObjectGraphNode
     {
         List<IObjectGraphNode> ChildrenObjectGraphNodes { get; set; }
     }

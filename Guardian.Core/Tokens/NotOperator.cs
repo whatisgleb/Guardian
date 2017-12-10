@@ -2,7 +2,7 @@ using System;
 
 namespace Guardian.Core.Tokens
 {
-    public class NotOperator : Operator
+    internal class NotOperator : Operator
     {
         public override string StringRepresentation { get; } = "!";
         public override byte? Precedence { get; } = 2;

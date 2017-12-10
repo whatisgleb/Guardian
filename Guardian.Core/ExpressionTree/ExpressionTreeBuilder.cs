@@ -4,7 +4,7 @@ using Guardian.Core.Tokens;
 
 namespace Guardian.Core.ExpressionTree
 {
-    public class ExpressionTreeBuilder
+    internal class ExpressionTreeBuilder : IExpressionTreeBuilder
     {
         /// <summary>
         /// Converts specified Token Stack into an expression tree.

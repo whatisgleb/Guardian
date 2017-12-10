@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Guardian.Core.Tests.Utilities
 {
-    public class ValidationErrorComparer : IComparer, IComparer<ValidationError>
+    internal class ValidationErrorComparer : IComparer, IComparer<ValidationError>
     {
         public int Compare(ValidationError x, ValidationError y)
         {

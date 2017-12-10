@@ -2,7 +2,7 @@
 
 namespace Guardian.ObjectGrapher.Extensions
 {
-    public static class TypeExtensions
+    internal static class TypeExtensions
     {
         /// <summary>
         /// Returns whether the specified Type is complex

@@ -2,7 +2,7 @@ using Guardian.Core.Interfaces;
 
 namespace Guardian.Core.Tokens
 {
-    public class IdentifierToken : IIdentifier
+    internal class IdentifierToken : IIdentifier
     {
         public int ID { get; set; }
 

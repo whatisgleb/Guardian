@@ -5,7 +5,7 @@ using Guardian.Core.Tokens;
 
 namespace Guardian.Core.Postfix
 {
-    public class Postfixer : IPostfixConverter
+    internal class Postfixer : IPostfixConverter
     {
         private readonly ITokenParser _tokenParser;
 

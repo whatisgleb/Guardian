@@ -47,6 +47,7 @@
     <Compile Include="ExpressionTree\ExpressionTreeBuilder.cs" />
     <Compile Include="ExpressionTree\ExpressionTreeNode.cs" />
     <Compile Include="Extensions\TokenExtensions.cs" />
+    <Compile Include="Interfaces\IExpressionTreeBuilder.cs" />
     <Compile Include="Interfaces\IIdentifier.cs" />
     <Compile Include="Interfaces\IOperator.cs" />
     <Compile Include="Interfaces\IPostfixConverter.cs" />

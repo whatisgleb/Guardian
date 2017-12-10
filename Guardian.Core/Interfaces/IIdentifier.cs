@@ -1,6 +1,6 @@
 ﻿namespace Guardian.Core.Interfaces
 {
-    public interface IIdentifier : IToken
+    internal interface IIdentifier : IToken
     {
         int ID { get; }
     }

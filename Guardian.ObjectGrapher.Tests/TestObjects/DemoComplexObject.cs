@@ -1,6 +1,6 @@
 namespace Guardian.ObjectGrapher.Tests.TestObjects
 {
-    public class DemoComplexObject
+    internal class DemoComplexObject
     {
         public int DemoComplexObjectID { get; set; }
         public DemoObject DemoObject { get; set; }

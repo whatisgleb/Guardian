@@ -3,7 +3,7 @@ using Guardian.Web.Routing.Enums;
 
 namespace Guardian.Web.Routing.Attributes
 {
-    public sealed class RouteAttribute : Attribute
+    internal sealed class RouteAttribute : Attribute
     {
         public readonly string Route;
         public readonly string RequestMethod;

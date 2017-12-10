@@ -5,7 +5,7 @@ using Guardian.Core.Interfaces;
 
 namespace Guardian.Core.Tokens
 {
-    public class TokenParser : ITokenParser
+    internal class TokenParser : ITokenParser
     {
         private TokenValidator _validator;
 

@@ -2,7 +2,7 @@
 
 namespace Guardian.Core.Tokens
 {
-    public class AndOperator : Operator
+    internal class AndOperator : Operator
     {
         public override string StringRepresentation { get; } = "&&";
         public override byte? Precedence { get; } = 1;

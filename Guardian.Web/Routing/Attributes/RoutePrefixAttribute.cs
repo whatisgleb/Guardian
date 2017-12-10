@@ -2,7 +2,7 @@
 
 namespace Guardian.Web.Routing.Attributes
 {
-    public class RoutePrefixAttribute : Attribute
+    internal class RoutePrefixAttribute : Attribute
     {
         public readonly string RoutePrefix;
 

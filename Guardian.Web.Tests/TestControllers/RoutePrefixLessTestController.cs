@@ -2,8 +2,7 @@
 
 namespace Guardian.Web.Tests.TestControllers
 {
-    [RoutePrefix("api/testing")]
-    internal class RoutePrefixTestController
+    internal class RoutePrefixLessTestController
     {
         [Route("")]
         public void Method() { }

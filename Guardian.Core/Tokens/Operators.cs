@@ -3,7 +3,7 @@ using Guardian.Core.Interfaces;
 
 namespace Guardian.Core.Tokens
 {
-    public static class Operators
+    internal static class Operators
     {
         public static AndOperator And = new AndOperator();
         public static OrOperator Or = new OrOperator();

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Guardian.ObjectGrapher.Tests.TestObjects
 {
-    public class DemoComplexCollectionsObject
+    internal class DemoComplexCollectionsObject
     {
         public int DemoComplexCollectionsObjectID { get; set; }
         public string Description { get; set; }

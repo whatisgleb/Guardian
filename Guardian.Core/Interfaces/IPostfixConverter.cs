@@ -2,7 +2,7 @@
 
 namespace Guardian.Core.Interfaces
 {
-    public interface IPostfixConverter
+    internal interface IPostfixConverter
     {
         Stack<IToken> ConvertToStack(string expression);
     }

@@ -3,7 +3,7 @@ using Guardian.Core.Tokens;
 
 namespace Guardian.Core.ExpressionTree
 {
-    public class ExpressionTreeNode
+    internal class ExpressionTreeNode
     {
         public IToken Token { get; set; }
 

@@ -67,7 +67,6 @@
     <Compile Include="Tokens\TokenParserTests.cs" />
     <Compile Include="Tokens\TokenParserValidationTests.cs" />
     <Compile Include="Utilities\ExpressionTreeNodeComparer.cs" />
-    <Compile Include="Utilities\TestServices.cs" />
     <Compile Include="Utilities\TokenComparer.cs" />
     <Compile Include="Utilities\ValidationErrorComparer.cs" />
     <Compile Include="ValidatorTests.cs" />

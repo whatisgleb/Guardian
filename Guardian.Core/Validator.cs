@@ -4,6 +4,8 @@ using System.Linq.Expressions;
 using Guardian.Common.Interfaces;
 using Guardian.Core.ExpressionTree;
 using Guardian.Core.Interfaces;
+using Guardian.Core.Postfix;
+using Guardian.Core.Tokens;
 using DynamicExpression = System.Linq.Dynamic.DynamicExpression;
 
 namespace Guardian.Core
@@ -14,9 +16,9 @@ namespace Guardian.Core
         private ExpressionTreeBuilder _treeBuilder;
         private Dictionary<int, bool> _validationConditionResultDictionary;
 
-        public Validator(IPostfixConverter postfixConverter)
+        public Validator()
         {
-            _postfixConverter = postfixConverter;
+            _postfixConverter = new Postfixer(new TokenParser());
             _treeBuilder = new ExpressionTreeBuilder();
             _validationConditionResultDictionary = new Dictionary<int, bool>();
         }

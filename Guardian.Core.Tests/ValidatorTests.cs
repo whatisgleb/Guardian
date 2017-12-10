@@ -9,14 +9,8 @@ namespace Guardian.Core.Tests
     [TestClass]
     public class ValidatorTests
     {
-        private TestServices _testServices;
         private Document _document;
         private ValidationErrorComparer _validationErrorComparer;
-
-        public ValidatorTests()
-        {
-            _testServices = new TestServices();
-        }
 
         [TestInitialize]
         public void TestInitialize()
@@ -39,7 +33,7 @@ namespace Guardian.Core.Tests
                 Validations.Target_NotNull
             };
 
-            Validator validator = new Validator(_testServices.PostfixConverter);
+            Validator validator = new Validator();
 
             // Act
             List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
@@ -61,7 +55,7 @@ namespace Guardian.Core.Tests
                 Validations.Document_Title_NotNull
             };
 
-            Validator validator = new Validator(_testServices.PostfixConverter);
+            Validator validator = new Validator();
 
             // Act
             List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
@@ -82,7 +76,7 @@ namespace Guardian.Core.Tests
                 Validations.Document_Title_NotNull
             };
 
-            Validator validator = new Validator(_testServices.PostfixConverter);
+            Validator validator = new Validator();
 
             // Act
             List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
@@ -103,7 +97,7 @@ namespace Guardian.Core.Tests
                 Validations.Document_Title_OfExpectedLength
             };
 
-            Validator validator = new Validator(_testServices.PostfixConverter);
+            Validator validator = new Validator();
 
             // Act
             List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
@@ -125,7 +119,7 @@ namespace Guardian.Core.Tests
                 Validations.Document_Title_OfExpectedLength
             };
 
-            Validator validator = new Validator(_testServices.PostfixConverter);
+            Validator validator = new Validator();
 
             // Act
             List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
@@ -147,7 +141,7 @@ namespace Guardian.Core.Tests
                 Validations.Document_Title_OfExpectedLength
             };
 
-            Validator validator = new Validator(_testServices.PostfixConverter);
+            Validator validator = new Validator();
 
             // Act
             List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
@@ -173,7 +167,7 @@ namespace Guardian.Core.Tests
                 Validations.Public_Document_RequiresTitle
             };
 
-            Validator validator = new Validator(_testServices.PostfixConverter);
+            Validator validator = new Validator();
 
             // Act
             List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
@@ -199,7 +193,7 @@ namespace Guardian.Core.Tests
                 Validations.Public_Document_RequiresTitle
             };
 
-            Validator validator = new Validator(_testServices.PostfixConverter);
+            Validator validator = new Validator();
 
             // Act
             List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
@@ -222,7 +216,7 @@ namespace Guardian.Core.Tests
                 Validations.Public_Document_RequiresTitle
             };
 
-            Validator validator = new Validator(_testServices.PostfixConverter);
+            Validator validator = new Validator();
 
             // Act
             List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
@@ -244,7 +238,7 @@ namespace Guardian.Core.Tests
                 Validations.Public_Document_RequiresTitle
             };
 
-            Validator validator = new Validator(_testServices.PostfixConverter);
+            Validator validator = new Validator();
 
             // Act
             List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
@@ -269,7 +263,7 @@ namespace Guardian.Core.Tests
                 Validations.Public_Document_RequiresTitle
             };
 
-            Validator validator = new Validator(_testServices.PostfixConverter);
+            Validator validator = new Validator();
 
             // Act
             List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
@@ -294,7 +288,7 @@ namespace Guardian.Core.Tests
                 Validations.Public_Document_RequiresTitle
             };
 
-            Validator validator = new Validator(_testServices.PostfixConverter);
+            Validator validator = new Validator();
 
             // Act
             List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
@@ -320,7 +314,7 @@ namespace Guardian.Core.Tests
                 Validations.Document_HasTags_And_IsPublic_Or_HasTitle
             };
 
-            Validator validator = new Validator(_testServices.PostfixConverter);
+            Validator validator = new Validator();
 
             // Act
             List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
@@ -346,7 +340,7 @@ namespace Guardian.Core.Tests
                 Validations.Document_HasTags_And_Either_IsPublic_Or_HasTitle
             };
 
-            Validator validator = new Validator(_testServices.PostfixConverter);
+            Validator validator = new Validator();
 
             // Act
             List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
@@ -367,7 +361,7 @@ namespace Guardian.Core.Tests
                 Validations.OrderOfOperations_TrueAndTrueOrFalse_ReturnsError
             };
 
-            Validator validator = new Validator(_testServices.PostfixConverter);
+            Validator validator = new Validator();
 
             // Act
             List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
@@ -389,7 +383,7 @@ namespace Guardian.Core.Tests
                 Validations.OrderOfOperations_TrueAndFalseOrFalse_ReturnsNoError
             };
 
-            Validator validator = new Validator(_testServices.PostfixConverter);
+            Validator validator = new Validator();
 
             // Act
             List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
@@ -410,7 +404,7 @@ namespace Guardian.Core.Tests
                 Validations.OrderOfOperations_TrueAndFalseOrTrue_ReturnsError
             };
 
-            Validator validator = new Validator(_testServices.PostfixConverter);
+            Validator validator = new Validator();
 
             // Act
             List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
@@ -431,7 +425,7 @@ namespace Guardian.Core.Tests
                 Validations.OrderOfOperations_FalseOrTrueAndTrue_ReturnsError
             };
 
-            Validator validator = new Validator(_testServices.PostfixConverter);
+            Validator validator = new Validator();
 
             // Act
             List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
@@ -452,7 +446,7 @@ namespace Guardian.Core.Tests
                 Validations.OrderOfOperations_Not_FalseOrTrueAndTrue_ReturnsNoError
             };
 
-            Validator validator = new Validator(_testServices.PostfixConverter);
+            Validator validator = new Validator();
 
             // Act
             List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);

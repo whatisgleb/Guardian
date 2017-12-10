@@ -5,7 +5,7 @@ using Guardian.Core.Interfaces;
 
 namespace Guardian.Core.Tests.Utilities
 {
-    public class ExpressionTreeNodeComparer : IComparer, IComparer<ExpressionTreeNode>
+    internal class ExpressionTreeNodeComparer : IComparer, IComparer<ExpressionTreeNode>
     {
         public int Compare(object x, object y)
         {

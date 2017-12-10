@@ -1,6 +1,6 @@
 ﻿namespace Guardian.Web.Abstractions
 {
-    public abstract class GuardianContext
+    internal abstract class GuardianContext
     {
         public GuardianOptions Options { get; protected set; }
         public GuardianRequest Request { get; protected set; }

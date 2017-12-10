@@ -9,7 +9,7 @@ namespace Guardian.Core.Tests.Utilities
     /// Operators are considered to be the same if their Types match
     /// Identifiers are considered to be the same if their IDs match
     /// </summary>
-    public class TokenComparer : IComparer, IComparer<IToken>
+    internal class TokenComparer : IComparer, IComparer<IToken>
     {
         /// <summary>
         /// Compare specified Tokens
