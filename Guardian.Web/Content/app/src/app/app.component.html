@@ -1,25 +1,27 @@
-<div class="container">
-    <div class="header clearfix">
-      <h3>Guardian</h3>
-    </div>
+<nav class="navbar fixed-top">
+  <span class="navbar-brand">Guardian</span>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault"
+    aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
 
-    <div class="row">
-      <div class="col-md-4 col-lg-3">
-          <div class="bootstrap-vertical-nav">
-            <div><strong>Nodes</strong></div>
-            <span class="small text-muted" *ngIf="selectedNode">Selected: {{ selectedNode.NodeName }}</span>
-            <ul class="object-graph-nodes">
-                <li *ngFor="let node of objectNodes">
-                    <object-node [node]="node" (onNodeSelected)="onNodeSelected($event)"></object-node>
-                </li>
-            </ul>
-          </div>
-        </div>
-        <div class="rules-editor col-md-8 col-lg-9">
-            
-          <div class="alert alert-info" role="alert">
-            <strong>FYI</strong> This UI is for experimentation ONLY.
-          </div>
-        </div>
+<main role="main" class="container">
+  <div class="row">
+    <div class="col-md-4 col-lg-3">
+      <div class="bootstrap-vertical-nav">
+        <div><strong>Nodes</strong></div>
+        <span class="small text-muted" *ngIf="selectedNode">Selected: {{ selectedNode.NodeName }}</span>
+        <br/>
+        <object-node *ngFor="let node of objectNodes" [node]="node" (onNodeSelected)="onNodeSelected($event)"></object-node>
       </div>
+    </div>
+    <div class="rules-editor col-md-8 col-lg-9">
+
+      <div class="alert alert-info" role="alert">
+        <strong>FYI</strong> This UI is for experimentation ONLY.
+      </div>
+      <input class="form-control" [(ngModel)]="model" [ngbTypeahead]="search"/>
+    </div>
   </div>
+</main>
