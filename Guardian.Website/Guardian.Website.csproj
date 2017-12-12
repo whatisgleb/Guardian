@@ -235,6 +235,10 @@
       <Project>{55e8086e-a2fc-478a-8db7-f2f73feaedd8}</Project>
       <Name>Guardian.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Guardian.Core\Guardian.Core.csproj">
+      <Project>{c9265488-4908-47cc-b87d-8a8a3df0afdd}</Project>
+      <Name>Guardian.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Guardian.Data\Guardian.Data.csproj">
       <Project>{14707356-0445-413e-a3f9-198f1eeef906}</Project>
       <Name>Guardian.Data</Name>

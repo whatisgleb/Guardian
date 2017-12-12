@@ -1,0 +1,6 @@
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div class="form-group">
+      <label>Validation Condition</label>
+      <input name="expression" ngModel required type="text" class="form-control" placeholder="!string.IsNullOrWhiteSpace(Document.Title)"/>
+    </div>
+  </form>

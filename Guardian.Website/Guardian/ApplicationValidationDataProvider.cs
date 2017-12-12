@@ -75,10 +75,11 @@ namespace Guardian.Website.Guardian
 
         public override IValidationCondition CreateValidationCondition(IValidationCondition validationCondition)
         {
-            ValidationConditionEntity validationConditionEntity = _ctx.ValidationConditions.Add((ValidationConditionEntity)validationCondition);
+            ValidationConditionEntity newValidationConditionEntity = new ValidationConditionEntity().MapFromInterface(validationCondition);
+            newValidationConditionEntity = _ctx.ValidationConditions.Add(newValidationConditionEntity);
             _ctx.SaveChanges();
 
-            return validationConditionEntity;
+            return newValidationConditionEntity;
         }
 
         public override IValidationCondition UpdateValidationCondition(IValidationCondition validationCondition)

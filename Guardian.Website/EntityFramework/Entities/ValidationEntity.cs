@@ -12,6 +12,7 @@ namespace Guardian.Website.EntityFramework.Entities
         {
             ActiveFlag = true;
             DateCreatedOffset = DateTimeOffset.UtcNow;
+            DateModifiedOffset = DateTimeOffset.UtcNow;
         }
 
         public int ValidationID { get; set; }

@@ -89,10 +89,116 @@ var ObjectNodeComponent = (function () {
 
 /***/ }),
 
+/***/ "./src/app/ValidationConditions/validation-condition.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<form #f=\"ngForm\" (ngSubmit)=\"onSubmit(f)\">\r\n    <div class=\"form-group\">\r\n      <label>Validation Condition</label>\r\n      <input name=\"expression\" ngModel required type=\"text\" class=\"form-control\" placeholder=\"!string.IsNullOrWhiteSpace(Document.Title)\"/>\r\n    </div>\r\n  </form>"
+
+/***/ }),
+
+/***/ "./src/app/ValidationConditions/validation-condition.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ValidationConditionForm; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ValidationConditionForm = (function () {
+    function ValidationConditionForm(http) {
+        this.http = http;
+    }
+    ValidationConditionForm.prototype.onSubmit = function (f) {
+        this.http.post('/guardian/api/validation-conditions', {
+            Expression: f.value.expression,
+            ApplicationID: 'DemoApplication'
+        }).subscribe(function (response) {
+            console.log(response);
+        });
+    };
+    ValidationConditionForm = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'validation-condition',
+            template: __webpack_require__("./src/app/ValidationConditions/validation-condition.component.html"),
+        }),
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]) === "function" && _a || Object])
+    ], ValidationConditionForm);
+    return ValidationConditionForm;
+    var _a;
+}());
+
+//# sourceMappingURL=validation-condition.component.js.map
+
+/***/ }),
+
+/***/ "./src/app/Validations/validation.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<form #f=\"ngForm\" (ngSubmit)=\"onSubmit(f)\">\r\n    <div class=\"form-group\">\r\n      <label>Validation Condition</label>\r\n      <input name=\"expression\" ngModel required type=\"text\" class=\"form-control\" placeholder=\"1 && 2\"/>\r\n    </div>\r\n  </form>"
+
+/***/ }),
+
+/***/ "./src/app/Validations/validation.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ValidationForm; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ValidationForm = (function () {
+    function ValidationForm(http) {
+        this.http = http;
+    }
+    ValidationForm.prototype.onSubmit = function (f) {
+        this.http.post('/guardian/api/validations', {
+            Expression: f.value.expression,
+            ErrorMessage: 'This is a demo of the validation system!',
+            ErrorCode: 123,
+            ApplicationID: 'DemoApplication'
+        }).subscribe(function (response) {
+            console.log(response);
+        });
+    };
+    ValidationForm = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'validation',
+            template: __webpack_require__("./src/app/Validations/validation.component.html"),
+        }),
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]) === "function" && _a || Object])
+    ], ValidationForm);
+    return ValidationForm;
+    var _a;
+}());
+
+//# sourceMappingURL=validation.component.js.map
+
+/***/ }),
+
 /***/ "./src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar fixed-top\">\n  <span class=\"navbar-brand\">Guardian</span>\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExampleDefault\" aria-controls=\"navbarsExampleDefault\"\n    aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n      <span class=\"navbar-toggler-icon\"></span>\n    </button>\n</nav>\n\n<main role=\"main\" class=\"container\">\n  <div class=\"row\">\n    <div class=\"col-md-4 col-lg-3\">\n      <div class=\"bootstrap-vertical-nav\">\n        <div><strong>Nodes</strong></div>\n        <span class=\"small text-muted\" *ngIf=\"selectedNode\">Selected: {{ selectedNode.NodeName }}</span>\n        <br/>\n        <object-node *ngFor=\"let node of objectNodes\" [node]=\"node\" (onNodeSelected)=\"onNodeSelected($event)\"></object-node>\n      </div>\n    </div>\n    <div class=\"rules-editor col-md-8 col-lg-9\">\n\n      <div class=\"alert alert-info\" role=\"alert\">\n        <strong>FYI</strong> This UI is for experimentation ONLY.\n      </div>\n      <input class=\"form-control\" [(ngModel)]=\"model\" [ngbTypeahead]=\"search\"/>\n    </div>\n  </div>\n</main>"
+module.exports = "<nav class=\"navbar fixed-top\">\r\n  <span class=\"navbar-brand\">Guardian</span>\r\n  <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExampleDefault\" aria-controls=\"navbarsExampleDefault\"\r\n    aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n      <span class=\"navbar-toggler-icon\"></span>\r\n    </button>\r\n</nav>\r\n\r\n<main role=\"main\" class=\"container\">\r\n  <div class=\"row\">\r\n    <div class=\"col-md-4 col-lg-3\">\r\n      <div class=\"bootstrap-vertical-nav\">\r\n        <div><strong>Nodes</strong></div>\r\n        <span class=\"small text-muted\" *ngIf=\"selectedNode\">Selected: {{ selectedNode.NodeName }}</span>\r\n        <br/>\r\n        <object-node *ngFor=\"let node of objectNodes\" [node]=\"node\" (onNodeSelected)=\"onNodeSelected($event)\"></object-node>\r\n      </div>\r\n    </div>\r\n    <div class=\"rules-editor col-md-8 col-lg-9\">\r\n\r\n      <div class=\"alert alert-info\" role=\"alert\">\r\n        <strong>FYI</strong> This UI is for experimentation ONLY.\r\n      </div>\r\n      <validation-condition></validation-condition>\r\n      <validation></validation>\r\n      <!-- <input class=\"form-control\" [(ngModel)]=\"model\" [ngbTypeahead]=\"search\"/> -->\r\n    </div>\r\n  </div>\r\n</main>"
 
 /***/ }),
 
@@ -440,15 +546,19 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_component__ = __webpack_require__("./src/app/app.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ObjectNode_object_node_component__ = __webpack_require__("./src/app/ObjectNode/object-node.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ng_bootstrap_ng_bootstrap__ = __webpack_require__("./node_modules/@ng-bootstrap/ng-bootstrap/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Validations_validation_component__ = __webpack_require__("./src/app/Validations/validation.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ValidationConditions_validation_condition_component__ = __webpack_require__("./src/app/ValidationConditions/validation-condition.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ng_bootstrap_ng_bootstrap__ = __webpack_require__("./node_modules/@ng-bootstrap/ng-bootstrap/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -463,13 +573,15 @@ var AppModule = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["G" /* NgModule */])({
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */],
-                __WEBPACK_IMPORTED_MODULE_3__ObjectNode_object_node_component__["a" /* ObjectNodeComponent */]
+                __WEBPACK_IMPORTED_MODULE_3__ObjectNode_object_node_component__["a" /* ObjectNodeComponent */],
+                __WEBPACK_IMPORTED_MODULE_4__Validations_validation_component__["a" /* ValidationForm */],
+                __WEBPACK_IMPORTED_MODULE_5__ValidationConditions_validation_condition_component__["a" /* ValidationConditionForm */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
-                __WEBPACK_IMPORTED_MODULE_4__angular_common_http__["b" /* HttpClientModule */],
-                __WEBPACK_IMPORTED_MODULE_5__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */].forRoot(),
-                __WEBPACK_IMPORTED_MODULE_6__angular_forms__["a" /* FormsModule */]
+                __WEBPACK_IMPORTED_MODULE_6__angular_common_http__["b" /* HttpClientModule */],
+                __WEBPACK_IMPORTED_MODULE_7__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */].forRoot(),
+                __WEBPACK_IMPORTED_MODULE_8__angular_forms__["a" /* FormsModule */]
             ],
             providers: [],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */]]

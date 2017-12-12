@@ -30,7 +30,7 @@ namespace Guardian.Web.Controllers.Api
 
             IValidationCondition createdValidation = dataProvider.CreateValidationCondition(validationCondition);
 
-            return new JsonResponse(dataProvider.GetValidation(createdValidation.ValidationConditionID));
+            return new JsonResponse(dataProvider.GetValidationCondition(createdValidation.ValidationConditionID));
         }
 
         [Route("", HttpRequestMethod.PUT)]
@@ -41,7 +41,7 @@ namespace Guardian.Web.Controllers.Api
 
             IValidationCondition createdValidation = dataProvider.UpdateValidationCondition(validationCondition);
 
-            return new JsonResponse(dataProvider.GetValidation(createdValidation.ValidationConditionID));
+            return new JsonResponse(dataProvider.GetValidationCondition(createdValidation.ValidationConditionID));
         }
 
         [Route("{validationConditionID}")]
