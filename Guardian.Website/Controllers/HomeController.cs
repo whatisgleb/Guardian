@@ -31,14 +31,8 @@ namespace Guardian.Website.Controllers
             return View();
         }
 
-        public ActionResult Validate()
+        public ActionResult Validate(Document document)
         {
-            Document document = new Document()
-            {
-                Title = "Test",
-                
-            };
-
             using (ApplicationDbContext dbContext = new ApplicationDbContext())
             {
                 IEnumerable<IValidation> validations = dbContext.Validations
