@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using FluentAssertions;
 using Guardian.Core.Tests.Mock;
-using Guardian.Core.Tests.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Guardian.Core.Tests
@@ -10,13 +10,14 @@ namespace Guardian.Core.Tests
     public class ValidatorTests
     {
         private Document _document;
-        private ValidationErrorComparer _validationErrorComparer;
+        private Validator _validator;
 
         [TestInitialize]
         public void TestInitialize()
         {
             _document = Documents.Document;
-            _validationErrorComparer = new ValidationErrorComparer();
+
+            _validator = new Validator();
         }
 
         /// <summary>
@@ -33,14 +34,15 @@ namespace Guardian.Core.Tests
                 Validations.Target_NotNull
             };
 
-            Validator validator = new Validator();
-
             // Act
-            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
+            List<ValidationError> results = _validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
-            List<ValidationError> expectedResults = validations.Select(r => r.ToValidationError()).ToList();
-            CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
+            List<ValidationError> expectedResults = validations
+                .Select(r => r.ToValidationError())
+                .ToList();
+
+            results.Should().BeEquivalentTo(expectedResults);
         }
 
         [TestMethod]
@@ -54,15 +56,16 @@ namespace Guardian.Core.Tests
             {
                 Validations.Document_Title_NotNull
             };
-
-            Validator validator = new Validator();
-
+            
             // Act
-            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
+            List<ValidationError> results = _validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
-            List<ValidationError> expectedResults = validations.Select(r => r.ToValidationError()).ToList();
-            CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
+            List<ValidationError> expectedResults = validations
+                .Select(r => r.ToValidationError())
+                .ToList();
+
+            results.Should().BeEquivalentTo(expectedResults);
         }
 
         [TestMethod]
@@ -75,15 +78,14 @@ namespace Guardian.Core.Tests
             {
                 Validations.Document_Title_NotNull
             };
-
-            Validator validator = new Validator();
-
+            
             // Act
-            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
+            List<ValidationError> results = _validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
-            CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
+
+            results.Should().BeEquivalentTo(expectedResults);
         }
 
         [TestMethod]
@@ -96,15 +98,16 @@ namespace Guardian.Core.Tests
             {
                 Validations.Document_Title_OfExpectedLength
             };
-
-            Validator validator = new Validator();
-
+            
             // Act
-            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
+            List<ValidationError> results = _validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
-            List<ValidationError> expectedResults = validations.Select(r => r.ToValidationError()).ToList();
-            CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
+            List<ValidationError> expectedResults = validations
+                .Select(r => r.ToValidationError())
+                .ToList();
+
+            results.Should().BeEquivalentTo(expectedResults);
         }
 
         [TestMethod]
@@ -118,15 +121,14 @@ namespace Guardian.Core.Tests
             {
                 Validations.Document_Title_OfExpectedLength
             };
-
-            Validator validator = new Validator();
-
+            
             // Act
-            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
+            List<ValidationError> results = _validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
-            CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
+
+            results.Should().BeEquivalentTo(expectedResults);
         }
 
         [TestMethod]
@@ -141,14 +143,13 @@ namespace Guardian.Core.Tests
                 Validations.Document_Title_OfExpectedLength
             };
 
-            Validator validator = new Validator();
-
             // Act
-            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
+            List<ValidationError> results = _validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
-            CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
+
+            results.Should().BeEquivalentTo(expectedResults);
         }
 
         [TestMethod]
@@ -167,14 +168,15 @@ namespace Guardian.Core.Tests
                 Validations.Public_Document_RequiresTitle
             };
 
-            Validator validator = new Validator();
-
             // Act
-            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
+            List<ValidationError> results = _validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
-            List<ValidationError> expectedResults = validations.Select(r => r.ToValidationError()).ToList();
-            CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
+            List<ValidationError> expectedResults = validations
+                .Select(r => r.ToValidationError())
+                .ToList();
+
+            results.Should().BeEquivalentTo(expectedResults);
         }
 
         [TestMethod]
@@ -193,14 +195,13 @@ namespace Guardian.Core.Tests
                 Validations.Public_Document_RequiresTitle
             };
 
-            Validator validator = new Validator();
-
             // Act
-            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
+            List<ValidationError> results = _validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
-            CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
+
+            results.Should().BeEquivalentTo(expectedResults);
         }
 
         [TestMethod]
@@ -216,14 +217,13 @@ namespace Guardian.Core.Tests
                 Validations.Public_Document_RequiresTitle
             };
 
-            Validator validator = new Validator();
-
             // Act
-            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
+            List<ValidationError> results = _validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
-            CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
+
+            results.Should().BeEquivalentTo(expectedResults);
         }
 
         [TestMethod]
@@ -238,14 +238,13 @@ namespace Guardian.Core.Tests
                 Validations.Public_Document_RequiresTitle
             };
 
-            Validator validator = new Validator();
-
             // Act
-            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
+            List<ValidationError> results = _validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
-            CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
+
+            results.Should().BeEquivalentTo(expectedResults);
         }
 
         [TestMethod]
@@ -263,14 +262,13 @@ namespace Guardian.Core.Tests
                 Validations.Public_Document_RequiresTitle
             };
 
-            Validator validator = new Validator();
-
             // Act
-            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
+            List<ValidationError> results = _validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
-            CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
+
+            results.Should().BeEquivalentTo(expectedResults);
         }
 
         [TestMethod]
@@ -288,14 +286,13 @@ namespace Guardian.Core.Tests
                 Validations.Public_Document_RequiresTitle
             };
 
-            Validator validator = new Validator();
-
             // Act
-            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
+            List<ValidationError> results = _validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
-            CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
+
+            results.Should().BeEquivalentTo(expectedResults);
         }
 
         [TestMethod]
@@ -314,14 +311,15 @@ namespace Guardian.Core.Tests
                 Validations.Document_HasTags_And_IsPublic_Or_HasTitle
             };
 
-            Validator validator = new Validator();
-
             // Act
-            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
+            List<ValidationError> results = _validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
-            List<ValidationError> expectedResults = validations.Select(r => r.ToValidationError()).ToList();
-            CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
+            List<ValidationError> expectedResults = validations
+                .Select(r => r.ToValidationError())
+                .ToList();
+
+            results.Should().BeEquivalentTo(expectedResults);
         }
 
         [TestMethod]
@@ -340,14 +338,13 @@ namespace Guardian.Core.Tests
                 Validations.Document_HasTags_And_Either_IsPublic_Or_HasTitle
             };
 
-            Validator validator = new Validator();
-
             // Act
-            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
+            List<ValidationError> results = _validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
-            CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
+
+            results.Should().BeEquivalentTo(expectedResults);
         }
 
         [TestMethod]
@@ -361,14 +358,15 @@ namespace Guardian.Core.Tests
                 Validations.OrderOfOperations_TrueAndTrueOrFalse_ReturnsError
             };
 
-            Validator validator = new Validator();
-
             // Act
-            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
+            List<ValidationError> results = _validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
-            List<ValidationError> expectedResults = validations.Select(r => r.ToValidationError()).ToList();
-            CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
+            List<ValidationError> expectedResults = validations
+                .Select(r => r.ToValidationError())
+                .ToList();
+
+            results.Should().BeEquivalentTo(expectedResults);
         }
 
 
@@ -383,14 +381,13 @@ namespace Guardian.Core.Tests
                 Validations.OrderOfOperations_TrueAndFalseOrFalse_ReturnsNoError
             };
 
-            Validator validator = new Validator();
-
             // Act
-            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
+            List<ValidationError> results = _validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
-            CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
+
+            results.Should().BeEquivalentTo(expectedResults);
         }
 
         [TestMethod]
@@ -404,14 +401,15 @@ namespace Guardian.Core.Tests
                 Validations.OrderOfOperations_TrueAndFalseOrTrue_ReturnsError
             };
 
-            Validator validator = new Validator();
-
             // Act
-            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
+            List<ValidationError> results = _validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
-            List<ValidationError> expectedResults = validations.Select(r => r.ToValidationError()).ToList();
-            CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
+            List<ValidationError> expectedResults = validations
+                .Select(r => r.ToValidationError())
+                .ToList();
+
+            results.Should().BeEquivalentTo(expectedResults);
         }
 
         [TestMethod]
@@ -425,14 +423,15 @@ namespace Guardian.Core.Tests
                 Validations.OrderOfOperations_FalseOrTrueAndTrue_ReturnsError
             };
 
-            Validator validator = new Validator();
-
             // Act
-            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
+            List<ValidationError> results = _validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
-            List<ValidationError> expectedResults = validations.Select(r => r.ToValidationError()).ToList();
-            CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
+            List<ValidationError> expectedResults = validations
+                .Select(r => r.ToValidationError())
+                .ToList();
+
+            results.Should().BeEquivalentTo(expectedResults);
         }
 
         [TestMethod]
@@ -446,14 +445,13 @@ namespace Guardian.Core.Tests
                 Validations.OrderOfOperations_Not_FalseOrTrueAndTrue_ReturnsNoError
             };
 
-            Validator validator = new Validator();
-
             // Act
-            List<ValidationError> results = validator.Validate(_document, validations, ValidationConditions.All);
+            List<ValidationError> results = _validator.Validate(_document, validations, ValidationConditions.All);
 
             // Assert
             List<ValidationError> expectedResults = new List<ValidationError>();
-            CollectionAssert.AreEqual(expectedResults, results, _validationErrorComparer);
+
+            results.Should().BeEquivalentTo(expectedResults);
         }
     }
 }

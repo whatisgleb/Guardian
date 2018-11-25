@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using FluentAssertions;
 using Guardian.Web.Routing;
 using Guardian.Web.Routing.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -26,9 +27,9 @@ namespace Guardian.Web.Tests
             RouteConfiguration routeConfiguration = GuardianRouter.GetConfiguredRoute(request);
 
             // Assert
-            Assert.IsTrue(routeConfiguration != null);
-            Assert.IsTrue(routeConfiguration.Path == @"^/api/testing/router/target/");
-            Assert.IsTrue(routeConfiguration.RequestMethod == HttpRequestMethod.GET);
+            routeConfiguration.Should().NotBeNull();
+            routeConfiguration.Path.Should().Be(@"^/api/testing/router/target/");
+            routeConfiguration.RequestMethod.Should().Be(HttpRequestMethod.GET);
         }
 
         [TestMethod]
@@ -41,7 +42,7 @@ namespace Guardian.Web.Tests
             RouteConfiguration routeConfiguration = GuardianRouter.GetConfiguredRoute(request);
 
             // Assert
-            Assert.IsTrue(routeConfiguration == null);
+            routeConfiguration.Should().BeNull();
         }
 
         [TestMethod]
@@ -54,7 +55,7 @@ namespace Guardian.Web.Tests
             RouteConfiguration routeConfiguration = GuardianRouter.GetConfiguredRoute(request);
 
             // Assert
-            Assert.IsTrue(routeConfiguration == null);
+            routeConfiguration.Should().BeNull();
         }
 
         [TestMethod]
@@ -76,9 +77,9 @@ namespace Guardian.Web.Tests
             object deserializedObject = GuardianRouter.GetDeserializedStream(stream, objectType);
 
             // Assert
-            Assert.IsTrue(deserializedObject.GetType() == objectType);
-            Assert.IsTrue(testObject.ID == ((TestType)deserializedObject).ID);
-            Assert.IsTrue(testObject.Title == ((TestType)deserializedObject).Title);
+            deserializedObject.GetType().Should().Be(objectType);
+            ((TestType)deserializedObject).ID.Should().Be(testObject.ID);
+            ((TestType)deserializedObject).Title.Should().Be(testObject.Title);
         }
 
         [TestMethod]
@@ -92,7 +93,7 @@ namespace Guardian.Web.Tests
             object deserializedObject = GuardianRouter.GetDeserializedStream(stream, objectType);
 
             // Assert
-            Assert.IsTrue(deserializedObject == null);
+            deserializedObject.Should().BeNull();
         }
 
         [TestMethod]
@@ -105,7 +106,7 @@ namespace Guardian.Web.Tests
             object deserializedObject = GuardianRouter.GetDeserializedStream(null, objectType);
 
             // Assert
-            Assert.IsTrue(deserializedObject == null);
+            deserializedObject.Should().BeNull();
         }
 
         [TestMethod]
@@ -120,7 +121,7 @@ namespace Guardian.Web.Tests
             object pathParameter = GuardianRouter.GetTypedRouteParameter(requestPath, pathPattern, targetType);
 
             // Assert
-            Assert.IsNull(pathParameter);
+            pathParameter.Should().BeNull();
         }
 
         [TestMethod]
@@ -135,7 +136,7 @@ namespace Guardian.Web.Tests
             object pathParameter = GuardianRouter.GetTypedRouteParameter(requestPath, pathPattern, targetType);
 
             // Assert
-            Assert.IsNull(pathParameter);
+            pathParameter.Should().BeNull();
         }
 
         [TestMethod]
@@ -150,9 +151,9 @@ namespace Guardian.Web.Tests
             object pathParameter = GuardianRouter.GetTypedRouteParameter(requestPath, pathPattern, targetType);
 
             // Assert
-            Assert.IsNotNull(pathParameter);
-            Assert.IsTrue(pathParameter.GetType() == targetType);
-            Assert.IsTrue(((string)pathParameter) == "string test parameter");
+            pathParameter.Should().NotBeNull();
+            pathParameter.GetType().Should().Be(targetType);
+            ((string)pathParameter).Should().Be("string test parameter");
         }
 
         [TestMethod]
@@ -167,9 +168,9 @@ namespace Guardian.Web.Tests
             object pathParameter = GuardianRouter.GetTypedRouteParameter(requestPath, pathPattern, targetType);
 
             // Assert
-            Assert.IsNotNull(pathParameter);
-            Assert.IsTrue(pathParameter.GetType() == targetType);
-            Assert.IsTrue(((int)pathParameter) == 123);
+            pathParameter.Should().NotBeNull();
+            pathParameter.GetType().Should().Be(targetType);
+            ((int)pathParameter).Should().Be(123);
         }
 
         [TestMethod]
@@ -184,9 +185,9 @@ namespace Guardian.Web.Tests
             object pathParameter = GuardianRouter.GetTypedRouteParameter(requestPath, pathPattern, targetType);
 
             // Assert
-            Assert.IsNotNull(pathParameter);
-            Assert.IsTrue(pathParameter.GetType() == targetType);
-            Assert.IsTrue(((int)pathParameter) == 0);
+            pathParameter.Should().NotBeNull();
+            pathParameter.GetType().Should().Be(targetType);
+            ((int)pathParameter).Should().Be(0);
         }
 
         [TestMethod]
@@ -201,7 +202,7 @@ namespace Guardian.Web.Tests
             object pathParameter = GuardianRouter.GetTypedRouteParameter(requestPath, pathPattern, targetType);
 
             // Assert
-            Assert.IsNull(pathParameter);
+            pathParameter.Should().BeNull();
         }
 
         [TestMethod]
@@ -216,7 +217,7 @@ namespace Guardian.Web.Tests
             object pathParameter = GuardianRouter.GetTypedRouteParameter(requestPath, pathPattern, targetType);
 
             // Assert
-            Assert.IsNull(pathParameter);
+            pathParameter.Should().BeNull();
         }
     }
 }

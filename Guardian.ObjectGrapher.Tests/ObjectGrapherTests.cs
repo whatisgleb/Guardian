@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentAssertions;
 using Guardian.ObjectGrapher.Interfaces;
 using Guardian.ObjectGrapher.Tests.TestObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -29,9 +30,9 @@ namespace Guardian.ObjectGrapher.Tests
             IObjectGraphNode node = _objectGrapher.BuildObjectGraph(type, rootNodeName);
 
             // Assert
-            Assert.IsNotNull(node, "Expected an object graph for specified parameter.");
-            Assert.IsTrue(node.NodeType == type);
-            Assert.IsTrue(node.NodeName == rootNodeName);
+            node.Should().NotBeNull();
+            node.NodeType.Should().Be(type);
+            node.NodeName.Should().Be(rootNodeName);
         }
 
         [TestMethod]
@@ -45,7 +46,7 @@ namespace Guardian.ObjectGrapher.Tests
             IComplexObjectGraphNode node = (IComplexObjectGraphNode)_objectGrapher.BuildObjectGraph(type, rootNodeName);
 
             // Assert
-            Assert.IsTrue(node.ChildrenObjectGraphNodes.Any());
+            node.ChildrenObjectGraphNodes.Should().NotBeEmpty();
         }
 
         [TestMethod]
@@ -64,7 +65,7 @@ namespace Guardian.ObjectGrapher.Tests
                 .Select(o => (IComplexObjectGraphNode)o)
                 .ToList();
 
-            Assert.IsTrue(complexChildrenNodes.Any());
+            complexChildrenNodes.Should().NotBeEmpty();
         }
 
         [TestMethod]
@@ -84,8 +85,8 @@ namespace Guardian.ObjectGrapher.Tests
                 .Where(o => o.NodeName == "DemoComplexObjects")
                 .SingleOrDefault();
             
-            Assert.IsTrue(complexNode.ChildrenObjectGraphNodes.Count == 1, "Expected collection node to have one child which represents the type of object in the collection.");
-            Assert.IsTrue(complexNode.ChildrenObjectGraphNodes.First().NodeType == typeof(DemoComplexObject));
+            complexNode.ChildrenObjectGraphNodes.Should().HaveCount(1);
+            complexNode.ChildrenObjectGraphNodes.First().NodeType.Should().Be(typeof(DemoComplexObject));
         }
     }
 }

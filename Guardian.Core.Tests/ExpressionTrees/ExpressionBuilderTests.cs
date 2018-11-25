@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using FluentAssertions;
 using Guardian.Core.ExpressionTree;
 using Guardian.Core.Interfaces;
 using Guardian.Core.Postfix;
-using Guardian.Core.Tests.Utilities;
 using Guardian.Core.Tokens;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -33,7 +33,7 @@ namespace Guardian.Core.Tests.ExpressionTrees
             // Assert
             ExpressionTreeNode expected = new ExpressionTreeNode(Operators.And, 1, 2);
 
-            Assert.IsTrue(new ExpressionTreeNodeComparer().Compare(expected, root) == 0);
+            root.Should().BeEquivalentTo(expected);
         }
 
         [TestMethod]
@@ -50,7 +50,7 @@ namespace Guardian.Core.Tests.ExpressionTrees
             ExpressionTreeNode expected = new ExpressionTreeNode(Operators.And, 1,
                 new ExpressionTreeNode(Operators.And, 2, 3));
 
-            Assert.IsTrue(new ExpressionTreeNodeComparer().Compare(expected, root) == 0);
+            root.Should().BeEquivalentTo(expected);
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace Guardian.Core.Tests.ExpressionTrees
                 new ExpressionTreeNode(Operators.And, 1, 2), 3
             );
 
-            Assert.IsTrue(new ExpressionTreeNodeComparer().Compare(expected, root) == 0);
+            root.Should().BeEquivalentTo(expected);
         }
 
         [TestMethod]
@@ -85,7 +85,7 @@ namespace Guardian.Core.Tests.ExpressionTrees
             ExpressionTreeNode expected = new ExpressionTreeNode(Operators.Or, 1,
                 new ExpressionTreeNode(Operators.And, 2, 3));
 
-            Assert.IsTrue(new ExpressionTreeNodeComparer().Compare(expected, root) == 0);
+            root.Should().BeEquivalentTo(expected);
         }
 
         [TestMethod]
@@ -102,7 +102,7 @@ namespace Guardian.Core.Tests.ExpressionTrees
             ExpressionTreeNode expected = new ExpressionTreeNode(Operators.Or, 1,
                 new ExpressionTreeNode(Operators.And, 2, new ExpressionTreeNode(Operators.Not, 3)));
 
-            Assert.IsTrue(new ExpressionTreeNodeComparer().Compare(expected, root) == 0);
+            root.Should().BeEquivalentTo(expected);
         }
 
         [TestMethod]
@@ -119,7 +119,7 @@ namespace Guardian.Core.Tests.ExpressionTrees
             ExpressionTreeNode expected = new ExpressionTreeNode(Operators.Not, new ExpressionTreeNode(Operators.Or, 1,
                 new ExpressionTreeNode(Operators.And, 2, 3)), (ExpressionTreeNode) null);
 
-            Assert.IsTrue(new ExpressionTreeNodeComparer().Compare(expected, root) == 0);
+            root.Should().BeEquivalentTo(expected);
         }
     }
 }

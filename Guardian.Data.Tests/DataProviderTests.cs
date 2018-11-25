@@ -1,4 +1,5 @@
 ﻿using System;
+using FluentAssertions;
 using Guardian.Data.Tests.EntityFramework;
 using Guardian.Data.Tests.EntityFramework.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -33,7 +34,7 @@ namespace Guardian.Data.Tests
         public void Registration_Persists()
         {
             // Assert
-            Assert.IsTrue(_dataProvider != null);
+            _dataProvider.Should().NotBeNull();
         }
 
         [TestMethod]
@@ -65,9 +66,7 @@ namespace Guardian.Data.Tests
                 (ValidationEntity) _dataProvider.GetValidation(createdValidationEntity.ValidationID);
 
             // Assert
-
-            Assert.AreEqual(0,
-                new EntityComparer<ValidationEntity>().Compare(createdValidationEntity, updatedValidationEntity));
+            updatedValidationEntity.Should().BeEquivalentTo(createdValidationEntity);
         }
 
         [TestMethod]
@@ -97,8 +96,7 @@ namespace Guardian.Data.Tests
                 (ValidationConditionEntity)_dataProvider.GetValidationCondition(createdValidationConditionEntity.ValidationConditionID);
 
             // Assert
-            Assert.AreEqual(0,
-                new EntityComparer<ValidationConditionEntity>().Compare(createdValidationConditionEntity, updatedValidationConditionEntity));
+            updatedValidationConditionEntity.Should().Be(createdValidationConditionEntity);
         }
     }
 }

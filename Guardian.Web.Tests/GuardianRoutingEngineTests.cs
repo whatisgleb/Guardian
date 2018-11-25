@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using FluentAssertions;
 using Guardian.Web.Routing;
 using Guardian.Web.Routing.Enums;
 using Guardian.Web.Tests.TestControllers;
@@ -30,7 +31,7 @@ namespace Guardian.Web.Tests
             string prefix = _routingEngine.GetRoutePrefix(methodInfo);
 
             // Assert
-            Assert.IsTrue(prefix == string.Empty);
+            prefix.Should().BeEmpty();
         }
 
         [TestMethod]
@@ -43,7 +44,7 @@ namespace Guardian.Web.Tests
             string prefix = _routingEngine.GetRoutePrefix(methodInfo);
 
             // Assert
-            Assert.IsTrue(prefix == "/api/testing");
+            prefix.Should().Be("/api/testing");
         }
 
         [TestMethod]
@@ -66,7 +67,7 @@ namespace Guardian.Web.Tests
                 .Distinct()
                 .ToList();
 
-            Assert.IsTrue(expectedRequestMethods.All(m => actualRequestMethods.Contains(m)));
+            actualRequestMethods.Should().BeEquivalentTo(expectedRequestMethods);
         }
 
         [TestMethod]
@@ -79,7 +80,7 @@ namespace Guardian.Web.Tests
             string suffix = _routingEngine.GetRouteSuffix(methodInfo);
 
             // Assert
-            Assert.IsTrue(suffix == "$");
+            suffix.Should().Be("$");
         }
 
         [TestMethod]
@@ -92,7 +93,7 @@ namespace Guardian.Web.Tests
             string suffix = _routingEngine.GetRouteSuffix(methodInfo);
 
             // Assert
-            Assert.IsTrue(suffix == "/");
+            suffix.Should().Be("/");
         }
 
         [TestMethod]
@@ -105,7 +106,7 @@ namespace Guardian.Web.Tests
             string suffix = _routingEngine.GetRouteSuffix(methodInfo);
 
             // Assert
-            Assert.IsTrue(suffix == "/Method/");
+            suffix.Should().Be("/Method/");
         }
 
         [TestMethod]
@@ -118,7 +119,7 @@ namespace Guardian.Web.Tests
             string suffix = _routingEngine.GetRouteSuffix(methodInfo);
 
             // Assert
-            Assert.IsTrue(suffix == "$");
+            suffix.Should().Be("$");
         }
     }
 }

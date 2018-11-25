@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using FluentAssertions;
 using Guardian.Core.Extensions;
 using Guardian.Core.Interfaces;
 using Guardian.Core.Postfix;
-using Guardian.Core.Tests.Utilities;
 using Guardian.Core.Tokens;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -30,7 +30,7 @@ namespace Guardian.Core.Tests.ExpressionConversions
             // Assert
             string expectedPostfixExpression = "1 !";
 
-            Assert.AreEqual(expectedPostfixExpression, postfixedTokens.AsPostfixExpression());
+            postfixedTokens.AsPostfixExpression().Should().Be(expectedPostfixExpression);
         }
 
         [TestMethod]
@@ -45,7 +45,7 @@ namespace Guardian.Core.Tests.ExpressionConversions
             // Assert
             string expectedPostfixExpression = "1 2 &&";
 
-            Assert.AreEqual(expectedPostfixExpression, postfixedTokens.AsPostfixExpression());
+            postfixedTokens.AsPostfixExpression().Should().Be(expectedPostfixExpression);
         }
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace Guardian.Core.Tests.ExpressionConversions
             // Assert
             string expectedPostfixExpression = "1 2 3 && &&";
 
-            Assert.AreEqual(expectedPostfixExpression, postfixedTokens.AsPostfixExpression());
+            postfixedTokens.AsPostfixExpression().Should().Be(expectedPostfixExpression);
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace Guardian.Core.Tests.ExpressionConversions
             // Assert
             string expectedPostfixExpression = "1 2 3 && &&";
 
-            Assert.AreEqual(expectedPostfixExpression, postfixedTokens.AsPostfixExpression());
+            postfixedTokens.AsPostfixExpression().Should().Be(expectedPostfixExpression);
         }
 
         [TestMethod]
@@ -90,7 +90,7 @@ namespace Guardian.Core.Tests.ExpressionConversions
             // Assert
             string expectedPostfixExpression = "1 2 && 3 &&";
 
-            Assert.AreEqual(expectedPostfixExpression, postfixedTokens.AsPostfixExpression());
+            postfixedTokens.AsPostfixExpression().Should().Be(expectedPostfixExpression);
         }
 
         [TestMethod]
@@ -105,7 +105,7 @@ namespace Guardian.Core.Tests.ExpressionConversions
             // Assert
             string expectedPostfixExpression = "1 2 ||";
 
-            Assert.AreEqual(expectedPostfixExpression, postfixedTokens.AsPostfixExpression());
+            postfixedTokens.AsPostfixExpression().Should().Be(expectedPostfixExpression);
         }
 
         [TestMethod]
@@ -120,7 +120,7 @@ namespace Guardian.Core.Tests.ExpressionConversions
             // Assert
             string expectedPostfixExpression = "1 2 && 3 ||";
 
-            Assert.AreEqual(expectedPostfixExpression, postfixedTokens.AsPostfixExpression());
+            postfixedTokens.AsPostfixExpression().Should().Be(expectedPostfixExpression);
         }
 
         [TestMethod]
@@ -135,7 +135,7 @@ namespace Guardian.Core.Tests.ExpressionConversions
             // Assert
             string expectedPostfixExpression = "1 2 3 && ||";
 
-            Assert.AreEqual(expectedPostfixExpression, postfixedTokens.AsPostfixExpression());
+            postfixedTokens.AsPostfixExpression().Should().Be(expectedPostfixExpression);
         }
 
         [TestMethod]
@@ -150,7 +150,7 @@ namespace Guardian.Core.Tests.ExpressionConversions
             // Assert
             string expectedPostfixExpression = "1 2 ! &&";
 
-            Assert.AreEqual(expectedPostfixExpression, postfixedTokens.AsPostfixExpression());
+            postfixedTokens.AsPostfixExpression().Should().Be(expectedPostfixExpression);
         }
 
         [TestMethod]
@@ -165,7 +165,7 @@ namespace Guardian.Core.Tests.ExpressionConversions
             // Assert
             string expectedPostfixExpression = "1 ! 2 &&";
 
-            Assert.AreEqual(expectedPostfixExpression, postfixedTokens.AsPostfixExpression());
+            postfixedTokens.AsPostfixExpression().Should().Be(expectedPostfixExpression);
         }
 
         [TestMethod]
@@ -180,7 +180,7 @@ namespace Guardian.Core.Tests.ExpressionConversions
             // Assert
             string expectedPostfixExpression = "1 2 ! ||";
 
-            Assert.AreEqual(expectedPostfixExpression, postfixedTokens.AsPostfixExpression());
+            postfixedTokens.AsPostfixExpression().Should().Be(expectedPostfixExpression);
         }
 
         [TestMethod]
@@ -196,7 +196,7 @@ namespace Guardian.Core.Tests.ExpressionConversions
             // Assert
             string expectedPostfixExpression = "1 ! 2 ||";
 
-            Assert.AreEqual(expectedPostfixExpression, postfixedTokens.AsPostfixExpression());
+            postfixedTokens.AsPostfixExpression().Should().Be(expectedPostfixExpression);
         }
 
         [TestMethod]
@@ -211,7 +211,7 @@ namespace Guardian.Core.Tests.ExpressionConversions
             // Assert
             string expectedPostfixExpression = "1 2 3 ! && ||";
 
-            Assert.AreEqual(expectedPostfixExpression, postfixedTokens.AsPostfixExpression());
+            postfixedTokens.AsPostfixExpression().Should().Be(expectedPostfixExpression);
         }
 
         [TestMethod]
@@ -226,7 +226,7 @@ namespace Guardian.Core.Tests.ExpressionConversions
             // Assert
             string expectedPostfixExpression = "1 2 && 3 ! ||";
 
-            Assert.AreEqual(expectedPostfixExpression, postfixedTokens.AsPostfixExpression());
+            postfixedTokens.AsPostfixExpression().Should().Be(expectedPostfixExpression);
         }
 
         [TestMethod]
@@ -241,7 +241,7 @@ namespace Guardian.Core.Tests.ExpressionConversions
             // Assert
             string expectedPostfixExpression = "1 2 ||";
 
-            Assert.AreEqual(expectedPostfixExpression, postfixedTokens.AsPostfixExpression());
+            postfixedTokens.AsPostfixExpression().Should().Be(expectedPostfixExpression);
         }
 
         [TestMethod]
@@ -256,7 +256,7 @@ namespace Guardian.Core.Tests.ExpressionConversions
             // Assert
             string expectedPostfixExpression = "1 2 3 || &&";
 
-            Assert.AreEqual(expectedPostfixExpression, postfixedTokens.AsPostfixExpression());
+            postfixedTokens.AsPostfixExpression().Should().Be(expectedPostfixExpression);
         }
 
 
@@ -272,7 +272,7 @@ namespace Guardian.Core.Tests.ExpressionConversions
             // Assert
             string expectedPostfixExpression = "1 2 3 && || 4 || 5 6 && ||";
 
-            Assert.AreEqual(expectedPostfixExpression, postfixedTokens.AsPostfixExpression());
+            postfixedTokens.AsPostfixExpression().Should().Be(expectedPostfixExpression);
         }
 
         [TestMethod]
@@ -287,7 +287,7 @@ namespace Guardian.Core.Tests.ExpressionConversions
             // Assert
             string expectedPostfixExpression = "1 2 ! 3 && || 4 || 5 6 && ||";
 
-            Assert.AreEqual(expectedPostfixExpression, postfixedTokens.AsPostfixExpression());
+            postfixedTokens.AsPostfixExpression().Should().Be(expectedPostfixExpression);
         }
 
 
@@ -303,7 +303,7 @@ namespace Guardian.Core.Tests.ExpressionConversions
             // Assert
             string expectedPostfixExpression = "1 2 ! 3 && || ! 4 || 5 6 && ||";
 
-            Assert.AreEqual(expectedPostfixExpression, postfixedTokens.AsPostfixExpression());
+            postfixedTokens.AsPostfixExpression().Should().Be(expectedPostfixExpression);
         }
     }
 }

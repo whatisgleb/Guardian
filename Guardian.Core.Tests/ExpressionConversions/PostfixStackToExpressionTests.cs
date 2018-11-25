@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using FluentAssertions;
 using Guardian.Core.Extensions;
 using Guardian.Core.Interfaces;
 using Guardian.Core.Tokens;
@@ -25,7 +26,7 @@ namespace Guardian.Core.Tests.ExpressionConversions
             // Assert
             string expectedPostfixExpression = "1 2 ! &&";
 
-            Assert.AreEqual(expectedPostfixExpression, postfixExpression);
+            postfixExpression.Should().Be(expectedPostfixExpression);
         }
     }
 }
